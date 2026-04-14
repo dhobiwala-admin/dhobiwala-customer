@@ -8,180 +8,166 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{--navy:#0c1a2e;--gold:#fbbf24;--green:#22c55e;--red:#ef4444;--slate:#64748b;--light:#f1f5f9;--white:#fff}
-body{font-family:'DM Sans',sans-serif;background:var(--light);max-width:480px;margin:0 auto;min-height:100vh;position:relative;overflow-x:hidden}
-/* SCREENS */
+body{font-family:'DM Sans',sans-serif;background:var(--light);max-width:480px;margin:0 auto;min-height:100vh}
 .screen{display:none;min-height:100vh;flex-direction:column}
-.screen.active{display:flex}
+.screen.active{display:flex!important}
 /* SPLASH */
 #splash{background:var(--navy);align-items:center;justify-content:center;flex-direction:column}
-.splash-logo{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--white);text-align:center}
+.splash-logo{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:#fff;text-align:center}
 .splash-logo span{color:var(--gold)}
 .splash-sub{color:rgba(255,255,255,0.5);margin-top:8px;font-size:0.9rem}
 .splash-loader{width:48px;height:4px;background:rgba(255,255,255,0.1);border-radius:4px;margin-top:48px;overflow:hidden}
 .splash-loader::after{content:'';display:block;height:100%;width:0%;background:var(--gold);border-radius:4px;animation:load 2s ease forwards}
 @keyframes load{to{width:100%}}
 /* AUTH */
-#auth{background:var(--white);padding:32px 24px}
-.auth-back{color:var(--slate);font-size:0.85rem;cursor:pointer;margin-bottom:24px;display:inline-block}
+#auth{background:var(--white);padding:0;flex-direction:column}
+.auth-inner{padding:32px 24px;flex:1}
 .auth-logo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--navy);margin-bottom:4px}
 .auth-logo span{color:var(--gold)}
 .auth-sub{color:var(--slate);font-size:0.85rem;margin-bottom:32px}
-.auth-tabs{display:flex;background:var(--light);border-radius:12px;padding:4px;margin-bottom:28px}
-.auth-tab{flex:1;padding:10px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.85rem;color:var(--slate);border-radius:10px;cursor:pointer;transition:all 0.2s}
-.auth-tab.active{background:var(--white);color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,0.1)}
-.ascreen{display:none}
-.ascreen.active{display:block}
 .form-group{margin-bottom:16px}
-.form-group label{display:block;font-size:0.75rem;font-weight:700;color:var(--slate);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em}
-.form-group input{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:14px;font-size:0.95rem;font-family:'DM Sans',sans-serif;outline:none;color:var(--navy);transition:border 0.2s}
-.form-group input:focus{border-color:var(--gold)}
-.btn-primary{width:100%;padding:15px;background:var(--navy);color:var(--white);border:none;border-radius:14px;font-size:0.95rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.2s;margin-top:8px}
+label{display:block;font-size:0.75rem;font-weight:700;color:var(--slate);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em}
+input[type=tel],input[type=text],input[type=number]{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:14px;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;color:var(--navy);transition:border 0.2s}
+input:focus{border-color:var(--gold)}
+.btn-primary{width:100%;padding:15px;background:var(--navy);color:#fff;border:none;border-radius:14px;font-size:0.95rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.2s;margin-top:8px}
 .btn-primary:active{transform:scale(0.98)}
-.auth-switch{text-align:center;margin-top:20px;font-size:0.85rem;color:var(--slate)}
-.auth-switch a{color:var(--gold);font-weight:700;cursor:pointer}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.phone-row{display:flex;gap:10px}
+.country-code{padding:14px 12px;border:2px solid #e2e8f0;border-radius:14px;font-size:1rem;font-family:'DM Sans',sans-serif;color:var(--navy);background:#fff;font-weight:700;flex-shrink:0}
+.otp-row{display:flex;gap:10px;justify-content:center;margin:16px 0}
+.otp-box{width:50px;height:56px;border:2px solid #e2e8f0;border-radius:12px;font-size:1.4rem;font-weight:700;text-align:center;color:var(--navy);font-family:'DM Sans',sans-serif;outline:none}
+.otp-box:focus{border-color:var(--gold)}
+.resend-link{text-align:center;color:var(--slate);font-size:0.82rem;margin-top:12px}
+.resend-link a{color:var(--gold);font-weight:700;cursor:pointer}
+.msg{padding:10px 14px;border-radius:10px;font-size:0.82rem;margin-bottom:12px;display:none}
+.msg.error{background:#fee2e2;color:#dc2626;display:block}
+.msg.success{background:#dcfce7;color:#16a34a;display:block}
 /* HOME */
 #home{background:var(--light)}
-.home-header{background:var(--navy);padding:20px 20px 28px;position:relative}
-.home-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.home-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--white)}
+.home-header{background:var(--navy);padding:20px 20px 28px}
+.home-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.home-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:#fff}
 .home-logo span{color:var(--gold)}
-.home-avatar{width:38px;height:38px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;color:var(--navy);cursor:pointer}
-.home-loc{display:flex;align-items:center;gap:6px;margin-bottom:12px}
-.home-loc-pin{color:var(--gold);font-size:1rem}
-.home-loc-text{color:rgba(255,255,255,0.8);font-size:0.82rem}
-.home-greeting{color:var(--white);font-size:1.1rem;font-weight:600;margin-bottom:4px}
+.home-avatar{width:38px;height:38px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy);cursor:pointer}
+.home-loc{color:rgba(255,255,255,0.7);font-size:0.82rem;margin-bottom:10px}
+.home-greeting{color:#fff;font-size:1.1rem;font-weight:600;margin-bottom:4px}
 .home-tagline{color:rgba(255,255,255,0.5);font-size:0.8rem}
-.search-box{background:rgba(255,255,255,0.1);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-top:16px;cursor:text}
-.search-box span{color:rgba(255,255,255,0.4);font-size:0.88rem}
 .promo-banner{background:linear-gradient(135deg,#f59e0b,#d97706);margin:16px;border-radius:16px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
-.promo-text{color:var(--navy)}
-.promo-label{font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.7}
-.promo-offer{font-size:1.1rem;font-weight:900;font-family:'Playfair Display',serif}
 .promo-code{background:rgba(0,0,0,0.15);border-radius:8px;padding:4px 12px;font-size:0.75rem;font-weight:700;color:var(--navy)}
 .section-title{font-size:1rem;font-weight:700;color:var(--navy);padding:0 16px;margin-bottom:12px}
-.services-row{display:flex;gap:10px;padding:0 16px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
-.services-row::-webkit-scrollbar{display:none}
-.service-chip{background:var(--white);border-radius:14px;padding:12px 16px;text-align:center;min-width:80px;cursor:pointer;transition:all 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.06);flex-shrink:0}
-.service-chip:active{transform:scale(0.95)}
-.service-chip.selected{background:var(--navy)}
-.service-chip-icon{font-size:1.6rem;margin-bottom:4px}
-.service-chip-name{font-size:0.7rem;font-weight:600;color:var(--slate)}
-.service-chip.selected .service-chip-name{color:var(--gold)}
 .shops-list{padding:0 16px;display:flex;flex-direction:column;gap:12px;padding-bottom:90px}
-.shop-card{background:var(--white);border-radius:18px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;transition:all 0.2s}
+.shop-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;transition:transform 0.2s}
 .shop-card:active{transform:scale(0.98)}
-.shop-img{height:110px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
+.shop-img{height:100px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
 .shop-img-1{background:linear-gradient(135deg,#dbeafe,#bfdbfe)}
 .shop-img-2{background:linear-gradient(135deg,#dcfce7,#bbf7d0)}
 .shop-img-3{background:linear-gradient(135deg,#fef3c7,#fde68a)}
 .shop-badge{position:absolute;top:10px;right:10px;background:var(--navy);color:var(--gold);border-radius:8px;padding:3px 10px;font-size:0.65rem;font-weight:700}
 .shop-body{padding:14px}
-.shop-name{font-weight:700;font-size:1rem;color:var(--navy);margin-bottom:4px}
-.shop-meta{display:flex;align-items:center;gap:12px;margin-bottom:8px}
-.shop-rating{display:flex;align-items:center;gap:3px;font-size:0.78rem;color:var(--slate)}
-.shop-rating span{color:#f59e0b;font-size:0.7rem}
-.shop-dist{font-size:0.78rem;color:var(--slate)}
-.shop-price{font-size:0.78rem;color:var(--slate)}
+.shop-name{font-weight:700;font-size:0.95rem;color:var(--navy);margin-bottom:6px}
+.shop-meta{display:flex;gap:12px;font-size:0.78rem;color:var(--slate);margin-bottom:8px}
 .shop-tags{display:flex;gap:6px;flex-wrap:wrap}
 .shop-tag{background:var(--light);border-radius:6px;padding:3px 10px;font-size:0.68rem;color:var(--slate);font-weight:600}
 /* SHOP DETAIL */
 #shopdetail{background:var(--light)}
 .shop-detail-header{background:var(--navy);padding:16px 20px 24px}
-.back-btn{color:rgba(255,255,255,0.7);font-size:0.85rem;cursor:pointer;margin-bottom:16px;display:flex;align-items:center;gap:6px}
-.shop-detail-name{font-family:'Playfair Display',serif;color:var(--white);font-size:1.5rem;font-weight:700;margin-bottom:4px}
+.back-btn{color:rgba(255,255,255,0.7);font-size:0.85rem;cursor:pointer;margin-bottom:14px;display:flex;align-items:center;gap:4px}
+.shop-detail-name{font-family:'Playfair Display',serif;color:#fff;font-size:1.4rem;font-weight:700;margin-bottom:4px}
 .shop-detail-meta{color:rgba(255,255,255,0.6);font-size:0.82rem}
 .services-grid{padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.svc-card{background:var(--white);border-radius:16px;padding:16px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.svc-card{background:#fff;border-radius:16px;padding:16px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
 .svc-icon{font-size:2rem;margin-bottom:8px}
 .svc-name{font-weight:700;color:var(--navy);font-size:0.88rem;margin-bottom:4px}
 .svc-price{color:var(--slate);font-size:0.8rem;margin-bottom:12px}
 .svc-qty{display:flex;align-items:center;justify-content:center;gap:12px}
-.qty-btn{width:28px;height:28px;border-radius:50%;border:none;cursor:pointer;font-size:1rem;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.qty-btn{width:28px;height:28px;border-radius:50%;border:none;cursor:pointer;font-size:1rem;font-weight:700;display:flex;align-items:center;justify-content:center}
 .qty-btn.minus{background:var(--light);color:var(--navy)}
-.qty-btn.plus{background:var(--navy);color:var(--white)}
+.qty-btn.plus{background:var(--navy);color:#fff}
 .qty-val{font-weight:700;color:var(--navy);min-width:20px;text-align:center}
-.cart-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--navy);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;display:none}
+.cart-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--navy);padding:16px 20px;align-items:center;justify-content:space-between;display:none;z-index:10}
 .cart-bar.visible{display:flex}
-.cart-bar-left{color:var(--white)}
+.cart-bar-left{color:#fff}
 .cart-bar-count{font-size:0.78rem;color:rgba(255,255,255,0.6)}
 .cart-bar-amt{font-size:1.1rem;font-weight:700}
-.cart-bar-btn{background:var(--gold);color:var(--navy);border:none;border-radius:12px;padding:10px 24px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;font-size:0.9rem}
+.cart-bar-btn{background:var(--gold);color:var(--navy);border:none;border-radius:12px;padding:10px 24px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer}
 /* CART */
 #cart{background:var(--light)}
-.page-header{background:var(--white);padding:16px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #f1f5f9}
+.page-header{background:#fff;padding:16px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #f1f5f9}
 .page-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);font-weight:700}
 .cart-items{padding:16px;display:flex;flex-direction:column;gap:10px}
-.cart-item{background:var(--white);border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+.cart-item{background:#fff;border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
 .cart-item-name{font-weight:600;color:var(--navy);font-size:0.9rem}
 .cart-item-shop{font-size:0.75rem;color:var(--slate);margin-top:2px}
-.cart-item-right{text-align:right}
 .cart-item-price{font-weight:700;color:var(--navy)}
 .cart-item-qty{font-size:0.75rem;color:var(--slate)}
-.addr-section{background:var(--white);border-radius:16px;margin:0 16px 12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+.addr-section{background:#fff;border-radius:16px;margin:0 16px 12px;padding:16px}
 .addr-title{font-weight:700;color:var(--navy);margin-bottom:12px;font-size:0.9rem}
 .addr-input{width:100%;padding:12px 14px;border:2px solid #e2e8f0;border-radius:12px;font-size:0.88rem;font-family:'DM Sans',sans-serif;outline:none;color:var(--navy);margin-bottom:10px}
 .addr-input:focus{border-color:var(--gold)}
 .slot-row{display:flex;gap:8px;flex-wrap:wrap}
-.slot-btn{padding:8px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:0.78rem;font-weight:600;color:var(--slate);background:var(--white);cursor:pointer;transition:all 0.2s}
+.slot-btn{padding:8px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:0.78rem;font-weight:600;color:var(--slate);background:#fff;cursor:pointer}
 .slot-btn.active{border-color:var(--navy);color:var(--navy);background:var(--light)}
-.order-summary{background:var(--white);border-radius:16px;margin:0 16px 12px;padding:16px}
+.order-summary{background:#fff;border-radius:16px;margin:0 16px 12px;padding:16px}
 .summary-row{display:flex;justify-content:space-between;font-size:0.85rem;color:var(--slate);margin-bottom:8px}
 .summary-row.total{color:var(--navy);font-weight:700;font-size:0.95rem;border-top:1px solid var(--light);padding-top:8px;margin-top:4px}
 .pay-row{display:flex;gap:10px;margin:0 16px;margin-bottom:100px}
-.pay-btn{flex:1;padding:14px;border-radius:14px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid var(--navy);transition:all 0.2s}
-.pay-btn.cod{background:var(--white);color:var(--navy)}
-.pay-btn.upi{background:var(--navy);color:var(--white)}
+.pay-btn{flex:1;padding:14px;border-radius:14px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;border:2px solid var(--navy)}
+.pay-btn.cod{background:#fff;color:var(--navy)}
+.pay-btn.upi{background:var(--navy);color:#fff}
 /* TRACKING */
 #tracking{background:var(--light)}
-.track-map{background:linear-gradient(135deg,#dbeafe,#e0f2fe);height:220px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative}
-.track-rider-dot{position:absolute;top:40%;left:45%;width:16px;height:16px;background:var(--navy);border-radius:50%;border:3px solid var(--white);box-shadow:0 0 0 6px rgba(12,26,46,0.15);animation:ping 1.5s ease-in-out infinite}
+.track-map{background:linear-gradient(135deg,#dbeafe,#e0f2fe);height:200px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative}
+.track-rider-dot{position:absolute;top:40%;left:45%;width:16px;height:16px;background:var(--navy);border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 6px rgba(12,26,46,0.15);animation:ping 1.5s ease-in-out infinite}
 @keyframes ping{0%,100%{box-shadow:0 0 0 6px rgba(12,26,46,0.15)}50%{box-shadow:0 0 0 12px rgba(12,26,46,0.05)}}
 .track-body{padding:16px;padding-bottom:32px}
-.track-order-num{font-size:0.78rem;color:var(--slate);margin-bottom:4px}
 .track-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);margin-bottom:16px}
 .track-steps{display:flex;flex-direction:column;gap:0}
-.track-step{display:flex;gap:14px;align-items:flex-start;padding-bottom:20px;position:relative}
+.track-step{display:flex;gap:14px;padding-bottom:20px;position:relative}
 .track-step:not(:last-child)::before{content:'';position:absolute;left:14px;top:28px;bottom:0;width:2px;background:#e2e8f0}
 .track-step.done::before{background:var(--green)}
 .track-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0;margin-top:2px}
-.track-dot.done{background:var(--green);color:var(--white)}
-.track-dot.active{background:var(--navy);color:var(--white);animation:ping 1.5s ease-in-out infinite}
+.track-dot.done{background:var(--green);color:#fff}
+.track-dot.active-dot{background:var(--navy);color:#fff}
 .track-dot.pending{background:#e2e8f0;color:var(--slate)}
 .track-step-title{font-weight:600;color:var(--navy);font-size:0.9rem}
 .track-step-time{font-size:0.75rem;color:var(--slate);margin-top:2px}
-.track-rider-card{background:var(--white);border-radius:16px;padding:14px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 8px rgba(0,0,0,0.07);margin-bottom:16px}
-.track-rider-avatar{width:48px;height:48px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.track-rider-card{background:#fff;border-radius:16px;padding:14px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 8px rgba(0,0,0,0.07);margin-bottom:16px}
+.track-rider-avatar{width:48px;height:48px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:1.4rem}
 .track-rider-name{font-weight:700;color:var(--navy)}
 .track-rider-eta{font-size:0.78rem;color:var(--slate);margin-top:2px}
-.track-rider-call{margin-left:auto;background:var(--green);color:var(--white);border:none;border-radius:10px;padding:8px 16px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer}
+.track-rider-call{margin-left:auto;background:var(--green);color:#fff;border:none;border-radius:10px;padding:8px 16px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer}
 /* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--white);border-top:1px solid #f1f5f9;display:flex;padding:8px 0 12px;z-index:10}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;transition:all 0.2s}
-.nav-item .nav-icon{font-size:1.3rem}
-.nav-item .nav-label{font-size:0.62rem;font-weight:600;color:var(--slate)}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid #f1f5f9;display:flex;padding:8px 0 12px;z-index:10}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.nav-icon{font-size:1.3rem}
+.nav-label{font-size:0.62rem;font-weight:600;color:var(--slate)}
 .nav-item.active .nav-label{color:var(--navy)}
 /* ORDERS */
 #orders{background:var(--light)}
 .orders-list{padding:16px;display:flex;flex-direction:column;gap:12px;padding-bottom:80px}
-.order-card{background:var(--white);border-radius:16px;padding:16px;box-shadow:0 1px 6px rgba(0,0,0,0.06);cursor:pointer}
-.order-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.order-card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 6px rgba(0,0,0,0.06);cursor:pointer}
+.order-card-top{display:flex;justify-content:space-between;margin-bottom:10px}
 .order-num{font-size:0.75rem;color:var(--slate)}
 .order-status{border-radius:8px;padding:3px 10px;font-size:0.7rem;font-weight:700}
 .status-delivered{background:#dcfce7;color:#15803d}
 .status-ironing{background:#fef3c7;color:#d97706}
-.status-pickup{background:#dbeafe;color:#1d4ed8}
 .order-shop{font-weight:700;color:var(--navy);margin-bottom:4px}
 .order-items{font-size:0.8rem;color:var(--slate);margin-bottom:8px}
-.order-footer{display:flex;justify-content:space-between;align-items:center}
+.order-footer{display:flex;justify-content:space-between}
 .order-amt{font-weight:700;color:var(--navy)}
 .order-date{font-size:0.75rem;color:var(--slate)}
 /* SUCCESS */
-#success{background:var(--white);align-items:center;justify-content:center;padding:40px 24px;text-align:center}
-.success-icon{font-size:5rem;margin-bottom:20px;animation:bounce 0.6s ease}
-@keyframes bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+#success{background:#fff;align-items:center;justify-content:center;padding:40px 24px;text-align:center}
+.success-icon{font-size:5rem;margin-bottom:20px}
 .success-title{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--navy);margin-bottom:8px}
 .success-sub{color:var(--slate);font-size:0.9rem;line-height:1.6;margin-bottom:8px}
 .order-id-box{background:var(--light);border-radius:12px;padding:12px 20px;margin:20px 0;font-weight:700;color:var(--navy);font-size:1.1rem}
+/* OTP SCREEN */
+#otpscreen{background:#fff;padding:32px 24px;flex-direction:column}
+.otp-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:8px;margin-top:24px}
+.otp-sub{color:var(--slate);font-size:0.88rem;margin-bottom:28px;line-height:1.6}
+#recaptcha-container{margin-bottom:16px}
 </style>
 </head>
 <body>
@@ -193,75 +179,87 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);max-width:480px;ma
   <div class="splash-loader"></div>
 </div>
 
-<!-- AUTH -->
-<div class="screen" id="auth" style="min-height:100vh">
-  <div style="padding:32px 24px;flex:1">
+<!-- AUTH - Simple login/signup -->
+<div class="screen" id="auth">
+  <div class="auth-inner">
     <div class="auth-logo">🧺 Dhobi<span>Wala</span></div>
-    <div class="auth-sub">Crisp clothes, zero effort — Rourkela</div>
-    <div class="auth-tabs">
-      <button class="auth-tab active" onclick="authTab('login')">Login</button>
-      <button class="auth-tab" onclick="authTab('signup')">Sign Up</button>
+    <div class="auth-sub">Ironing pickup & delivery — Rourkela</div>
+    <div class="auth-tabs" style="display:flex;background:var(--light);border-radius:12px;padding:4px;margin-bottom:24px">
+      <button class="auth-tab active" id="tabLogin" onclick="authSwitch('login')" style="flex:1;padding:10px;border:none;background:#fff;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.85rem;color:var(--navy);border-radius:10px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.1)">Login</button>
+      <button class="auth-tab" id="tabSignup" onclick="authSwitch('signup')" style="flex:1;padding:10px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.85rem;color:var(--slate);border-radius:10px;cursor:pointer">Sign Up</button>
     </div>
-    <div class="ascreen active" id="aLogin">
-      <div class="form-group"><label>Phone Number</label><input type="tel" id="loginPhone" placeholder="98765 43210"/></div>
-      <div class="form-group"><label>Password</label><input type="password" id="loginPass" placeholder="••••••••"/></div>
+    <div id="authMsg" class="msg"></div>
+
+    <!-- Login form -->
+    <div id="loginForm">
+      <div class="form-group">
+        <label>Phone Number</label>
+        <div class="phone-row">
+          <div class="country-code">🇮🇳 +91</div>
+          <input type="tel" id="loginPhone" placeholder="98765 43210" maxlength="10"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="text" id="loginPass" placeholder="Your password" style="width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:14px;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;color:var(--navy)"/>
+      </div>
       <button class="btn-primary" onclick="doLogin()">Login →</button>
-      <div class="auth-switch">New here? <a onclick="authTab('signup')">Create account</a></div>
+      <p style="text-align:center;color:var(--slate);font-size:0.82rem;margin-top:16px">New here? <a onclick="authSwitch('signup')" style="color:var(--gold);font-weight:700;cursor:pointer">Create account</a></p>
     </div>
-    <div class="ascreen" id="aSignup">
-      <div class="form-group"><label>Full Name</label><input type="text" id="signupName" placeholder="Your name"/></div>
-      <div class="form-group"><label>Phone Number</label><input type="tel" id="signupPhone" placeholder="98765 43210"/></div>
-      <div class="form-group"><label>Email</label><input type="email" id="signupEmail" placeholder="your@email.com"/></div>
-      <div class="form-group"><label>Password</label><input type="password" id="signupPass" placeholder="Create password"/></div>
+
+    <!-- Signup form -->
+    <div id="signupForm" style="display:none">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="signupName" placeholder="Your full name" style="width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:14px;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;color:var(--navy)"/>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <div class="phone-row">
+          <div class="country-code">🇮🇳 +91</div>
+          <input type="tel" id="signupPhone" placeholder="98765 43210" maxlength="10"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="text" id="signupPass" placeholder="Create a password" style="width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:14px;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;color:var(--navy)"/>
+      </div>
       <button class="btn-primary" onclick="doSignup()">Create Account →</button>
-      <div class="auth-switch">Already have an account? <a onclick="authTab('login')">Login</a></div>
+      <p style="text-align:center;color:var(--slate);font-size:0.82rem;margin-top:16px">Already have account? <a onclick="authSwitch('login')" style="color:var(--gold);font-weight:700;cursor:pointer">Login</a></p>
     </div>
+    <p style="text-align:center;color:var(--slate);font-size:0.75rem;margin-top:20px">By continuing you agree to our Terms of Service</p>
   </div>
 </div>
+
+
 
 <!-- HOME -->
 <div class="screen" id="home">
   <div class="home-header">
     <div class="home-top">
       <div class="home-logo">🧺 Dhobi<span>Wala</span></div>
-      <div class="home-avatar" id="homeAvatar" onclick="showScreen('profile')">A</div>
+      <div class="home-avatar" id="homeAvatar" onclick="showScreen('profile')">U</div>
     </div>
-    <div class="home-loc"><div class="home-loc-pin">📍</div><div class="home-loc-text">Civil Township, Rourkela, Odisha</div></div>
+    <div class="home-loc">📍 Civil Township, Rourkela, Odisha</div>
     <div class="home-greeting" id="homeGreeting">Good morning! 👋</div>
-    <div class="home-tagline">Where would you like your clothes picked up from?</div>
-    <div class="search-box" onclick=""><span>🔍 Search shops or services...</span></div>
+    <div class="home-tagline">What needs ironing today?</div>
   </div>
 
   <div class="promo-banner">
-    <div class="promo-text">
-      <div class="promo-label">FIRST ORDER OFFER</div>
-      <div class="promo-offer">50% OFF — Use WELCOME50</div>
+    <div>
+      <div style="font-size:0.7rem;font-weight:700;color:var(--navy);opacity:0.7">FIRST ORDER</div>
+      <div style="font-size:1.05rem;font-weight:900;font-family:'Playfair Display',serif;color:var(--navy)">50% OFF — WELCOME50</div>
     </div>
     <div class="promo-code">WELCOME50</div>
   </div>
 
-  <div class="section-title">What do you need?</div>
-  <div class="services-row" id="serviceFilter">
-    <div class="service-chip selected" onclick="filterService(this,'all')"><div class="service-chip-icon">✨</div><div class="service-chip-name">All</div></div>
-    <div class="service-chip" onclick="filterService(this,'shirt')"><div class="service-chip-icon">👔</div><div class="service-chip-name">Shirts</div></div>
-    <div class="service-chip" onclick="filterService(this,'saree')"><div class="service-chip-icon">🥻</div><div class="service-chip-name">Sarees</div></div>
-    <div class="service-chip" onclick="filterService(this,'trouser')"><div class="service-chip-icon">👖</div><div class="service-chip-name">Trousers</div></div>
-    <div class="service-chip" onclick="filterService(this,'kurta')"><div class="service-chip-icon">🧥</div><div class="service-chip-name">Kurtas</div></div>
-    <div class="service-chip" onclick="filterService(this,'suit')"><div class="service-chip-icon">🤵</div><div class="service-chip-name">Suits</div></div>
-  </div>
-
-  <div style="height:16px"></div>
   <div class="section-title">Shops near you</div>
   <div class="shops-list">
     <div class="shop-card" onclick="openShop(0)">
       <div class="shop-img shop-img-1"><span>👔</span><div class="shop-badge">⭐ TOP RATED</div></div>
       <div class="shop-body">
         <div class="shop-name">Civil Iron Palace</div>
-        <div class="shop-meta">
-          <div class="shop-rating"><span>★★★★★</span> 4.9 (124)</div>
-          <div class="shop-dist">📍 0.8 km</div>
-          <div class="shop-price">From ₹10/pc</div>
-        </div>
+        <div class="shop-meta"><span>★★★★★ 4.9 (124)</span><span>📍 0.8 km</span><span>From ₹10/pc</span></div>
         <div class="shop-tags"><div class="shop-tag">Shirts</div><div class="shop-tag">Trousers</div><div class="shop-tag">Sarees</div><div class="shop-tag">Suits</div></div>
       </div>
     </div>
@@ -269,11 +267,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);max-width:480px;ma
       <div class="shop-img shop-img-2"><span>🥻</span><div class="shop-badge">🚀 FAST</div></div>
       <div class="shop-body">
         <div class="shop-name">Rourkela Press & Shine</div>
-        <div class="shop-meta">
-          <div class="shop-rating"><span>★★★★★</span> 4.8 (87)</div>
-          <div class="shop-dist">📍 1.4 km</div>
-          <div class="shop-price">From ₹12/pc</div>
-        </div>
+        <div class="shop-meta"><span>★★★★★ 4.8 (87)</span><span>📍 1.4 km</span><span>From ₹12/pc</span></div>
         <div class="shop-tags"><div class="shop-tag">Sarees</div><div class="shop-tag">Kurtas</div><div class="shop-tag">Lehengas</div></div>
       </div>
     </div>
@@ -281,11 +275,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);max-width:480px;ma
       <div class="shop-img shop-img-3"><span>🤵</span><div class="shop-badge">💎 PREMIUM</div></div>
       <div class="shop-body">
         <div class="shop-name">Township Laundry Pro</div>
-        <div class="shop-meta">
-          <div class="shop-rating"><span>★★★★☆</span> 4.6 (52)</div>
-          <div class="shop-dist">📍 2.1 km</div>
-          <div class="shop-price">From ₹15/pc</div>
-        </div>
+        <div class="shop-meta"><span>★★★★☆ 4.6 (52)</span><span>📍 2.1 km</span><span>From ₹15/pc</span></div>
         <div class="shop-tags"><div class="shop-tag">Suits</div><div class="shop-tag">Blazers</div><div class="shop-tag">Formals</div></div>
       </div>
     </div>
@@ -302,45 +292,37 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);max-width:480px;ma
 <div class="screen" id="shopdetail">
   <div class="shop-detail-header">
     <div class="back-btn" onclick="showScreen('home')">← Back</div>
-    <div class="shop-detail-name" id="shopDetailName">Civil Iron Palace</div>
-    <div class="shop-detail-meta" id="shopDetailMeta">⭐ 4.9 · 0.8 km · Open now · 8 AM – 9 PM</div>
+    <div class="shop-detail-name" id="shopDetailName"></div>
+    <div class="shop-detail-meta" id="shopDetailMeta"></div>
   </div>
-
   <div style="padding:16px 16px 4px;font-weight:700;color:var(--navy)">Select items to iron</div>
   <div class="services-grid" id="servicesGrid"></div>
-
   <div style="height:90px"></div>
   <div class="cart-bar" id="cartBar">
     <div class="cart-bar-left">
       <div class="cart-bar-count" id="cartCount">0 items</div>
       <div class="cart-bar-amt" id="cartAmt">₹0</div>
     </div>
-    <button class="cart-bar-btn" onclick="showScreen('cart')">View Cart →</button>
+    <button class="cart-bar-btn" onclick="goToCart()">View Cart →</button>
   </div>
 </div>
 
 <!-- CART -->
 <div class="screen" id="cart">
-  <div class="page-header">
-    <div onclick="showScreen('shopdetail')" style="cursor:pointer;color:var(--slate)">←</div>
-    <div class="page-title">Your Cart</div>
-  </div>
+  <div class="page-header"><div onclick="showScreen('shopdetail')" style="cursor:pointer;color:var(--slate)">←</div><div class="page-title">Your Cart</div></div>
   <div class="cart-items" id="cartItems"></div>
-
   <div class="addr-section">
     <div class="addr-title">📍 Pickup Address</div>
     <input class="addr-input" id="pickupStreet" placeholder="House/Flat No, Street name"/>
     <input class="addr-input" id="pickupArea" placeholder="Area (e.g. Civil Township, Sector 20)"/>
     <div style="font-size:0.78rem;color:var(--slate);margin-bottom:10px;font-weight:600">Pickup Slot</div>
     <div class="slot-row">
-      <div class="slot-btn active" onclick="selectSlot(this,'Morning 8-10 AM')">8-10 AM</div>
-      <div class="slot-btn" onclick="selectSlot(this,'Noon 12-2 PM')">12-2 PM</div>
-      <div class="slot-btn" onclick="selectSlot(this,'Evening 5-7 PM')">5-7 PM</div>
+      <div class="slot-btn active" onclick="selectSlot(this,'Morning 8-10 AM')">8–10 AM</div>
+      <div class="slot-btn" onclick="selectSlot(this,'Noon 12-2 PM')">12–2 PM</div>
+      <div class="slot-btn" onclick="selectSlot(this,'Evening 5-7 PM')">5–7 PM</div>
     </div>
   </div>
-
   <div class="order-summary" id="orderSummary"></div>
-
   <div style="padding:0 16px;margin-bottom:10px;font-weight:700;color:var(--navy);font-size:0.88rem">Payment Method</div>
   <div class="pay-row">
     <button class="pay-btn cod" onclick="placeOrder('cod')">💵 Cash on Delivery</button>
@@ -361,23 +343,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);max-width:480px;ma
 
 <!-- TRACKING -->
 <div class="screen" id="tracking">
-  <div class="track-map">
-    <div>🗺️</div>
-    <div class="track-rider-dot"></div>
-  </div>
+  <div class="track-map"><div>🗺️</div><div class="track-rider-dot"></div></div>
   <div class="track-body">
     <div class="track-rider-card">
       <div class="track-rider-avatar">🏍</div>
-      <div>
-        <div class="track-rider-name">Ramesh Kumar</div>
-        <div class="track-rider-eta">Arriving in ~12 minutes · ⭐ 4.8</div>
-      </div>
+      <div><div class="track-rider-name">Ramesh Kumar</div><div class="track-rider-eta">Arriving in ~12 min · ⭐ 4.8</div></div>
       <button class="track-rider-call" onclick="alert('Calling rider...')">📞 Call</button>
     </div>
     <div class="track-title" id="trackTitle">Order Confirmed!</div>
     <div class="track-steps">
       <div class="track-step done"><div class="track-dot done">✓</div><div><div class="track-step-title">Order placed</div><div class="track-step-time" id="t1"></div></div></div>
-      <div class="track-step done"><div class="track-dot active">🏍</div><div><div class="track-step-title">Rider assigned — Ramesh is coming</div><div class="track-step-time">Arriving in ~12 min</div></div></div>
+      <div class="track-step done"><div class="track-dot active-dot">🏍</div><div><div class="track-step-title">Rider assigned — coming to pickup</div><div class="track-step-time">~12 min away</div></div></div>
       <div class="track-step"><div class="track-dot pending">3</div><div><div class="track-step-title">Clothes picked up</div><div class="track-step-time">Est. 30 min</div></div></div>
       <div class="track-step"><div class="track-dot pending">4</div><div><div class="track-step-title">Ironing in progress</div><div class="track-step-time">Est. 2-3 hrs</div></div></div>
       <div class="track-step"><div class="track-dot pending">5</div><div><div class="track-step-title">Out for delivery</div><div class="track-step-time">After ironing</div></div></div>
@@ -396,20 +372,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);max-width:480px;ma
       <div class="order-items">3 Shirts, 2 Trousers</div>
       <div class="order-footer"><div class="order-amt">₹170</div><div class="order-date">Today, 10:30 AM</div></div>
     </div>
-    <div class="order-card" onclick="showScreen('tracking')">
+    <div class="order-card">
       <div class="order-card-top"><div><div class="order-num">#DW102289</div><div class="order-shop">Rourkela Press & Shine</div></div><div class="order-status status-delivered">Delivered</div></div>
       <div class="order-items">2 Sarees, 1 Kurta</div>
-      <div class="order-footer"><div class="order-amt">₹210</div><div class="order-date">Yesterday, 6:00 PM</div></div>
-    </div>
-    <div class="order-card">
-      <div class="order-card-top"><div><div class="order-num">#DW102150</div><div class="order-shop">Civil Iron Palace</div></div><div class="order-status status-delivered">Delivered</div></div>
-      <div class="order-items">5 Shirts, 3 Trousers, 1 Suit</div>
-      <div class="order-footer"><div class="order-amt">₹480</div><div class="order-date">3 days ago</div></div>
+      <div class="order-footer"><div class="order-amt">₹210</div><div class="order-date">Yesterday</div></div>
     </div>
   </div>
   <div class="bottom-nav">
     <div class="nav-item" onclick="showScreen('home')"><div class="nav-icon">🏠</div><div class="nav-label">Home</div></div>
-    <div class="nav-item active" onclick="showScreen('orders')"><div class="nav-icon">📦</div><div class="nav-label">Orders</div></div>
+    <div class="nav-item active"><div class="nav-icon">📦</div><div class="nav-label">Orders</div></div>
     <div class="nav-item" onclick="showScreen('profile')"><div class="nav-icon">👤</div><div class="nav-label">Profile</div></div>
   </div>
 </div>
@@ -422,10 +393,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);max-width:480px;ma
     <div class="shop-detail-meta" id="profilePhone">Civil Township, Rourkela</div>
   </div>
   <div style="padding:16px;display:flex;flex-direction:column;gap:10px;padding-bottom:80px">
-    <div class="shop-card" style="padding:16px;cursor:default">
-      <div style="font-size:0.75rem;color:var(--slate);margin-bottom:4px">MEMBER SINCE</div>
-      <div style="font-weight:700;color:var(--navy)">April 2026 · Civil Township</div>
-    </div>
+    <div class="shop-card" style="padding:16px"><div style="font-size:0.75rem;color:var(--slate);margin-bottom:4px">VERIFIED PHONE</div><div style="font-weight:700;color:var(--navy)" id="profilePhoneCard">+91 XXXXXXXXXX</div></div>
     <div class="shop-card" style="padding:16px;cursor:pointer" onclick="showScreen('orders')">📦 My Orders →</div>
     <div class="shop-card" style="padding:16px;cursor:pointer">📍 Saved Addresses →</div>
     <div class="shop-card" style="padding:16px;cursor:pointer">🎁 Refer & Earn ₹50 →</div>
@@ -439,9 +407,74 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);max-width:480px;ma
   </div>
 </div>
 
+<!-- Auth functions -->
+<script>
+// Simple localStorage-based auth
+const USERS_KEY = 'dw_users';
+const SESSION_KEY = 'dw_session';
+
+function getUsers() { try { return JSON.parse(localStorage.getItem(USERS_KEY) || '{}'); } catch(e) { return {}; } }
+function saveUsers(u) { localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+function getSession() { try { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); } catch(e) { return null; } }
+function saveSession(u) { localStorage.setItem(SESSION_KEY, JSON.stringify(u)); }
+
+function authSwitch(tab) {
+  document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+  document.getElementById('tabLogin').style.background = tab === 'login' ? '#fff' : 'transparent';
+  document.getElementById('tabLogin').style.color = tab === 'login' ? 'var(--navy)' : 'var(--slate)';
+  document.getElementById('tabSignup').style.background = tab === 'signup' ? '#fff' : 'transparent';
+  document.getElementById('tabSignup').style.color = tab === 'signup' ? 'var(--navy)' : 'var(--slate)';
+  document.getElementById('authMsg').className = 'msg';
+}
+
+function doLogin() {
+  const phone = document.getElementById('loginPhone').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+  const msg = document.getElementById('authMsg');
+  if (!phone || !pass) { msg.className = 'msg error'; msg.textContent = 'Please enter phone and password'; return; }
+  const users = getUsers();
+  if (!users[phone]) { msg.className = 'msg error'; msg.textContent = 'No account found. Please sign up first.'; return; }
+  if (users[phone].password !== pass) { msg.className = 'msg error'; msg.textContent = 'Wrong password. Please try again.'; return; }
+  loginUser(users[phone]);
+}
+
+function doSignup() {
+  const name = document.getElementById('signupName').value.trim();
+  const phone = document.getElementById('signupPhone').value.trim();
+  const pass = document.getElementById('signupPass').value.trim();
+  const msg = document.getElementById('authMsg');
+  if (!name || !phone || !pass) { msg.className = 'msg error'; msg.textContent = 'Please fill all fields'; return; }
+  if (phone.length !== 10) { msg.className = 'msg error'; msg.textContent = 'Enter a valid 10-digit phone number'; return; }
+  if (pass.length < 4) { msg.className = 'msg error'; msg.textContent = 'Password must be at least 4 characters'; return; }
+  const users = getUsers();
+  if (users[phone]) { msg.className = 'msg error'; msg.textContent = 'Account already exists. Please login.'; return; }
+  const user = { name, phone, password: pass, createdAt: new Date().toISOString() };
+  users[phone] = user;
+  saveUsers(users);
+  loginUser(user);
+}
+
+function loginUser(user) {
+  saveSession(user);
+  document.getElementById('homeAvatar').textContent = user.name[0].toUpperCase();
+  document.getElementById('profileName').textContent = user.name;
+  document.getElementById('profilePhone').textContent = '+91 ' + user.phone + ' · Rourkela';
+  document.getElementById('profilePhoneCard').textContent = '+91 ' + user.phone;
+  setGreeting(user.name);
+  showScreen('home');
+}
+
+function checkSession() {
+  const user = getSession();
+  if (user) { loginUser(user); return true; }
+  return false;
+}
+</script>
+
 <script>
 const SHOPS = [
-  {name:'Civil Iron Palace',meta:'⭐ 4.9 · 0.8 km · Open now · 8 AM – 9 PM',services:[
+  {name:'Civil Iron Palace',meta:'⭐ 4.9 · 0.8 km · Open · 8 AM – 9 PM',services:[
     {id:'shirt',icon:'👔',name:'Shirt',price:15,qty:0},
     {id:'trouser',icon:'👖',name:'Trouser',price:20,qty:0},
     {id:'saree',icon:'🥻',name:'Saree',price:40,qty:0},
@@ -449,7 +482,7 @@ const SHOPS = [
     {id:'kurta',icon:'🧥',name:'Kurta',price:20,qty:0},
     {id:'bedsheet',icon:'🛏',name:'Bedsheet',price:35,qty:0},
   ]},
-  {name:'Rourkela Press & Shine',meta:'⭐ 4.8 · 1.4 km · Open now · 7 AM – 10 PM',services:[
+  {name:'Rourkela Press & Shine',meta:'⭐ 4.8 · 1.4 km · Open · 7 AM – 10 PM',services:[
     {id:'saree',icon:'🥻',name:'Saree',price:45,qty:0},
     {id:'kurta',icon:'🧥',name:'Kurta Set',price:35,qty:0},
     {id:'lehenga',icon:'👗',name:'Lehenga',price:100,qty:0},
@@ -457,12 +490,11 @@ const SHOPS = [
     {id:'trouser',icon:'👖',name:'Trouser',price:20,qty:0},
     {id:'dupatta',icon:'🧣',name:'Dupatta',price:20,qty:0},
   ]},
-  {name:'Township Laundry Pro',meta:'⭐ 4.6 · 2.1 km · Open now · 9 AM – 8 PM',services:[
+  {name:'Township Laundry Pro',meta:'⭐ 4.6 · 2.1 km · Open · 9 AM – 8 PM',services:[
     {id:'suit',icon:'🤵',name:'Suit (3pc)',price:120,qty:0},
     {id:'blazer',icon:'🥼',name:'Blazer',price:80,qty:0},
     {id:'shirt',icon:'👔',name:'Formal Shirt',price:20,qty:0},
     {id:'trouser',icon:'👖',name:'Formal Trouser',price:25,qty:0},
-    {id:'tie',icon:'👔',name:'Tie',price:15,qty:0},
     {id:'coat',icon:'🧥',name:'Overcoat',price:90,qty:0},
   ]},
 ];
@@ -470,73 +502,36 @@ const SHOPS = [
 let currentShop = 0;
 let cart = [];
 let selectedSlot = 'Morning 8-10 AM';
-let currentUser = null;
 
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
+  if (id === 'auth') { setTimeout(() => { if (window.initRecaptcha) initRecaptcha(); }, 500); }
 }
 
-function authTab(tab){
-  document.querySelectorAll('.auth-tab').forEach((t,i)=>t.classList.toggle('active',(tab==='login'&&i===0)||(tab==='signup'&&i===1)));
-  document.getElementById('aLogin').classList.toggle('active',tab==='login');
-  document.getElementById('aSignup').classList.toggle('active',tab==='signup');
+function setGreeting(name) {
+  const h = new Date().getHours();
+  const g = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  const suffix = name ? ', ' + name.split(' ')[0] + '!' : '!';
+  document.getElementById('homeGreeting').textContent = g + suffix + ' 👋';
 }
 
-function doLogin(){
-  const phone=document.getElementById('loginPhone').value;
-  const pass=document.getElementById('loginPass').value;
-  if(!phone||!pass){alert('Please enter phone and password');return;}
-  currentUser={name:'Customer',phone};
-  document.getElementById('homeAvatar').textContent=currentUser.name[0].toUpperCase();
-  document.getElementById('profileName').textContent=currentUser.name;
-  document.getElementById('profilePhone').textContent=phone+' · Civil Township, Rourkela';
-  setGreeting();
-  showScreen('home');
-}
+function logout() { localStorage.removeItem('dw_session'); showScreen('auth'); }
 
-function doSignup(){
-  const name=document.getElementById('signupName').value;
-  const phone=document.getElementById('signupPhone').value;
-  const email=document.getElementById('signupEmail').value;
-  const pass=document.getElementById('signupPass').value;
-  if(!name||!phone||!pass){alert('Please fill all fields');return;}
-  currentUser={name,phone,email};
-  document.getElementById('homeAvatar').textContent=name[0].toUpperCase();
-  document.getElementById('profileName').textContent=name;
-  document.getElementById('homeGreeting').textContent='Welcome, '+name.split(' ')[0]+'! 👋';
-  document.getElementById('profilePhone').textContent=phone+' · Civil Township, Rourkela';
-  showScreen('home');
-}
-
-function setGreeting(){
-  const h=new Date().getHours();
-  const g=h<12?'Good morning':'h<17?'Good afternoon':'Good evening';
-  document.getElementById('homeGreeting').textContent=g+'! 👋';
-}
-
-function logout(){currentUser=null;cart=[];showScreen('auth');}
-
-function filterService(el,type){
-  document.querySelectorAll('.service-chip').forEach(c=>c.classList.remove('selected'));
-  el.classList.add('selected');
-}
-
-function openShop(idx){
-  currentShop=idx;
-  const shop=SHOPS[idx];
-  cart=shop.services.map(s=>({...s,qty:0}));
-  document.getElementById('shopDetailName').textContent=shop.name;
-  document.getElementById('shopDetailMeta').textContent=shop.meta;
+function openShop(idx) {
+  currentShop = idx;
+  const shop = SHOPS[idx];
+  cart = shop.services.map(s => ({...s, qty: 0}));
+  document.getElementById('shopDetailName').textContent = shop.name;
+  document.getElementById('shopDetailMeta').textContent = shop.meta;
   renderServices();
   showScreen('shopdetail');
   updateCartBar();
 }
 
-function renderServices(){
-  const grid=document.getElementById('servicesGrid');
-  grid.innerHTML=cart.map((s,i)=>`
+function renderServices() {
+  document.getElementById('servicesGrid').innerHTML = cart.map((s, i) => `
     <div class="svc-card">
       <div class="svc-icon">${s.icon}</div>
       <div class="svc-name">${s.name}</div>
@@ -549,71 +544,70 @@ function renderServices(){
     </div>`).join('');
 }
 
-function changeQty(i,d){
-  cart[i].qty=Math.max(0,cart[i].qty+d);
-  document.getElementById('qty-'+i).textContent=cart[i].qty;
+function changeQty(i, d) {
+  cart[i].qty = Math.max(0, cart[i].qty + d);
+  document.getElementById('qty-' + i).textContent = cart[i].qty;
   updateCartBar();
 }
 
-function updateCartBar(){
-  const items=cart.filter(s=>s.qty>0);
-  const total=items.reduce((s,i)=>s+i.qty*i.price,0);
-  const count=items.reduce((s,i)=>s+i.qty,0);
-  const bar=document.getElementById('cartBar');
-  if(count>0){
+function updateCartBar() {
+  const items = cart.filter(s => s.qty > 0);
+  const total = items.reduce((s, i) => s + i.qty * i.price, 0);
+  const count = items.reduce((s, i) => s + i.qty, 0);
+  const bar = document.getElementById('cartBar');
+  if (count > 0) {
     bar.classList.add('visible');
-    document.getElementById('cartCount').textContent=count+' item'+(count>1?'s':'');
-    document.getElementById('cartAmt').textContent='₹'+total;
+    document.getElementById('cartCount').textContent = count + ' item' + (count > 1 ? 's' : '');
+    document.getElementById('cartAmt').textContent = '₹' + total;
   } else {
     bar.classList.remove('visible');
   }
 }
 
-function showScreen_cart(){
-  renderCart();
-  showScreen('cart');
-}
+function goToCart() { renderCart(); showScreen('cart'); }
 
-function renderCart(){
-  const items=cart.filter(s=>s.qty>0);
-  const shop=SHOPS[currentShop];
-  document.getElementById('cartItems').innerHTML=items.map(s=>`
+function renderCart() {
+  const items = cart.filter(s => s.qty > 0);
+  const shop = SHOPS[currentShop];
+  document.getElementById('cartItems').innerHTML = items.map(s => `
     <div class="cart-item">
       <div><div class="cart-item-name">${s.icon} ${s.name}</div><div class="cart-item-shop">${shop.name}</div></div>
-      <div class="cart-item-right"><div class="cart-item-price">₹${s.qty*s.price}</div><div class="cart-item-qty">×${s.qty} @ ₹${s.price}</div></div>
+      <div style="text-align:right"><div class="cart-item-price">₹${s.qty * s.price}</div><div class="cart-item-qty">×${s.qty} @ ₹${s.price}</div></div>
     </div>`).join('');
-  const sub=items.reduce((s,i)=>s+i.qty*i.price,0);
-  document.getElementById('orderSummary').innerHTML=`
+  const sub = items.reduce((s, i) => s + i.qty * i.price, 0);
+  const discount = Math.round(sub * 0.5);
+  const total = Math.max(30, sub - discount + 30);
+  document.getElementById('orderSummary').innerHTML = `
     <div class="summary-row"><span>Subtotal</span><span>₹${sub}</span></div>
     <div class="summary-row"><span>Delivery fee</span><span>₹30</span></div>
-    <div class="summary-row"><span>Promo (WELCOME50)</span><span style="color:var(--green)">-₹${Math.round(sub*0.5)}</span></div>
-    <div class="summary-row total"><span>Total</span><span>₹${Math.max(30,Math.round(sub*0.5+30))}</span></div>`;
+    <div class="summary-row"><span>Promo (WELCOME50)</span><span style="color:var(--green)">−₹${discount}</span></div>
+    <div class="summary-row total"><span>Total</span><span>₹${total}</span></div>`;
 }
 
-document.querySelector('.cart-bar-btn').onclick=function(){renderCart();showScreen('cart');}
-
-function selectSlot(el,slot){
-  document.querySelectorAll('.slot-btn').forEach(b=>b.classList.remove('active'));
+function selectSlot(el, slot) {
+  document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
-  selectedSlot=slot;
+  selectedSlot = slot;
 }
 
-function placeOrder(method){
-  const street=document.getElementById('pickupStreet').value;
-  const area=document.getElementById('pickupArea').value;
-  if(!street||!area){alert('Please enter your pickup address');return;}
-  const orderId='DW'+Date.now().toString().slice(-6);
-  document.getElementById('successOrderId').textContent='Order #'+orderId;
-  document.getElementById('t1').textContent=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('trackTitle').textContent='Order #'+orderId+' Confirmed!';
+function placeOrder(method) {
+  const street = document.getElementById('pickupStreet').value;
+  const area = document.getElementById('pickupArea').value;
+  if (!street || !area) { alert('Please enter your pickup address'); return; }
+  const orderId = 'DW' + Date.now().toString().slice(-6);
+  document.getElementById('successOrderId').textContent = 'Order #' + orderId;
+  document.getElementById('t1').textContent = new Date().toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'});
+  document.getElementById('trackTitle').textContent = 'Order #' + orderId + ' Confirmed!';
   showScreen('success');
 }
 
-// Splash → Auth
-setTimeout(()=>{
-  document.getElementById('splash').classList.remove('active');
-  document.getElementById('auth').classList.add('active');
-},2200);
+// Splash → Auth after 2.2s
+setTimeout(() => {
+  if (!checkSession()) {
+    document.getElementById('splash').classList.remove('active');
+    document.getElementById('auth').classList.add('active');
+  }
+}, 2200);
 
 setGreeting();
 </script>
