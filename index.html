@@ -303,16 +303,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 </head>
 <body>
 
-<!-- SPLASH -->
-<div class="screen active" id="splash" style="display:flex!important">
-  <div class="splash-wordmark">Dhobi<em>Wala</em></div>
-  <div class="splash-bar" id="splashBar"></div>
-  <div class="splash-tagline">Crisp clothes, zero effort</div>
-  <div id="splashTap" onclick="goToAuth()" style="position:absolute;bottom:60px;color:rgba(255,255,255,0.3);font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;display:none;cursor:pointer">Tap to continue →</div>
-</div>
-
 <!-- AUTH -->
-<div class="screen" id="auth" style="display:none">
+<div class="screen active" id="auth" style="display:flex!important">
   <div class="auth-top">
     <div class="auth-mark">Dhobi<em>Wala</em></div>
     <div class="auth-headline">Ironing pickup & delivery<br/>in Civil Township, Rourkela</div>
@@ -996,32 +988,8 @@ function toast(msg){
 }
 
 // ── INIT ──
-function goToAuth(){
-  try {
-    document.querySelectorAll('.screen').forEach(s=>{
-      s.classList.remove('active');
-      s.style.display='none';
-    });
-    var auth = document.getElementById('auth');
-    auth.style.cssText = 'display:flex!important';
-    auth.classList.add('active');
-  } catch(e) { console.log(e); }
-}
-
-function bootApp(){
-  try { setGreet('there'); } catch(e){}
-  try { if(checkSess()) return; } catch(e){}
-  setTimeout(goToAuth, 2000);
-}
-
-// Multiple triggers to ensure boot happens
-document.addEventListener('DOMContentLoaded', bootApp);
-window.addEventListener('load', bootApp);
-setTimeout(bootApp, 3000); // absolute fallback
-setTimeout(function(){
-  var tap = document.getElementById('splashTap');
-  var splash = document.getElementById('splash');
-  if(tap && splash && splash.classList.contains('active')){
-    tap.style.display='block'; // show tap button if still stuck
-  }
-}, 4000);
+try { setGreet("there"); } catch(e){}
+try {
+  var sess = localStorage.getItem("dw_s");
+  if(sess){ var u=JSON.parse(sess); loginUser(u); }
+} catch(e){}
