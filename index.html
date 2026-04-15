@@ -989,3 +989,12 @@ function toast(msg){
   el.textContent=msg;el.classList.add('show');
   setTimeout(()=>el.classList.remove('show'),2600);
 }
+
+// ── INIT ──
+setTimeout(()=>{
+  if(!checkSess()){
+    document.getElementById('splash').classList.remove('active');
+    document.getElementById('auth').classList.add('active');
+  }
+}, 2200);
+setGreet('there');
