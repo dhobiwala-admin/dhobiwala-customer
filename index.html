@@ -316,7 +316,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
     </div>
     <div id="authErr" class="err-msg"></div>
     <!-- Login -->
-    <div class="aform on" id="loginForm">
+    <div class="aform" id="loginForm" style="display:block">
       <div class="fgroup"><label>Phone Number</label>
         <div class="ph-row"><div class="ph-code">🇮🇳 +91</div><input class="finput" type="tel" id="lPhone" placeholder="98765 43210" maxlength="10"/></div>
       </div>
@@ -325,7 +325,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       <div class="switch-txt">New here? <a onclick="authSwitch('signup')">Create account</a></div>
     </div>
     <!-- Signup -->
-    <div class="aform" id="signupForm">
+    <div class="aform" id="signupForm" style="display:none">
       <div class="fgroup"><label>Full Name</label><input class="finput" type="text" id="sName" placeholder="Your full name"/></div>
       <div class="fgroup"><label>Phone Number</label>
         <div class="ph-row"><div class="ph-code">🇮🇳 +91</div><input class="finput" type="tel" id="sPhone" placeholder="98765 43210" maxlength="10"/></div>
@@ -637,32 +637,36 @@ function saveSess(u){localStorage.setItem('dw_s',JSON.stringify(u))}
 function authSwitch(t){
   document.getElementById('tab-login').classList.toggle('on',t==='login');
   document.getElementById('tab-signup').classList.toggle('on',t==='signup');
-  document.getElementById('loginForm').classList.toggle('on',t==='login');
-  document.getElementById('signupForm').classList.toggle('on',t==='signup');
+  document.getElementById('loginForm').style.display = t==='login'?'block':'none';
+  document.getElementById('signupForm').style.display = t==='signup'?'block':'none';
   document.getElementById('authErr').className='err-msg';
 }
 function showErr(m){const e=document.getElementById('authErr');e.className='err-msg show';e.textContent=m}
 
 function doLogin(){
-  const ph=document.getElementById('lPhone').value.trim();
-  const pw=document.getElementById('lPass').value.trim();
-  if(!ph||!pw){showErr('Please enter phone and password');return}
-  const users=getU();
-  if(!users[ph]){showErr('No account found. Please sign up.');return}
-  if(users[ph].password!==pw){showErr('Wrong password. Try again.');return}
-  loginUser(users[ph]);
+  try {
+    const ph=document.getElementById('lPhone').value.trim();
+    const pw=document.getElementById('lPass').value.trim();
+    if(!ph||!pw){showErr('Please enter phone and password');return}
+    const users=getU();
+    if(!users[ph]){showErr('No account found. Please sign up first.');return}
+    if(users[ph].password!==pw){showErr('Wrong password. Try again.');return}
+    loginUser(users[ph]);
+  } catch(e){ showErr('Error: '+e.message); }
 }
 function doSignup(){
-  const nm=document.getElementById('sName').value.trim();
-  const ph=document.getElementById('sPhone').value.trim();
-  const pw=document.getElementById('sPass').value.trim();
-  if(!nm||!ph||!pw){showErr('Please fill all fields');return}
-  if(ph.length!==10){showErr('Enter valid 10-digit phone');return}
-  if(pw.length<4){showErr('Password must be at least 4 characters');return}
-  const users=getU();
-  if(users[ph]){showErr('Account exists. Please login.');return}
-  const u={name:nm,phone:ph,password:pw};
-  users[ph]=u; saveU(users); loginUser(u);
+  try {
+    const nm=document.getElementById('sName').value.trim();
+    const ph=document.getElementById('sPhone').value.trim();
+    const pw=document.getElementById('sPass').value.trim();
+    if(!nm||!ph||!pw){showErr('Please fill all fields');return}
+    if(ph.length!==10){showErr('Enter valid 10-digit phone');return}
+    if(pw.length<4){showErr('Password must be at least 4 characters');return}
+    const users=getU();
+    if(users[ph]){showErr('Account exists. Please login.');return}
+    const u={name:nm,phone:ph,password:pw};
+    users[ph]=u; saveU(users); loginUser(u);
+  } catch(e){ showErr('Error: '+e.message); }
 }
 function loginUser(u){
   saveSess(u);
