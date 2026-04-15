@@ -34,8 +34,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 .splash-wordmark em{color:var(--gold);font-style:normal}
 .splash-city{color:rgba(255,255,255,0.38);font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;margin-top:6px;font-weight:500}
 .splash-bar{width:52px;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:52px;overflow:hidden}
-.splash-bar::after{content:'';display:block;height:100%;width:0;background:var(--gold);border-radius:2px;animation:sload 2.1s cubic-bezier(.4,0,.2,1) forwards}
-@keyframes sload{to{width:100%}}
+.splash-bar::after{content:'';display:block;height:100%;width:0;background:var(--gold);border-radius:2px;transition:width 2s linear}
+.splash-bar::after.go{width:100%}
 .splash-tagline{position:absolute;bottom:48px;color:rgba(255,255,255,0.22);font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase}
 
 /* ── AUTH ── */
@@ -304,15 +304,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 <body>
 
 <!-- SPLASH -->
-<div class="screen active" id="splash">
+<div class="screen active" id="splash" style="display:flex!important">
   <div class="splash-wordmark">Dhobi<em>Wala</em></div>
-  <div class="splash-city">Civil Township · Rourkela</div>
   <div class="splash-bar"></div>
   <div class="splash-tagline">Crisp clothes, zero effort</div>
 </div>
 
 <!-- AUTH -->
-<div class="screen" id="auth">
+<div class="screen" id="auth" style="display:none">
   <div class="auth-top">
     <div class="auth-mark">Dhobi<em>Wala</em></div>
     <div class="auth-headline">Ironing pickup & delivery<br/>in Civil Township, Rourkela</div>
@@ -352,10 +351,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       <div class="home-mark">Dhobi<em>Wala</em></div>
       <div class="home-ava" id="homeAva" onclick="showScreen('profile')">A</div>
     </div>
-    <div class="loc-row" onclick="detectLocation()" id="locRow">
-      <div class="loc-dot"></div>
-      <div class="loc-text" id="locText">Tap to detect location...</div>
-    </div>
+
     <div class="home-greet" id="homeGreet">Good morning! 👋</div>
     <div class="home-sub" id="homeSub">What needs ironing today?</div>
     <div class="search-pill"><span>🔍</span><span>Search shops or services...</span></div>
@@ -381,7 +377,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 
   <div class="row-header">
     <div class="row-title">Shops near you</div>
-    <div class="sort-lbl" id="sortLbl">By distance</div>
+    
   </div>
   <div class="shops" id="shopsList"></div>
 
@@ -690,8 +686,13 @@ function checkSess(){const u=getSess();if(u){loginUser(u);return true}return fal
 
 // ── SCREENS ──
 function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.screen').forEach(s=>{
+    s.classList.remove('active');
+    s.style.display='none';
+  });
+  const el = document.getElementById(id);
+  el.style.display='flex';
+  el.classList.add('active');
   window.scrollTo(0,0);
   if(id==='home'){initHome()}
   if(id==='tracking' && window._currentOrderId){
@@ -708,7 +709,10 @@ function setGreet(name){
 }
 
 // ── HOME ──
-function initHome(){renderShops(SHOPS);detectLocation()}
+function initHome(){
+  renderShops(SHOPS); // show shops immediately
+  detectLocation();   // then detect real location
+}
 
 function haversine(a,b,c,d){
   const R=6371,dL=(c-a)*Math.PI/180,dN=(d-b)*Math.PI/180;
@@ -991,10 +995,20 @@ function toast(msg){
 }
 
 // ── INIT ──
-setTimeout(()=>{
-  if(!checkSess()){
-    document.getElementById('splash').classList.remove('active');
-    document.getElementById('auth').classList.add('active');
-  }
-}, 2200);
-setGreet('there');
+function goToAuth(){
+  document.querySelectorAll('.screen').forEach(s=>{
+    s.classList.remove('active');
+    s.style.display='none';
+  });
+  const auth = document.getElementById('auth');
+  auth.style.display='flex';
+  auth.classList.add('active');
+}
+
+window.onload = function(){
+  setGreet('there');
+  // Try session first
+  if(checkSess()) return;
+  // Show splash for 2s then go to auth
+  setTimeout(goToAuth, 2000);
+};
