@@ -311,8 +311,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
   </div>
   <div class="auth-body">
     <div class="auth-seg">
-      <button class="auth-seg-btn on" id="tab-login" onclick="authSwitch('login')" style="background:var(--ink);color:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.2)">Login</button>
-      <button class="auth-seg-btn" id="tab-signup" onclick="authSwitch('signup')">Create Account</button>
+      <button id="tab-login" onclick="authSwitch('login')" style="background:#0a0a0f;color:#ffffff;font-weight:700;border-radius:10px;padding:10px;border:none;cursor:pointer;flex:1;font-family:'DM Sans',sans-serif;font-size:0.82rem">Login</button>
+      <button id="tab-signup" onclick="authSwitch('signup')" style="background:transparent;color:#7a7a8a;border-radius:10px;font-weight:600;padding:10px;border:none;cursor:pointer;flex:1;font-family:'DM Sans',sans-serif;font-size:0.82rem">Create Account</button>
     </div>
     <div id="authErr" class="err-msg"></div>
     <!-- Login -->
@@ -659,20 +659,16 @@ function toggleEye(inputId, btnId){
 function authSwitch(t){
   var tl=document.getElementById('tab-login');
   var ts=document.getElementById('tab-signup');
-  // Reset both
-  tl.classList.remove('on'); tl.style.background=''; tl.style.color='';
-  ts.classList.remove('on'); ts.style.background=''; ts.style.color='';
-  // Highlight active
-  if(t==='login'){
-    tl.classList.add('on');
-    tl.style.cssText='background:var(--ink)!important;color:#fff!important;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.2)';
-  } else {
-    ts.classList.add('on');
-    ts.style.cssText='background:var(--ink)!important;color:#fff!important;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.2)';
-  }
-  document.getElementById('loginForm').style.display = t==='login'?'block':'none';
-  document.getElementById('signupForm').style.display = t==='signup'?'block':'none';
-  document.getElementById('authErr').className='err-msg';
+  // Just change background and color - CSS handles the rest
+  tl.style.background = t==='login' ? '#0a0a0f' : 'transparent';
+  tl.style.color      = t==='login' ? '#ffffff' : '#7a7a8a';
+  tl.style.fontWeight = t==='login' ? '700' : '600';
+  ts.style.background = t==='signup' ? '#0a0a0f' : 'transparent';
+  ts.style.color      = t==='signup' ? '#ffffff' : '#7a7a8a';
+  ts.style.fontWeight = t==='signup' ? '700' : '600';
+  document.getElementById('loginForm').style.display  = t==='login'  ? 'block' : 'none';
+  document.getElementById('signupForm').style.display = t==='signup' ? 'block' : 'none';
+  document.getElementById('authErr').className = 'err-msg';
 }
 function showErr(m){const e=document.getElementById('authErr');e.className='err-msg show';e.textContent=m}
 
