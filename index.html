@@ -48,7 +48,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 .auth-body{padding:28px 24px;flex:1}
 .auth-seg{display:flex;background:var(--warm);border-radius:var(--r12);padding:3px;margin-bottom:24px;border:1px solid var(--border)}
 .auth-seg-btn{flex:1;padding:10px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.82rem;color:var(--muted);border-radius:10px;cursor:pointer;transition:all 0.2s}
-.auth-seg-btn.on{background:var(--white);color:var(--ink);box-shadow:0 1px 6px rgba(0,0,0,0.1)}
+.auth-seg-btn.on{background:var(--ink)!important;color:var(--white)!important;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
 .aform{display:none}
 .aform.on{display:block}
 .fgroup{margin-bottom:14px}
@@ -311,7 +311,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
   </div>
   <div class="auth-body">
     <div class="auth-seg">
-      <button class="auth-seg-btn on" id="tab-login" onclick="authSwitch('login')">Login</button>
+      <button class="auth-seg-btn on" id="tab-login" onclick="authSwitch('login')" style="background:var(--ink);color:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.2)">Login</button>
       <button class="auth-seg-btn" id="tab-signup" onclick="authSwitch('signup')">Create Account</button>
     </div>
     <div id="authErr" class="err-msg"></div>
@@ -320,7 +320,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       <div class="fgroup"><label>Phone Number</label>
         <div class="ph-row"><div class="ph-code">🇮🇳 +91</div><input class="finput" type="tel" id="lPhone" placeholder="98765 43210" maxlength="10"/></div>
       </div>
-      <div class="fgroup"><label>Password</label><input class="finput" type="password" id="lPass" placeholder="Your password"/></div>
+      <div class="fgroup"><label>Password</label>
+        <div style="position:relative">
+          <input class="finput" type="password" id="lPass" placeholder="Your password" style="padding-right:48px"/>
+          <button onclick="toggleEye('lPass','eyeL')" type="button" id="eyeL" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;padding:0;line-height:1">👁</button>
+        </div>
+      </div>
       <button class="cta" onclick="doLogin()">Login →</button>
       <div class="switch-txt">New here? <a onclick="authSwitch('signup')">Create account</a></div>
     </div>
@@ -330,7 +335,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       <div class="fgroup"><label>Phone Number</label>
         <div class="ph-row"><div class="ph-code">🇮🇳 +91</div><input class="finput" type="tel" id="sPhone" placeholder="98765 43210" maxlength="10"/></div>
       </div>
-      <div class="fgroup"><label>Password</label><input class="finput" type="password" id="sPass" placeholder="Create password (min 4 chars)"/></div>
+      <div class="fgroup"><label>Password</label>
+        <div style="position:relative">
+          <input class="finput" type="password" id="sPass" placeholder="Create password (min 4 chars)" style="padding-right:48px"/>
+          <button onclick="toggleEye('sPass','eyeS')" type="button" id="eyeS" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;padding:0;line-height:1">👁</button>
+        </div>
+      </div>
       <button class="cta gold" onclick="doSignup()">Create Account →</button>
       <div class="switch-txt">Already registered? <a onclick="authSwitch('login')">Login</a></div>
     </div>
@@ -634,9 +644,32 @@ function saveU(u){localStorage.setItem('dw_u',JSON.stringify(u))}
 function getSess(){try{return JSON.parse(localStorage.getItem('dw_s')||'null')}catch{return null}}
 function saveSess(u){localStorage.setItem('dw_s',JSON.stringify(u))}
 
+function toggleEye(inputId, btnId){
+  var inp = document.getElementById(inputId);
+  var btn = document.getElementById(btnId);
+  if(inp.type==='password'){
+    inp.type='text';
+    btn.textContent='🙈';
+  } else {
+    inp.type='password';
+    btn.textContent='👁';
+  }
+}
+
 function authSwitch(t){
-  document.getElementById('tab-login').classList.toggle('on',t==='login');
-  document.getElementById('tab-signup').classList.toggle('on',t==='signup');
+  var tl=document.getElementById('tab-login');
+  var ts=document.getElementById('tab-signup');
+  // Reset both
+  tl.classList.remove('on'); tl.style.background=''; tl.style.color='';
+  ts.classList.remove('on'); ts.style.background=''; ts.style.color='';
+  // Highlight active
+  if(t==='login'){
+    tl.classList.add('on');
+    tl.style.cssText='background:var(--ink)!important;color:#fff!important;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.2)';
+  } else {
+    ts.classList.add('on');
+    ts.style.cssText='background:var(--ink)!important;color:#fff!important;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.2)';
+  }
   document.getElementById('loginForm').style.display = t==='login'?'block':'none';
   document.getElementById('signupForm').style.display = t==='signup'?'block':'none';
   document.getElementById('authErr').className='err-msg';
