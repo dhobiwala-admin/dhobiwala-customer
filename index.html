@@ -309,41 +309,60 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
     <div class="auth-mark">Dhobi<em>Wala</em></div>
     <div class="auth-headline">Ironing pickup & delivery<br/>in Civil Township, Rourkela</div>
   </div>
-  <div class="auth-body">
-    <div class="auth-seg">
-      <button id="tab-login" onclick="authSwitch('login')" style="background:#0a0a0f;color:#ffffff;font-weight:700;border-radius:10px;padding:10px;border:none;cursor:pointer;flex:1;font-family:'DM Sans',sans-serif;font-size:0.82rem">Login</button>
-      <button id="tab-signup" onclick="authSwitch('signup')" style="background:transparent;color:#7a7a8a;border-radius:10px;font-weight:600;padding:10px;border:none;cursor:pointer;flex:1;font-family:'DM Sans',sans-serif;font-size:0.82rem">Create Account</button>
+  <div style="padding:28px 24px;flex:1">
+
+    <!-- TABS -->
+    <div style="display:flex;background:#f5f0e8;border-radius:12px;padding:4px;margin-bottom:24px;border:1px solid #e8e4dc">
+      <button id="tab-login" onclick="authSwitch('login')" style="flex:1;padding:11px;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;background:#0a0a0f;color:#ffffff;transition:all 0.2s">Login</button>
+      <button id="tab-signup" onclick="authSwitch('signup')" style="flex:1;padding:11px;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;background:transparent;color:#7a7a8a;transition:all 0.2s">Create Account</button>
     </div>
-    <div id="authErr" class="err-msg"></div>
-    <!-- Login -->
-    <div class="aform" id="loginForm" style="display:block">
-      <div class="fgroup"><label>Phone Number</label>
-        <div class="ph-row"><div class="ph-code">🇮🇳 +91</div><input class="finput" type="tel" id="lPhone" placeholder="98765 43210" maxlength="10"/></div>
-      </div>
-      <div class="fgroup"><label>Password</label>
-        <div style="position:relative">
-          <input class="finput" type="password" id="lPass" placeholder="Your password" style="padding-right:48px"/>
-          <button onclick="toggleEye('lPass','eyeL')" type="button" id="eyeL" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;padding:0;line-height:1">👁</button>
+
+    <div id="authErr" style="display:none;background:#fff0f0;border:1px solid #fecaca;border-radius:10px;padding:10px 14px;font-size:0.82rem;color:#d63840;margin-bottom:14px"></div>
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm" style="display:block">
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:0.68rem;font-weight:700;color:#7a7a8a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Phone Number</label>
+        <div style="display:flex;gap:8px">
+          <div style="padding:14px;border:1.5px solid #e8e4dc;border-radius:12px;font-size:0.88rem;font-weight:700;color:#0a0a0f;background:#fff;flex-shrink:0">🇮🇳 +91</div>
+          <input type="tel" id="lPhone" placeholder="98765 43210" maxlength="10" style="flex:1;padding:14px 16px;border:1.5px solid #e8e4dc;border-radius:12px;font-size:0.92rem;font-family:'DM Sans',sans-serif;color:#0a0a0f;background:#fff;outline:none"/>
         </div>
       </div>
-      <button class="cta" onclick="doLogin()">Login →</button>
-      <div class="switch-txt">New here? <a onclick="authSwitch('signup')">Create account</a></div>
-    </div>
-    <!-- Signup -->
-    <div class="aform" id="signupForm" style="display:none">
-      <div class="fgroup"><label>Full Name</label><input class="finput" type="text" id="sName" placeholder="Your full name"/></div>
-      <div class="fgroup"><label>Phone Number</label>
-        <div class="ph-row"><div class="ph-code">🇮🇳 +91</div><input class="finput" type="tel" id="sPhone" placeholder="98765 43210" maxlength="10"/></div>
-      </div>
-      <div class="fgroup"><label>Password</label>
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:0.68rem;font-weight:700;color:#7a7a8a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Password</label>
         <div style="position:relative">
-          <input class="finput" type="password" id="sPass" placeholder="Create password (min 4 chars)" style="padding-right:48px"/>
-          <button onclick="toggleEye('sPass','eyeS')" type="button" id="eyeS" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;padding:0;line-height:1">👁</button>
+          <input type="password" id="lPass" placeholder="Your password" style="width:100%;padding:14px 48px 14px 16px;border:1.5px solid #e8e4dc;border-radius:12px;font-size:0.92rem;font-family:'DM Sans',sans-serif;color:#0a0a0f;background:#fff;outline:none"/>
+          <button onclick="toggleEye('lPass','eyeL')" type="button" id="eyeL" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.2rem;padding:0">👁</button>
         </div>
       </div>
-      <button class="cta gold" onclick="doSignup()">Create Account →</button>
-      <div class="switch-txt">Already registered? <a onclick="authSwitch('login')">Login</a></div>
+      <button onclick="doLogin()" style="width:100%;padding:15px;background:#0a0a0f;color:#fff;border:none;border-radius:14px;font-size:0.95rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:6px">Login →</button>
+      <p style="text-align:center;margin-top:18px;font-size:0.82rem;color:#7a7a8a">New here? <a onclick="authSwitch('signup')" style="color:#e8a020;font-weight:700;cursor:pointer">Create account</a></p>
     </div>
+
+    <!-- SIGNUP FORM -->
+    <div id="signupForm" style="display:none">
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:0.68rem;font-weight:700;color:#7a7a8a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Full Name</label>
+        <input type="text" id="sName" placeholder="Your full name" style="width:100%;padding:14px 16px;border:1.5px solid #e8e4dc;border-radius:12px;font-size:0.92rem;font-family:'DM Sans',sans-serif;color:#0a0a0f;background:#fff;outline:none"/>
+      </div>
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:0.68rem;font-weight:700;color:#7a7a8a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Phone Number</label>
+        <div style="display:flex;gap:8px">
+          <div style="padding:14px;border:1.5px solid #e8e4dc;border-radius:12px;font-size:0.88rem;font-weight:700;color:#0a0a0f;background:#fff;flex-shrink:0">🇮🇳 +91</div>
+          <input type="tel" id="sPhone" placeholder="98765 43210" maxlength="10" style="flex:1;padding:14px 16px;border:1.5px solid #e8e4dc;border-radius:12px;font-size:0.92rem;font-family:'DM Sans',sans-serif;color:#0a0a0f;background:#fff;outline:none"/>
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:0.68rem;font-weight:700;color:#7a7a8a;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:7px">Password</label>
+        <div style="position:relative">
+          <input type="password" id="sPass" placeholder="Create password (min 4 chars)" style="width:100%;padding:14px 48px 14px 16px;border:1.5px solid #e8e4dc;border-radius:12px;font-size:0.92rem;font-family:'DM Sans',sans-serif;color:#0a0a0f;background:#fff;outline:none"/>
+          <button onclick="toggleEye('sPass','eyeS')" type="button" id="eyeS" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.2rem;padding:0">👁</button>
+        </div>
+      </div>
+      <button onclick="doSignup()" style="width:100%;padding:15px;background:#e8a020;color:#0a0a0f;border:none;border-radius:14px;font-size:0.95rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:6px">Create Account →</button>
+      <p style="text-align:center;margin-top:18px;font-size:0.82rem;color:#7a7a8a">Already registered? <a onclick="authSwitch('login')" style="color:#e8a020;font-weight:700;cursor:pointer">Login</a></p>
+    </div>
+
   </div>
 </div>
 
@@ -668,9 +687,9 @@ function authSwitch(t){
   ts.style.fontWeight = t==='signup' ? '700' : '600';
   document.getElementById('loginForm').style.display  = t==='login'  ? 'block' : 'none';
   document.getElementById('signupForm').style.display = t==='signup' ? 'block' : 'none';
-  document.getElementById('authErr').className = 'err-msg';
+  document.getElementById('authErr').style.display='none';
 }
-function showErr(m){const e=document.getElementById('authErr');e.className='err-msg show';e.textContent=m}
+function showErr(m){var e=document.getElementById('authErr');e.style.display='block';e.textContent=m;}
 
 function doLogin(){
   try {
