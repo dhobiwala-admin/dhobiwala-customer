@@ -429,15 +429,8 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
 // ─── CONFIG ──────────────────────────────────────
 var API = 'https://dhobiwala-backend.onrender.com';
 
-// Fallback shops if backend has none yet
-var FALLBACK_SHOPS = [
-  {_id:'s1',name:'Civil Iron Palace',rating:4.9,reviews:124,minPrice:10,badge:'⭐ TOP RATED',si:'si1',ico:'👔',tags:['Shirts','Trousers','Sarees','Suits'],openTime:'08:00',closeTime:'21:00',
-    svcs:[{id:'shirt',ico:'👔',name:'Shirt',price:15},{id:'trouser',ico:'👖',name:'Trouser',price:20},{id:'saree',ico:'🥻',name:'Saree',price:40},{id:'suit',ico:'🤵',name:'Suit (2pc)',price:80},{id:'kurta',ico:'🧥',name:'Kurta',price:20},{id:'bed',ico:'🛏',name:'Bedsheet',price:35}]},
-  {_id:'s2',name:'Rourkela Press & Shine',rating:4.8,reviews:87,minPrice:12,badge:'🚀 FAST',si:'si2',ico:'🥻',tags:['Sarees','Kurtas','Lehengas'],openTime:'07:00',closeTime:'22:00',
-    svcs:[{id:'saree',ico:'🥻',name:'Saree',price:45},{id:'kurta',ico:'🧥',name:'Kurta Set',price:35},{id:'lehenga',ico:'👗',name:'Lehenga',price:100},{id:'shirt',ico:'👔',name:'Shirt',price:15},{id:'trouser',ico:'👖',name:'Trouser',price:20}]},
-  {_id:'s3',name:'Township Laundry Pro',rating:4.6,reviews:52,minPrice:15,badge:'💎 PREMIUM',si:'si3',ico:'🤵',tags:['Suits','Blazers','Formals'],openTime:'09:00',closeTime:'20:00',
-    svcs:[{id:'suit3',ico:'🤵',name:'Suit (3pc)',price:120},{id:'blazer',ico:'🥼',name:'Blazer',price:80},{id:'fshirt',ico:'👔',name:'Formal Shirt',price:20},{id:'coat',ico:'🧥',name:'Overcoat',price:90}]},
-];
+// No fallback — only real shops from backend
+var FALLBACK_SHOPS = [];
 var SHOP_COLORS = ['si1','si2','si3'];
 var SHOP_ICONS  = ['👔','🥻','🤵','🧺','👗'];
 var SHOP_BADGES = ['⭐ TOP RATED','🚀 FAST','💎 PREMIUM','🆕 NEW'];
@@ -571,7 +564,7 @@ function loadShops() {
           openTime: s.openTime||'08:00',
           closeTime: s.closeTime||'21:00',
           svcs: (s.services||[]).map(function(sv){
-            return {id:sv._id||sv.id, ico:sv.ico||'👔', name:sv.name, price:sv.price};
+            return {id:sv.id||sv._id, ico:sv.icon||sv.ico||'👔', name:sv.label||sv.name, price:sv.price};
           })
         };
       });
@@ -582,8 +575,7 @@ function loadShops() {
     renderShops();
   })
   .catch(function(){
-    // Use fallback on network error
-    SHOPS = FALLBACK_SHOPS;
+    SHOPS = [];
     renderShops();
   });
 }
@@ -708,18 +700,18 @@ function placeOrder(method) {
   document.getElementById('btnUpi').textContent = 'Placing…';
 
   var token = getToken();
+  var today = new Date().toISOString().split('T')[0];
   fetch(API+'/api/orders', {
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
     body: JSON.stringify({
       shopId: sh._id,
-      shopName: sh.name,
-      items: items.map(function(i){ return {name:i.name, qty:i.qty, price:i.price}; }),
-      address: st+', '+ar,
-      slot: selSlot,
-      payment: method,
-      total: tot,
-      promoDiscount: disc
+      items: items.map(function(i){ return {serviceId:i.id, quantity:i.qty}; }),
+      pickupAddress: st+', '+ar,
+      pickupSlot: selSlot,
+      pickupDate: today,
+      paymentMethod: method,
+      specialInstructions: ''
     })
   })
   .then(function(r){ return r.json(); })
@@ -749,7 +741,7 @@ function placeOrder(method) {
 function loadOrders() {
   var token = getToken();
   document.getElementById('ordersList').innerHTML = '<div class="empty-state"><div class="ico">🔄</div><div class="msg">Loading your orders...</div></div>';
-  fetch(API+'/api/orders/my', {
+  fetch(API+'/api/orders', {
     headers:{'Authorization':'Bearer '+token}
   })
   .then(function(r){ return r.json(); })
@@ -759,21 +751,21 @@ function loadOrders() {
       return;
     }
     var statusMap = {
-      pending_vendor:'⏳ Pending', accepted:'✅ Accepted', rejected:'❌ Rejected',
+      placed:'⏳ Pending', pending_vendor:'⏳ Pending', accepted:'✅ Accepted', rejected:'❌ Rejected',
       ironing:'🔥 Ironing', ready:'✅ Ready', out_for_delivery:'🏍 On way',
       delivered:'✅ Delivered'
     };
     var badgeMap = {
-      pending_vendor:'ob-pend', accepted:'ob-pend', rejected:'ob-done',
+      placed:'ob-pend', pending_vendor:'ob-pend', accepted:'ob-pend', rejected:'ob-done',
       ironing:'ob-pend', ready:'ob-pend', out_for_delivery:'ob-pend', delivered:'ob-done'
     };
     document.getElementById('ordersList').innerHTML = data.orders.map(function(o){
       var status = statusMap[o.status]||o.status;
       var badge  = badgeMap[o.status]||'ob-pend';
       var dispId = 'DW'+(o._id||'').slice(-6).toUpperCase();
-      var itemsTxt = (o.items||[]).map(function(i){ return i.qty+'× '+i.name; }).join(', ');
+      var itemsTxt = (o.items||[]).map(function(i){ return (i.quantity||i.qty)+'× '+(i.label||i.name); }).join(', ');
       var dateStr = o.createdAt ? new Date(o.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'}) : 'Today';
-      var rateBtn = o.status==='delivered' ? '<button class="rate-btn" onclick="go(\'pgReview\')">⭐ Rate this order</button>' : '';
+      var rateBtn = (o.status==='delivered') ? '<button class="rate-btn" onclick="go(\'pgReview\')">⭐ Rate this order</button>' : '';
       return '<div class="ocard" onclick="go(\'pgTrack\')">'
         +'<div class="ocard-top"><div><div class="onum">#'+dispId+'</div><div class="oshop">'+(o.shopName||'Shop')+'</div></div>'
         +'<div class="obadge '+badge+'">'+status+'</div></div>'
