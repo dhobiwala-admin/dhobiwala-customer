@@ -8,25 +8,17 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:0 auto;min-height:100vh}
-
-/* PAGES */
 .page{display:none;min-height:100vh;flex-direction:column}
 .page.show{display:flex}
-
-/* AUTH */
 .auth-hero{background:#0a0a0f;padding:44px 24px 36px;position:relative;overflow:hidden}
 .auth-hero::after{content:'';position:absolute;bottom:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:rgba(232,160,32,0.07)}
 .auth-wordmark{font-family:'Syne',sans-serif;font-weight:800;font-size:1.7rem;color:#fff;letter-spacing:-0.02em;margin-bottom:6px}
 .auth-wordmark span{color:#e8a020}
 .auth-tagline{color:rgba(255,255,255,0.4);font-size:0.83rem}
 .auth-body{padding:28px 24px;flex:1;background:#faf8f3}
-
-/* TAB SWITCHER */
 .tab-row{display:flex;background:#f0ebe0;border-radius:12px;padding:4px;margin-bottom:24px}
 .tab-btn{flex:1;padding:11px 8px;border:none;border-radius:9px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;transition:all 0.2s;background:transparent;color:#888}
 .tab-btn.active{background:#0a0a0f;color:#fff;font-weight:700}
-
-/* FORM */
 .form-wrap{display:none}
 .form-wrap.show{display:block}
 .field{margin-bottom:16px}
@@ -38,14 +30,13 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
 .pass-wrap{position:relative}
 .pass-wrap .field-input{padding-right:48px}
 .eye-btn{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;padding:4px}
-.submit-btn{width:100%;padding:15px;border:none;border-radius:14px;font-size:0.95rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:4px}
+.submit-btn{width:100%;padding:15px;border:none;border-radius:14px;font-size:0.95rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:4px;transition:opacity 0.2s}
+.submit-btn:disabled{opacity:0.6;cursor:not-allowed}
 .submit-btn.dark{background:#0a0a0f;color:#fff}
 .submit-btn.gold{background:#e8a020;color:#0a0a0f}
 .switch-hint{text-align:center;margin-top:16px;font-size:0.82rem;color:#888}
 .switch-hint a{color:#e8a020;font-weight:700;cursor:pointer;text-decoration:none}
 .err-box{background:#fff0f0;border:1px solid #fecaca;border-radius:10px;padding:10px 14px;font-size:0.82rem;color:#d63840;margin-bottom:14px;display:none}
-
-/* HOME */
 .home-header{background:#0a0a0f;padding:20px 20px 22px}
 .home-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
 .home-mark{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:#fff}
@@ -73,8 +64,6 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
 .status-closed{background:#fff0f0;color:#dc2626}
 .shop-tags{display:flex;gap:6px;flex-wrap:wrap}
 .shop-tag{background:#f5f0e8;border-radius:6px;padding:3px 9px;font-size:0.65rem;color:#888;font-weight:600}
-
-/* SHOP DETAIL */
 .detail-hero{background:#0a0a0f;padding:16px 20px 24px}
 .back-row{display:flex;align-items:center;gap:8px;cursor:pointer;padding-bottom:14px}
 .back-ico{color:rgba(255,255,255,0.5);font-size:1rem}
@@ -98,8 +87,6 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
 .cart-left .cnt{font-size:0.72rem;color:rgba(255,255,255,0.5);margin-bottom:2px}
 .cart-left .amt{font-family:'Syne',sans-serif;font-weight:800;color:#fff;font-size:1.1rem}
 .cart-go{background:#e8a020;color:#0a0a0f;border:none;border-radius:12px;padding:10px 22px;font-weight:800;font-family:'Syne',sans-serif;font-size:0.85rem;cursor:pointer}
-
-/* CART */
 .page-hdr{background:#fff;padding:18px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #e8e4dc}
 .hdr-back{width:36px;height:36px;border-radius:50%;background:#f5f0e8;border:1px solid #e8e4dc;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem}
 .hdr-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:#0a0a0f}
@@ -121,10 +108,9 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
 .sum-row{display:flex;justify-content:space-between;font-size:0.84rem;color:#888;margin-bottom:8px}
 .sum-row.total{color:#0a0a0f;font-weight:700;font-size:0.95rem;border-top:1px solid #f5f0e8;padding-top:10px;margin-top:4px}
 .pay-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 16px 80px}
-.pay-btn{padding:14px;border-radius:14px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;border:1.5px solid #e0dbd0;background:#fff;color:#0a0a0f}
+.pay-btn{padding:14px;border-radius:14px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;border:1.5px solid #e0dbd0;background:#fff;color:#0a0a0f;transition:opacity 0.2s}
+.pay-btn:disabled{opacity:0.6;cursor:not-allowed}
 .pay-btn.solid{background:#0a0a0f;color:#fff;border-color:#0a0a0f}
-
-/* SUCCESS */
 .success-page{background:#0a0a0f;align-items:center;justify-content:center;padding:40px 28px;text-align:center}
 .s-ring{width:100px;height:100px;border-radius:50%;background:rgba(232,160,32,0.1);border:2px solid rgba(232,160,32,0.25);display:flex;align-items:center;justify-content:center;font-size:2.8rem;margin:0 auto 24px}
 .s-title{font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:#fff;margin-bottom:10px}
@@ -133,16 +119,9 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
 .s-btn{width:100%;max-width:320px;padding:15px;border:none;border-radius:14px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.92rem;cursor:pointer;margin-bottom:10px}
 .s-btn.primary{background:#e8a020;color:#0a0a0f}
 .s-btn.ghost{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.1)}
-
-/* TRACKING */
 .track-map{height:180px;background:linear-gradient(135deg,#dbeafe,#ede9fe);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .map-grid{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.04) 0,rgba(0,0,0,0.04) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(90deg,rgba(0,0,0,0.04) 0,rgba(0,0,0,0.04) 1px,transparent 1px,transparent 40px)}
 .map-pin{position:absolute;top:42%;left:48%;width:16px;height:16px;background:#0a0a0f;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 8px rgba(10,10,15,0.12)}
-.rider-strip{background:#fff;margin:14px 16px;border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;border:1px solid #e8e4dc}
-.rider-ava{width:44px;height:44px;border-radius:50%;background:#0a0a0f;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
-.rider-name{font-family:'Syne',sans-serif;font-weight:700;color:#0a0a0f;font-size:0.9rem}
-.rider-eta{font-size:0.74rem;color:#888;margin-top:2px}
-.rider-call{margin-left:auto;background:#1a9e5c;color:#fff;border:none;border-radius:10px;padding:8px 14px;font-weight:700;font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif}
 .track-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:#0a0a0f;padding:0 16px;margin-bottom:14px}
 .steps{padding:0 16px 32px;display:flex;flex-direction:column}
 .step{display:flex;gap:12px;padding-bottom:20px;position:relative}
@@ -154,8 +133,6 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
 .sd-wait{background:#f5f0e8;color:#888;border:1.5px solid #e8e4dc}
 .step-lbl{font-weight:600;color:#0a0a0f;font-size:0.88rem;margin-top:4px}
 .step-sub{font-size:0.73rem;color:#888;margin-top:3px}
-
-/* ORDERS */
 .olist{padding:16px;display:flex;flex-direction:column;gap:12px;padding-bottom:90px}
 .ocard{background:#fff;border-radius:16px;padding:16px;border:1px solid #e8e4dc;cursor:pointer}
 .ocard-top{display:flex;justify-content:space-between;margin-bottom:10px}
@@ -169,8 +146,6 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
 .oamt{font-family:'Syne',sans-serif;font-weight:800;color:#0a0a0f}
 .odate{font-size:0.72rem;color:#888}
 .rate-btn{width:100%;margin-top:10px;padding:10px;background:linear-gradient(135deg,#e8a020,#f0a830);color:#0a0a0f;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.8rem;cursor:pointer}
-
-/* PROFILE */
 .prof-hero{background:#0a0a0f;padding:28px 20px 32px;text-align:center}
 .prof-ava-big{width:70px;height:70px;border-radius:50%;background:#e8a020;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:#0a0a0f;margin:0 auto 12px}
 .prof-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1.2rem;color:#fff;margin-bottom:4px}
@@ -181,8 +156,6 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
 .pmenu-lbl{font-weight:600;color:#0a0a0f;font-size:0.9rem;flex:1}
 .pmenu-arr{color:#888;font-size:0.9rem}
 .pmenu-item.danger .pmenu-lbl{color:#d63840}
-
-/* REVIEW */
 .rev-sec{background:#fff;border-radius:16px;margin:12px 16px;padding:18px;border:1px solid #e8e4dc}
 .rev-ttl{font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:#0a0a0f;margin-bottom:14px}
 .rev-lbl{font-size:0.68rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
@@ -193,44 +166,33 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
 .rtag{padding:7px 14px;border:1.5px solid #e0dbd0;border-radius:30px;font-size:0.75rem;font-weight:600;color:#888;cursor:pointer;background:#fff}
 .rtag.on{border-color:#0a0a0f;background:#0a0a0f;color:#fff}
 .rev-ta{width:100%;padding:12px 14px;border:1.5px solid #e0dbd0;border-radius:12px;font-size:0.85rem;font-family:'DM Sans',sans-serif;color:#0a0a0f;resize:none;height:80px;outline:none}
-.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
-.photo-box{background:#f5f0e8;border:2px dashed #e0dbd0;border-radius:14px;height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden}
-.photo-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:12px}
-.photo-ico{font-size:1.6rem;margin-bottom:4px}
-.photo-lbl{font-size:0.65rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.08em}
-
-/* BOTTOM NAV */
 .bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:1px solid #e8e4dc;display:flex;padding:10px 0 14px;z-index:20}
 .bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
 .bnav-ico{font-size:1.3rem}
 .bnav-lbl{font-size:0.6rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.04em}
 .bnav-item.on .bnav-lbl{color:#0a0a0f}
-
-/* TOAST */
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#0a0a0f;color:#fff;padding:11px 22px;border-radius:30px;font-size:0.82rem;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* CANCELLED */
 .cancel-page{align-items:center;justify-content:center;padding:40px 28px;text-align:center;background:#faf8f3}
+.empty-state{text-align:center;padding:40px 20px;color:#888}
+.empty-state .ico{font-size:3rem;margin-bottom:12px}
+.empty-state .msg{font-size:0.88rem;line-height:1.6}
 </style>
 </head>
 <body>
 
-<!-- ══ AUTH ══ -->
+<!-- AUTH -->
 <div class="page show" id="pgAuth">
   <div class="auth-hero">
     <div class="auth-wordmark">Dhobi<span>Wala</span></div>
     <div class="auth-tagline">Ironing pickup &amp; delivery in Rourkela</div>
   </div>
   <div class="auth-body">
-    <!-- TAB ROW -->
     <div class="tab-row">
       <button class="tab-btn active" id="tbLogin" onclick="showTab('login')">Login</button>
       <button class="tab-btn" id="tbSignup" onclick="showTab('signup')">Create Account</button>
     </div>
-    <!-- ERROR -->
     <div class="err-box" id="authErr"></div>
-    <!-- LOGIN -->
     <div class="form-wrap show" id="fmLogin">
       <div class="field">
         <label class="field-label">Phone Number</label>
@@ -246,10 +208,9 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
           <button class="eye-btn" type="button" onclick="toggleEye('lPass',this)">👁</button>
         </div>
       </div>
-      <button class="submit-btn dark" onclick="doLogin()">Login →</button>
+      <button class="submit-btn dark" id="btnLogin" onclick="doLogin()">Login →</button>
       <div class="switch-hint">New here? <a onclick="showTab('signup')">Create account</a></div>
     </div>
-    <!-- SIGNUP -->
     <div class="form-wrap" id="fmSignup">
       <div class="field">
         <label class="field-label">Full Name</label>
@@ -269,13 +230,13 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
           <button class="eye-btn" type="button" onclick="toggleEye('sPass',this)">👁</button>
         </div>
       </div>
-      <button class="submit-btn gold" onclick="doSignup()">Create Account →</button>
+      <button class="submit-btn gold" id="btnSignup" onclick="doSignup()">Create Account →</button>
       <div class="switch-hint">Already registered? <a onclick="showTab('login')">Login</a></div>
     </div>
   </div>
 </div>
 
-<!-- ══ HOME ══ -->
+<!-- HOME -->
 <div class="page" id="pgHome">
   <div class="home-header">
     <div class="home-top">
@@ -293,7 +254,7 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
     <div class="promo-code">WELCOME50</div>
   </div>
   <div class="sec-title">Shops near you</div>
-  <div class="shops" id="shopsList"></div>
+  <div class="shops" id="shopsList"><div class="empty-state"><div class="ico">🔄</div><div class="msg">Loading shops...</div></div></div>
   <div class="bnav">
     <div class="bnav-item on" onclick="go('pgHome')"><div class="bnav-ico">🏠</div><div class="bnav-lbl">Home</div></div>
     <div class="bnav-item" onclick="go('pgOrders')"><div class="bnav-ico">📦</div><div class="bnav-lbl">Orders</div></div>
@@ -301,7 +262,7 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
   </div>
 </div>
 
-<!-- ══ SHOP DETAIL ══ -->
+<!-- SHOP DETAIL -->
 <div class="page" id="pgShop">
   <div class="detail-hero">
     <div class="back-row" onclick="go('pgHome')"><div class="back-ico">←</div><div class="back-lbl">All shops</div></div>
@@ -322,7 +283,7 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
   </div>
 </div>
 
-<!-- ══ CART ══ -->
+<!-- CART -->
 <div class="page" id="pgCart">
   <div class="page-hdr"><div class="hdr-back" onclick="go('pgShop')">←</div><div class="hdr-title">Your Cart</div></div>
   <div class="sec-card"><div class="sec-card-title">🧺 Items</div><div id="cartItems"></div></div>
@@ -340,12 +301,12 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
   <div class="sec-card" id="orderSum"></div>
   <div style="padding:0 16px;margin-bottom:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.78rem;color:#888;text-transform:uppercase;letter-spacing:0.06em">Payment</div>
   <div class="pay-row">
-    <button class="pay-btn" onclick="placeOrder('cod')">💵 Cash on Delivery</button>
-    <button class="pay-btn solid" onclick="placeOrder('upi')">📱 Pay via UPI</button>
+    <button class="pay-btn" id="btnCod" onclick="placeOrder('cod')">💵 Cash on Delivery</button>
+    <button class="pay-btn solid" id="btnUpi" onclick="placeOrder('upi')">📱 Pay via UPI</button>
   </div>
 </div>
 
-<!-- ══ SUCCESS ══ -->
+<!-- SUCCESS -->
 <div class="page success-page" id="pgSuccess">
   <div class="s-ring">🎉</div>
   <div class="s-title">Order Placed!</div>
@@ -356,16 +317,10 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
   <button class="s-btn ghost" onclick="go('pgHome')">Back to Home</button>
 </div>
 
-<!-- ══ TRACKING ══ -->
+<!-- TRACKING -->
 <div class="page" id="pgTrack">
   <div class="track-map"><div class="map-grid"></div><div class="map-pin"></div></div>
-  <div class="rider-strip">
-    <div class="rider-ava">🏍</div>
-    <div><div class="rider-name">Ramesh Kumar</div><div class="rider-eta">Arriving ~12 min · ⭐ 4.8</div></div>
-    <button class="rider-call" onclick="toast('Calling Ramesh...')">📞 Call</button>
-  </div>
-  <!-- 15 MIN TIMER -->
-  <div style="background:#fef9ec;border:1.5px solid #fde68a;border-radius:14px;margin:0 16px 14px;padding:14px 16px">
+  <div style="background:#fef9ec;border:1.5px solid #fde68a;border-radius:14px;margin:14px 16px;padding:14px 16px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <div style="font-size:0.78rem;font-weight:700;color:#d97706">⏳ Waiting for vendor to accept</div>
       <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:#d97706" id="timerDisp">15:00</div>
@@ -378,7 +333,7 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
   <div class="track-title" id="trackTitle">Order Confirmed!</div>
   <div class="steps">
     <div class="step done"><div class="step-dot sd-done">✓</div><div><div class="step-lbl">Order placed</div><div class="step-sub" id="t1">Just now</div></div></div>
-    <div class="step done"><div class="step-dot sd-live">🏪</div><div><div class="step-lbl">Waiting for vendor to accept</div><div class="step-sub" id="vendorSub">Notifying shop...</div></div></div>
+    <div class="step done"><div class="step-dot sd-live">🏪</div><div><div class="step-lbl">Waiting for vendor to accept</div><div class="step-sub">Notifying shop...</div></div></div>
     <div class="step"><div class="step-dot sd-wait">3</div><div><div class="step-lbl">Rider assigned</div><div class="step-sub">After vendor accepts</div></div></div>
     <div class="step"><div class="step-dot sd-wait">4</div><div><div class="step-lbl">Clothes picked up</div><div class="step-sub">~30 min</div></div></div>
     <div class="step"><div class="step-dot sd-wait">5</div><div><div class="step-lbl">Ironing in progress</div><div class="step-sub">2–3 hrs</div></div></div>
@@ -387,26 +342,14 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
   </div>
   <div style="padding:0 16px 32px;display:flex;flex-direction:column;gap:10px">
     <button onclick="go('pgHome')" style="width:100%;padding:14px;background:#0a0a0f;color:#fff;border:none;border-radius:14px;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer">Back to Home</button>
-    <button onclick="openReview()" style="width:100%;padding:14px;background:#e8a020;color:#0a0a0f;border:none;border-radius:14px;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer">⭐ Rate Your Experience</button>
+    <button onclick="go('pgReview')" style="width:100%;padding:14px;background:#e8a020;color:#0a0a0f;border:none;border-radius:14px;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer">⭐ Rate Your Experience</button>
   </div>
 </div>
 
-<!-- ══ ORDERS ══ -->
+<!-- ORDERS -->
 <div class="page" id="pgOrders">
   <div class="page-hdr"><div class="hdr-back" onclick="go('pgHome')">←</div><div class="hdr-title">My Orders</div></div>
-  <div class="olist">
-    <div class="ocard" onclick="go('pgTrack')">
-      <div class="ocard-top"><div><div class="onum">#DW102345</div><div class="oshop">Civil Iron Palace</div></div><div class="obadge ob-pend">⏳ Pending</div></div>
-      <div class="oitems">3 Shirts, 2 Trousers</div>
-      <div class="ofooter"><div class="oamt">₹170</div><div class="odate">Today</div></div>
-    </div>
-    <div class="ocard">
-      <div class="ocard-top"><div><div class="onum">#DW102289</div><div class="oshop">Rourkela Press &amp; Shine</div></div><div class="obadge ob-done">✅ Delivered</div></div>
-      <div class="oitems">2 Sarees, 1 Kurta</div>
-      <div class="ofooter"><div class="oamt">₹210</div><div class="odate">Yesterday</div></div>
-      <button class="rate-btn" onclick="openReview()">⭐ Rate this order</button>
-    </div>
-  </div>
+  <div class="olist" id="ordersList"><div class="empty-state"><div class="ico">🔄</div><div class="msg">Loading your orders...</div></div></div>
   <div class="bnav">
     <div class="bnav-item" onclick="go('pgHome')"><div class="bnav-ico">🏠</div><div class="bnav-lbl">Home</div></div>
     <div class="bnav-item on"><div class="bnav-ico">📦</div><div class="bnav-lbl">Orders</div></div>
@@ -414,7 +357,7 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
   </div>
 </div>
 
-<!-- ══ PROFILE ══ -->
+<!-- PROFILE -->
 <div class="page" id="pgProfile">
   <div class="prof-hero">
     <div class="back-row" style="justify-content:flex-start;padding:0 0 16px" onclick="go('pgHome')"><div class="back-ico" style="color:rgba(255,255,255,0.4)">←</div></div>
@@ -437,13 +380,9 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
   </div>
 </div>
 
-<!-- ══ REVIEW ══ -->
+<!-- REVIEW -->
 <div class="page" id="pgReview">
   <div class="page-hdr"><div class="hdr-back" onclick="go('pgOrders')">←</div><div class="hdr-title">Rate Your Experience</div></div>
-  <div style="background:#0a0a0f;padding:14px 20px;display:flex;justify-content:space-between;align-items:center">
-    <div><div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">Order #DW102289</div><div style="font-family:'Syne',sans-serif;font-weight:700;color:#fff;font-size:0.95rem">Rourkela Press &amp; Shine</div></div>
-    <div style="background:#e8a020;border-radius:20px;padding:4px 14px;font-size:0.7rem;font-weight:800;color:#0a0a0f">Delivered ✓</div>
-  </div>
   <div style="padding-bottom:32px">
     <div class="rev-sec">
       <div class="rev-ttl">🏪 Rate the Shop</div>
@@ -451,7 +390,6 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
       <div class="stars" id="shopStars"><span class="star" onclick="setStar('shop',1)">★</span><span class="star" onclick="setStar('shop',2)">★</span><span class="star" onclick="setStar('shop',3)">★</span><span class="star" onclick="setStar('shop',4)">★</span><span class="star" onclick="setStar('shop',5)">★</span></div>
       <div class="rev-lbl">What did you like?</div>
       <div class="rtags"><span class="rtag" onclick="this.classList.toggle('on')">Perfect ironing</span><span class="rtag" onclick="this.classList.toggle('on')">Neat folding</span><span class="rtag" onclick="this.classList.toggle('on')">No damage</span><span class="rtag" onclick="this.classList.toggle('on')">Great starch</span></div>
-      <div class="rev-lbl">Comments</div>
       <textarea class="rev-ta" id="shopComment" placeholder="How was the ironing quality..."></textarea>
     </div>
     <div class="rev-sec">
@@ -461,18 +399,6 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
       <div class="rev-lbl">Behaviour</div>
       <div class="stars" id="rBehStars"><span class="star" onclick="setStar('rBeh',1)">★</span><span class="star" onclick="setStar('rBeh',2)">★</span><span class="star" onclick="setStar('rBeh',3)">★</span><span class="star" onclick="setStar('rBeh',4)">★</span><span class="star" onclick="setStar('rBeh',5)">★</span></div>
       <div class="rtags"><span class="rtag" onclick="this.classList.toggle('on')">On time</span><span class="rtag" onclick="this.classList.toggle('on')">Very polite</span><span class="rtag" onclick="this.classList.toggle('on')">Careful handling</span></div>
-      <textarea class="rev-ta" id="riderComment" placeholder="How was the rider's behaviour..."></textarea>
-    </div>
-    <div class="rev-sec">
-      <div class="rev-ttl">📸 Before &amp; After Photos</div>
-      <div class="photo-grid">
-        <div><div style="font-size:0.65rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Before</div>
-          <div class="photo-box" onclick="document.getElementById('bInput').click()"><div class="photo-ico">📷</div><div class="photo-lbl">Tap to add</div><input type="file" id="bInput" accept="image/*" style="display:none" onchange="prevPhoto(this,'bBox')"/></div>
-        </div>
-        <div><div style="font-size:0.65rem;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">After</div>
-          <div class="photo-box" onclick="document.getElementById('aInput').click()"><div class="photo-ico">✨</div><div class="photo-lbl">Tap to add</div><input type="file" id="aInput" accept="image/*" style="display:none" onchange="prevPhoto(this,'aBox')"/></div>
-        </div>
-      </div>
     </div>
     <div style="padding:0 16px;display:flex;flex-direction:column;gap:10px">
       <button onclick="submitReview()" style="width:100%;padding:14px;background:#0a0a0f;color:#fff;border:none;border-radius:14px;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer">Submit Review 🌟</button>
@@ -481,19 +407,15 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
   </div>
 </div>
 
-<!-- ══ REVIEW SUCCESS ══ -->
+<!-- REVIEW SUCCESS -->
 <div class="page success-page" id="pgRevSuccess">
   <div class="s-ring">🌟</div>
   <div class="s-title">Thank you!</div>
   <div class="s-sub" style="margin-bottom:20px">Your review helps DhobiWala improve<br/>for everyone in Rourkela.</div>
-  <div style="background:rgba(232,160,32,0.1);border:1px solid rgba(232,160,32,0.2);border-radius:16px;padding:16px 24px;width:100%;margin-bottom:24px;text-align:center">
-    <div style="font-size:0.7rem;color:#e8a020;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px">🎁 Reward Earned</div>
-    <div style="font-family:'Syne',sans-serif;font-weight:700;color:#fff;font-size:1rem">₹20 cashback added to wallet!</div>
-  </div>
   <button class="s-btn primary" onclick="go('pgHome')">Back to Home</button>
 </div>
 
-<!-- ══ CANCELLED ══ -->
+<!-- CANCELLED -->
 <div class="page cancel-page" id="pgCancelled">
   <div style="font-size:4rem;margin-bottom:20px">⏰</div>
   <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:#0a0a0f;margin-bottom:10px">Order Cancelled</div>
@@ -501,142 +423,214 @@ body{font-family:'DM Sans',sans-serif;background:#faf8f3;max-width:430px;margin:
   <button onclick="go('pgHome')" style="width:100%;max-width:300px;padding:14px;background:#0a0a0f;color:#fff;border:none;border-radius:14px;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer;margin-bottom:10px">Try Another Shop →</button>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toastEl"></div>
 
 <script>
-// ── SHOPS DATA ──
-var SHOPS = [
-  {idx:0,name:'Civil Iron Palace',rating:'4.9',reviews:124,from:10,badge:'⭐ TOP RATED',si:'si1',ico:'👔',tags:['Shirts','Trousers','Sarees','Suits'],openTime:'08:00',closeTime:'21:00',
-    svcs:[{id:'shirt',ico:'👔',name:'Shirt',price:15,qty:0},{id:'trouser',ico:'👖',name:'Trouser',price:20,qty:0},{id:'saree',ico:'🥻',name:'Saree',price:40,qty:0},{id:'suit',ico:'🤵',name:'Suit (2pc)',price:80,qty:0},{id:'kurta',ico:'🧥',name:'Kurta',price:20,qty:0},{id:'bed',ico:'🛏',name:'Bedsheet',price:35,qty:0}]},
-  {idx:1,name:'Rourkela Press & Shine',rating:'4.8',reviews:87,from:12,badge:'🚀 FAST',si:'si2',ico:'🥻',tags:['Sarees','Kurtas','Lehengas'],openTime:'07:00',closeTime:'22:00',
-    svcs:[{id:'saree',ico:'🥻',name:'Saree',price:45,qty:0},{id:'kurta',ico:'🧥',name:'Kurta Set',price:35,qty:0},{id:'lehenga',ico:'👗',name:'Lehenga',price:100,qty:0},{id:'shirt',ico:'👔',name:'Shirt',price:15,qty:0},{id:'trouser',ico:'👖',name:'Trouser',price:20,qty:0}]},
-  {idx:2,name:'Township Laundry Pro',rating:'4.6',reviews:52,from:15,badge:'💎 PREMIUM',si:'si3',ico:'🤵',tags:['Suits','Blazers','Formals'],openTime:'09:00',closeTime:'20:00',
-    svcs:[{id:'suit3',ico:'🤵',name:'Suit (3pc)',price:120,qty:0},{id:'blazer',ico:'🥼',name:'Blazer',price:80,qty:0},{id:'fshirt',ico:'👔',name:'Formal Shirt',price:20,qty:0},{id:'coat',ico:'🧥',name:'Overcoat',price:90,qty:0}]},
+// ─── CONFIG ──────────────────────────────────────
+var API = 'https://dhobiwala-backend.onrender.com';
+
+// Fallback shops if backend has none yet
+var FALLBACK_SHOPS = [
+  {_id:'s1',name:'Civil Iron Palace',rating:4.9,reviews:124,minPrice:10,badge:'⭐ TOP RATED',si:'si1',ico:'👔',tags:['Shirts','Trousers','Sarees','Suits'],openTime:'08:00',closeTime:'21:00',
+    svcs:[{id:'shirt',ico:'👔',name:'Shirt',price:15},{id:'trouser',ico:'👖',name:'Trouser',price:20},{id:'saree',ico:'🥻',name:'Saree',price:40},{id:'suit',ico:'🤵',name:'Suit (2pc)',price:80},{id:'kurta',ico:'🧥',name:'Kurta',price:20},{id:'bed',ico:'🛏',name:'Bedsheet',price:35}]},
+  {_id:'s2',name:'Rourkela Press & Shine',rating:4.8,reviews:87,minPrice:12,badge:'🚀 FAST',si:'si2',ico:'🥻',tags:['Sarees','Kurtas','Lehengas'],openTime:'07:00',closeTime:'22:00',
+    svcs:[{id:'saree',ico:'🥻',name:'Saree',price:45},{id:'kurta',ico:'🧥',name:'Kurta Set',price:35},{id:'lehenga',ico:'👗',name:'Lehenga',price:100},{id:'shirt',ico:'👔',name:'Shirt',price:15},{id:'trouser',ico:'👖',name:'Trouser',price:20}]},
+  {_id:'s3',name:'Township Laundry Pro',rating:4.6,reviews:52,minPrice:15,badge:'💎 PREMIUM',si:'si3',ico:'🤵',tags:['Suits','Blazers','Formals'],openTime:'09:00',closeTime:'20:00',
+    svcs:[{id:'suit3',ico:'🤵',name:'Suit (3pc)',price:120},{id:'blazer',ico:'🥼',name:'Blazer',price:80},{id:'fshirt',ico:'👔',name:'Formal Shirt',price:20},{id:'coat',ico:'🧥',name:'Overcoat',price:90}]},
 ];
+var SHOP_COLORS = ['si1','si2','si3'];
+var SHOP_ICONS  = ['👔','🥻','🤵','🧺','👗'];
+var SHOP_BADGES = ['⭐ TOP RATED','🚀 FAST','💎 PREMIUM','🆕 NEW'];
 
-var curShop=0, cart=[], selSlot='Morning 8–10 AM', orderTimer=null;
-var starState={shop:0,rPunc:0,rBeh:0};
+var SHOPS = [], curShop = null, cart = [], selSlot = 'Morning 8–10 AM';
+var orderTimer = null, timerSecs = 0;
+var starState = {shop:0,rPunc:0,rBeh:0};
+var currentOrderId = null;
 
-// ── NAVIGATION ──
-function go(pgId){
+// ─── SESSION ─────────────────────────────────────
+function getToken()    { return localStorage.getItem('dw_token'); }
+function saveToken(t)  { localStorage.setItem('dw_token', t); }
+function getUser()     { try { return JSON.parse(localStorage.getItem('dw_user')||'null'); } catch(e){ return null; } }
+function saveUser(u)   { localStorage.setItem('dw_user', JSON.stringify(u)); }
+
+// ─── NAVIGATION ──────────────────────────────────
+function go(pgId) {
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('show'); });
   document.getElementById(pgId).classList.add('show');
   window.scrollTo(0,0);
-  if(pgId==='pgHome') renderShops();
+  if (pgId === 'pgHome')   loadShops();
+  if (pgId === 'pgOrders') loadOrders();
+  if (pgId === 'pgTrack')  setTimeout(startTimer, 500);
+  if (pgId === 'pgHome' || pgId === 'pgOrders') {
+    if (orderTimer) { clearInterval(orderTimer); orderTimer = null; }
+  }
 }
 
-// ── AUTH ──
-function showTab(t){
+// ─── AUTH HELPERS ────────────────────────────────
+function showTab(t) {
   document.getElementById('tbLogin').className  = 'tab-btn' + (t==='login'  ? ' active' : '');
   document.getElementById('tbSignup').className = 'tab-btn' + (t==='signup' ? ' active' : '');
   document.getElementById('fmLogin').className  = 'form-wrap' + (t==='login'  ? ' show' : '');
   document.getElementById('fmSignup').className = 'form-wrap' + (t==='signup' ? ' show' : '');
-  document.getElementById('authErr').style.display='none';
+  document.getElementById('authErr').style.display = 'none';
 }
-
-function showErr(m){
-  var e=document.getElementById('authErr');
-  e.textContent=m; e.style.display='block';
-}
-
-function toggleEye(id,btn){
+function showErr(m) { var e=document.getElementById('authErr'); e.textContent=m; e.style.display='block'; }
+function toggleEye(id,btn) {
   var inp=document.getElementById(id);
-  if(inp.type==='password'){ inp.type='text'; btn.textContent='🙈'; }
+  if (inp.type==='password') { inp.type='text'; btn.textContent='🙈'; }
   else { inp.type='password'; btn.textContent='👁'; }
 }
 
-function getUsers(){ try{ return JSON.parse(localStorage.getItem('dw_users')||'{}'); }catch(e){ return {}; } }
-function saveUsers(u){ localStorage.setItem('dw_users',JSON.stringify(u)); }
-function getSess(){ try{ return JSON.parse(localStorage.getItem('dw_sess')||'null'); }catch(e){ return null; } }
-function saveSess(u){ localStorage.setItem('dw_sess',JSON.stringify(u)); }
-
-function doLogin(){
-  var ph=document.getElementById('lPhone').value.trim();
-  var pw=document.getElementById('lPass').value.trim();
-  if(!ph||!pw){ showErr('Please enter phone and password'); return; }
-  var users=getUsers();
-  if(!users[ph]){ showErr('No account found. Please create account first.'); return; }
-  if(users[ph].password!==pw){ showErr('Wrong password. Please try again.'); return; }
-  loginUser(users[ph]);
+// ─── LOGIN — real API ─────────────────────────────
+function doLogin() {
+  var ph = document.getElementById('lPhone').value.trim();
+  var pw = document.getElementById('lPass').value.trim();
+  if (!ph||!pw) { showErr('Please enter phone and password'); return; }
+  var btn = document.getElementById('btnLogin');
+  btn.disabled = true; btn.textContent = 'Logging in…';
+  fetch(API+'/api/auth/login', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({phone:ph, password:pw})
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    btn.disabled=false; btn.textContent='Login →';
+    if (!data.success) { showErr(data.message||'Login failed'); return; }
+    saveToken(data.token);
+    saveUser(data.user);
+    loginUser(data.user);
+  })
+  .catch(function(){ btn.disabled=false; btn.textContent='Login →'; showErr('Network error. Check connection.'); });
 }
 
-function doSignup(){
-  var nm=document.getElementById('sName').value.trim();
-  var ph=document.getElementById('sPhone').value.trim();
-  var pw=document.getElementById('sPass').value.trim();
-  if(!nm||!ph||!pw){ showErr('Please fill all fields'); return; }
-  if(ph.length!==10){ showErr('Enter a valid 10-digit phone number'); return; }
-  if(pw.length<4){ showErr('Password must be at least 4 characters'); return; }
-  var users=getUsers();
-  if(users[ph]){ showErr('Account already exists. Please login.'); return; }
-  var u={name:nm,phone:ph,password:pw};
-  users[ph]=u; saveUsers(users); loginUser(u);
+// ─── SIGNUP — real API ────────────────────────────
+function doSignup() {
+  var nm = document.getElementById('sName').value.trim();
+  var ph = document.getElementById('sPhone').value.trim();
+  var pw = document.getElementById('sPass').value.trim();
+  if (!nm||!ph||!pw) { showErr('Please fill all fields'); return; }
+  if (ph.length!==10) { showErr('Enter a valid 10-digit phone number'); return; }
+  if (pw.length<4) { showErr('Password must be at least 4 characters'); return; }
+  var btn = document.getElementById('btnSignup');
+  btn.disabled=true; btn.textContent='Creating account…';
+  fetch(API+'/api/auth/register', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({name:nm, phone:ph, password:pw})
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    btn.disabled=false; btn.textContent='Create Account →';
+    if (!data.success) { showErr(data.message||'Signup failed'); return; }
+    saveToken(data.token);
+    saveUser(data.user);
+    loginUser(data.user);
+  })
+  .catch(function(){ btn.disabled=false; btn.textContent='Create Account →'; showErr('Network error. Check connection.'); });
 }
 
-function loginUser(u){
-  saveSess(u);
-  var ini=u.name[0].toUpperCase();
-  document.getElementById('homeAva').textContent=ini;
-  document.getElementById('profAva').textContent=ini;
-  document.getElementById('profName').textContent=u.name;
-  document.getElementById('profPhone').textContent='+91 '+u.phone;
-  setGreet(u.name);
+function loginUser(u) {
+  var ini = (u.name||'A')[0].toUpperCase();
+  document.getElementById('homeAva').textContent  = ini;
+  document.getElementById('profAva').textContent  = ini;
+  document.getElementById('profName').textContent = u.name;
+  document.getElementById('profPhone').textContent= '+91 '+(u.phone||'');
+  var h=new Date().getHours();
+  var g=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  document.getElementById('homeGreet').textContent = g+', '+u.name.split(' ')[0]+'! 👋';
   go('pgHome');
 }
 
-function doLogout(){
-  localStorage.removeItem('dw_sess');
+function doLogout() {
+  localStorage.removeItem('dw_token');
+  localStorage.removeItem('dw_user');
   go('pgAuth');
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('show'); });
+  document.getElementById('pgAuth').classList.add('show');
 }
 
-function setGreet(name){
-  var h=new Date().getHours();
-  var g=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
-  document.getElementById('homeGreet').textContent=g+', '+(name?name.split(' ')[0]:'')+'! 👋';
+// ─── LOAD SHOPS — real API ────────────────────────
+function loadShops() {
+  fetch(API+'/api/shops')
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if (data.success && data.shops && data.shops.length > 0) {
+      SHOPS = data.shops.map(function(s, i){
+        // Map backend shop to UI format
+        return {
+          _id: s._id,
+          name: s.name,
+          rating: s.rating||4.5,
+          reviews: s.reviews||0,
+          minPrice: 10,
+          badge: SHOP_BADGES[i % SHOP_BADGES.length],
+          si: SHOP_COLORS[i % SHOP_COLORS.length],
+          ico: SHOP_ICONS[i % SHOP_ICONS.length],
+          tags: s.tags||['Shirts','Trousers'],
+          openTime: s.openTime||'08:00',
+          closeTime: s.closeTime||'21:00',
+          svcs: (s.services||[]).map(function(sv){
+            return {id:sv._id||sv.id, ico:sv.ico||'👔', name:sv.name, price:sv.price};
+          })
+        };
+      });
+    } else {
+      // Use fallback shops if backend has none
+      SHOPS = FALLBACK_SHOPS;
+    }
+    renderShops();
+  })
+  .catch(function(){
+    // Use fallback on network error
+    SHOPS = FALLBACK_SHOPS;
+    renderShops();
+  });
 }
 
-// ── SHOP STATUS ──
-function isOpen(s){
+// ─── SHOP HELPERS ────────────────────────────────
+function isOpen(s) {
   var now=new Date(), cur=now.getHours()*60+now.getMinutes();
-  var o=s.openTime.split(':'), c=s.closeTime.split(':');
-  return cur>=parseInt(o[0])*60+parseInt(o[1]) && cur<parseInt(c[0])*60+parseInt(c[1]);
+  var o=(s.openTime||'08:00').split(':'), c=(s.closeTime||'21:00').split(':');
+  return cur >= parseInt(o[0])*60+parseInt(o[1]) && cur < parseInt(c[0])*60+parseInt(c[1]);
 }
-function fmt12(t){
-  var p=t.split(':'), h=parseInt(p[0]), m=parseInt(p[1]);
+function fmt12(t) {
+  var p=(t||'08:00').split(':'), h=parseInt(p[0]), m=parseInt(p[1]||0);
   return (h%12||12)+(m?':'+('0'+m).slice(-2):'')+(h>=12?' PM':' AM');
 }
 
-// ── RENDER SHOPS ──
-function renderShops(){
-  document.getElementById('shopsList').innerHTML=SHOPS.map(function(s){
-    var open=isOpen(s);
-    var statusHtml=open
+function renderShops() {
+  if (!SHOPS.length) {
+    document.getElementById('shopsList').innerHTML='<div class="empty-state"><div class="ico">🏪</div><div class="msg">No shops available yet.<br/>Check back soon!</div></div>';
+    return;
+  }
+  document.getElementById('shopsList').innerHTML = SHOPS.map(function(s, idx){
+    var open = isOpen(s);
+    var statusHtml = open
       ? '<div class="shop-status status-open">🟢 Open · Closes '+fmt12(s.closeTime)+'</div>'
       : '<div class="shop-status status-closed">🔴 Closed · Opens '+fmt12(s.openTime)+'</div>';
-    return '<div class="shop-card" onclick="openShop('+s.idx+')">'
+    return '<div class="shop-card" onclick="openShop('+idx+')">'
       +'<div class="shop-img '+s.si+'"><span>'+s.ico+'</span><div class="shop-bdg">'+s.badge+'</div></div>'
-      +'<div class="shop-body">'
-      +statusHtml
+      +'<div class="shop-body">'+statusHtml
       +'<div class="shop-name">'+s.name+'</div>'
-      +'<div class="shop-meta"><span>★ '+s.rating+' ('+s.reviews+')</span><span>From ₹'+s.from+'/pc</span></div>'
-      +'<div class="shop-tags">'+s.tags.map(function(t){return '<div class="shop-tag">'+t+'</div>';}).join('')+'</div>'
+      +'<div class="shop-meta"><span>★ '+s.rating+' ('+s.reviews+')</span><span>From ₹'+s.minPrice+'/pc</span></div>'
+      +'<div class="shop-tags">'+s.tags.map(function(t){ return '<div class="shop-tag">'+t+'</div>'; }).join('')+'</div>'
       +'</div></div>';
   }).join('');
 }
 
-// ── SHOP DETAIL ──
-function openShop(idx){
-  curShop=idx;
-  var s=SHOPS[idx];
-  cart=s.svcs.map(function(x){ return Object.assign({},x,{qty:0}); });
-  document.getElementById('detName').textContent=s.name;
-  document.getElementById('detMeta').textContent='⭐ '+s.rating+' · '+(isOpen(s)?'Open now':'Closed')+' · '+fmt12(s.openTime)+'–'+fmt12(s.closeTime);
+// ─── SHOP DETAIL ─────────────────────────────────
+function openShop(idx) {
+  curShop = idx;
+  var s = SHOPS[idx];
+  cart = (s.svcs||[]).map(function(x){ return Object.assign({},x,{qty:0}); });
+  document.getElementById('detName').textContent = s.name;
+  document.getElementById('detMeta').textContent = '⭐ '+s.rating+' · '+(isOpen(s)?'Open now':'Closed')+' · '+fmt12(s.openTime)+'–'+fmt12(s.closeTime);
   renderSvcs(); updateCartBar(); go('pgShop');
 }
 
-function renderSvcs(){
-  document.getElementById('svcsGrid').innerHTML=cart.map(function(s,i){
+function renderSvcs() {
+  document.getElementById('svcsGrid').innerHTML = cart.map(function(s,i){
     return '<div class="svc-card'+(s.qty>0?' picked':'')+'" id="sc'+i+'">'
       +'<div class="svc-ico">'+s.ico+'</div>'
       +'<div class="svc-name">'+s.name+'</div>'
@@ -649,78 +643,164 @@ function renderSvcs(){
   }).join('');
 }
 
-function chQty(i,d){
-  cart[i].qty=Math.max(0,cart[i].qty+d);
-  document.getElementById('qv'+i).textContent=cart[i].qty;
-  document.getElementById('sc'+i).className='svc-card'+(cart[i].qty>0?' picked':'');
+function chQty(i,d) {
+  cart[i].qty = Math.max(0, cart[i].qty+d);
+  document.getElementById('qv'+i).textContent = cart[i].qty;
+  document.getElementById('sc'+i).className = 'svc-card'+(cart[i].qty>0?' picked':'');
   updateCartBar();
 }
 
-function updateCartBar(){
-  var items=cart.filter(function(s){return s.qty>0;});
-  var tot=items.reduce(function(a,b){return a+b.qty*b.price;},0);
-  var cnt=items.reduce(function(a,b){return a+b.qty;},0);
-  var bar=document.getElementById('cartBar');
-  if(cnt>0){
+function updateCartBar() {
+  var items = cart.filter(function(s){ return s.qty>0; });
+  var tot = items.reduce(function(a,b){ return a+b.qty*b.price; }, 0);
+  var cnt = items.reduce(function(a,b){ return a+b.qty; }, 0);
+  var bar = document.getElementById('cartBar');
+  if (cnt>0) {
     bar.classList.add('show');
-    document.getElementById('cartCnt').textContent=cnt+' item'+(cnt>1?'s':'');
-    document.getElementById('cartAmt').textContent='₹'+tot;
+    document.getElementById('cartCnt').textContent = cnt+' item'+(cnt>1?'s':'');
+    document.getElementById('cartAmt').textContent = '₹'+tot;
   } else { bar.classList.remove('show'); }
 }
 
-function goCart(){ renderCart(); go('pgCart'); }
+function goCart() { renderCart(); go('pgCart'); }
 
-function renderCart(){
-  var items=cart.filter(function(s){return s.qty>0;});
-  var sh=SHOPS[curShop];
-  document.getElementById('cartItems').innerHTML=items.map(function(s){
+function renderCart() {
+  var items = cart.filter(function(s){ return s.qty>0; });
+  var sh = SHOPS[curShop];
+  document.getElementById('cartItems').innerHTML = items.map(function(s){
     return '<div class="cart-item"><div class="ci-l"><div class="ci-ico">'+s.ico+'</div>'
       +'<div><div class="ci-name">'+s.name+'</div><div class="ci-sub">'+sh.name+'</div></div></div>'
       +'<div style="text-align:right"><div class="ci-price">₹'+(s.qty*s.price)+'</div>'
       +'<div class="ci-qty">×'+s.qty+' @ ₹'+s.price+'</div></div></div>';
   }).join('');
-  var sub=items.reduce(function(a,b){return a+b.qty*b.price;},0);
-  var disc=Math.round(sub*0.5);
-  var tot=Math.max(30,sub-disc+30);
-  document.getElementById('orderSum').innerHTML='<div class="sec-card-title">💳 Bill Summary</div>'
+  var sub = items.reduce(function(a,b){ return a+b.qty*b.price; }, 0);
+  var disc = Math.round(sub*0.5);
+  var tot = Math.max(30, sub-disc+30);
+  document.getElementById('orderSum').innerHTML = '<div class="sec-card-title">💳 Bill Summary</div>'
     +'<div class="sum-row"><span>Subtotal</span><span>₹'+sub+'</span></div>'
     +'<div class="sum-row"><span>Delivery fee</span><span>₹30</span></div>'
     +'<div class="sum-row"><span>Promo (WELCOME50)</span><span style="color:#1a9e5c">−₹'+disc+'</span></div>'
     +'<div class="sum-row total"><span>Total</span><span>₹'+tot+'</span></div>';
 }
 
-function pickSlot(el,slot){
-  document.querySelectorAll('.slot-btn').forEach(function(b){b.classList.remove('on');});
+function pickSlot(el,slot) {
+  document.querySelectorAll('.slot-btn').forEach(function(b){ b.classList.remove('on'); });
   el.classList.add('on'); selSlot=slot;
 }
 
-function placeOrder(method){
-  var st=document.getElementById('addrStreet').value;
-  var ar=document.getElementById('addrArea').value;
-  if(!st||!ar){ toast('Please enter your pickup address'); return; }
-  var id='DW'+Date.now().toString().slice(-6);
-  document.getElementById('sOrderId').textContent='Order #'+id;
-  document.getElementById('t1').textContent=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('trackTitle').textContent='Order #'+id+' — Waiting for vendor';
-  window._orderId=id;
-  go('pgSuccess');
+// ─── PLACE ORDER — real API ───────────────────────
+function placeOrder(method) {
+  var st = document.getElementById('addrStreet').value.trim();
+  var ar = document.getElementById('addrArea').value.trim();
+  if (!st||!ar) { toast('Please enter your pickup address'); return; }
+
+  var items = cart.filter(function(s){ return s.qty>0; });
+  if (!items.length) { toast('Cart is empty'); return; }
+
+  var sub  = items.reduce(function(a,b){ return a+b.qty*b.price; }, 0);
+  var disc = Math.round(sub*0.5);
+  var tot  = Math.max(30, sub-disc+30);
+  var sh   = SHOPS[curShop];
+
+  document.getElementById('btnCod').disabled = true;
+  document.getElementById('btnUpi').disabled = true;
+  document.getElementById('btnCod').textContent = 'Placing…';
+  document.getElementById('btnUpi').textContent = 'Placing…';
+
+  var token = getToken();
+  fetch(API+'/api/orders', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+    body: JSON.stringify({
+      shopId: sh._id,
+      shopName: sh.name,
+      items: items.map(function(i){ return {name:i.name, qty:i.qty, price:i.price}; }),
+      address: st+', '+ar,
+      slot: selSlot,
+      payment: method,
+      total: tot,
+      promoDiscount: disc
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    document.getElementById('btnCod').disabled=false;
+    document.getElementById('btnUpi').disabled=false;
+    document.getElementById('btnCod').textContent='💵 Cash on Delivery';
+    document.getElementById('btnUpi').textContent='📱 Pay via UPI';
+    if (!data.success) { toast(data.message||'Order failed. Try again.'); return; }
+    currentOrderId = data.order._id || data.order.id;
+    var dispId = 'DW'+(currentOrderId||Date.now()).toString().slice(-6).toUpperCase();
+    document.getElementById('sOrderId').textContent = 'Order #'+dispId;
+    document.getElementById('t1').textContent = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('trackTitle').textContent = 'Order #'+dispId+' — Waiting for vendor';
+    go('pgSuccess');
+  })
+  .catch(function(){
+    document.getElementById('btnCod').disabled=false;
+    document.getElementById('btnUpi').disabled=false;
+    document.getElementById('btnCod').textContent='💵 Cash on Delivery';
+    document.getElementById('btnUpi').textContent='📱 Pay via UPI';
+    toast('Network error. Please try again.');
+  });
 }
 
-// ── 15 MIN TIMER ──
-var timerSecs=0;
-function startTimer(){
-  if(orderTimer) clearInterval(orderTimer);
-  timerSecs=15*60;
+// ─── LOAD ORDERS — real API ───────────────────────
+function loadOrders() {
+  var token = getToken();
+  document.getElementById('ordersList').innerHTML = '<div class="empty-state"><div class="ico">🔄</div><div class="msg">Loading your orders...</div></div>';
+  fetch(API+'/api/orders/my', {
+    headers:{'Authorization':'Bearer '+token}
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if (!data.success || !data.orders || !data.orders.length) {
+      document.getElementById('ordersList').innerHTML = '<div class="empty-state"><div class="ico">📦</div><div class="msg">No orders yet.<br/>Place your first order!</div></div>';
+      return;
+    }
+    var statusMap = {
+      pending_vendor:'⏳ Pending', accepted:'✅ Accepted', rejected:'❌ Rejected',
+      ironing:'🔥 Ironing', ready:'✅ Ready', out_for_delivery:'🏍 On way',
+      delivered:'✅ Delivered'
+    };
+    var badgeMap = {
+      pending_vendor:'ob-pend', accepted:'ob-pend', rejected:'ob-done',
+      ironing:'ob-pend', ready:'ob-pend', out_for_delivery:'ob-pend', delivered:'ob-done'
+    };
+    document.getElementById('ordersList').innerHTML = data.orders.map(function(o){
+      var status = statusMap[o.status]||o.status;
+      var badge  = badgeMap[o.status]||'ob-pend';
+      var dispId = 'DW'+(o._id||'').slice(-6).toUpperCase();
+      var itemsTxt = (o.items||[]).map(function(i){ return i.qty+'× '+i.name; }).join(', ');
+      var dateStr = o.createdAt ? new Date(o.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'}) : 'Today';
+      var rateBtn = o.status==='delivered' ? '<button class="rate-btn" onclick="go(\'pgReview\')">⭐ Rate this order</button>' : '';
+      return '<div class="ocard" onclick="go(\'pgTrack\')">'
+        +'<div class="ocard-top"><div><div class="onum">#'+dispId+'</div><div class="oshop">'+(o.shopName||'Shop')+'</div></div>'
+        +'<div class="obadge '+badge+'">'+status+'</div></div>'
+        +'<div class="oitems">'+itemsTxt+'</div>'
+        +'<div class="ofooter"><div class="oamt">₹'+(o.total||0)+'</div><div class="odate">'+dateStr+'</div></div>'
+        +rateBtn+'</div>';
+    }).join('');
+  })
+  .catch(function(){
+    document.getElementById('ordersList').innerHTML = '<div class="empty-state"><div class="ico">⚠️</div><div class="msg">Could not load orders.<br/>Check your connection.</div></div>';
+  });
+}
+
+// ─── 15 MIN TIMER ────────────────────────────────
+function startTimer() {
+  if (orderTimer) clearInterval(orderTimer);
+  timerSecs = 15*60;
   updateTimerUI();
-  orderTimer=setInterval(function(){
+  orderTimer = setInterval(function(){
     timerSecs--;
     updateTimerUI();
-    if(timerSecs===5*60) toast('⚠️ Vendor has 5 minutes left to accept');
-    if(timerSecs===60) toast('🚨 1 minute left!');
-    if(timerSecs<=0){ clearInterval(orderTimer); orderTimer=null; go('pgCancelled'); }
-  },1000);
+    if (timerSecs===5*60) toast('⚠️ Vendor has 5 minutes left to accept');
+    if (timerSecs===60)   toast('🚨 1 minute left!');
+    if (timerSecs<=0) { clearInterval(orderTimer); orderTimer=null; go('pgCancelled'); }
+  }, 1000);
 }
-function updateTimerUI(){
+function updateTimerUI() {
   var m=Math.floor(timerSecs/60), s=timerSecs%60;
   var pct=(timerSecs/(15*60))*100;
   var urgent=timerSecs<=120;
@@ -728,63 +808,39 @@ function updateTimerUI(){
   document.getElementById('timerDisp').style.color=urgent?'#dc2626':'#d97706';
   document.getElementById('timerFill').style.width=pct+'%';
   document.getElementById('timerFill').style.background=urgent?'#dc2626':'#f59e0b';
-  if(urgent) document.getElementById('timerSub').textContent='🚨 Expiring soon!';
+  if (urgent) document.getElementById('timerSub').textContent='🚨 Expiring soon!';
 }
 
-// ── REVIEW ──
-function openReview(){ go('pgReview'); }
-function setStar(type,val){
+// ─── REVIEW ──────────────────────────────────────
+function setStar(type,val) {
   starState[type]=val;
   var map={shop:'shopStars',rPunc:'rPuncStars',rBeh:'rBehStars'};
   document.getElementById(map[type]).querySelectorAll('.star').forEach(function(s,i){
-    s.classList.toggle('on',i<val);
+    s.classList.toggle('on', i<val);
   });
 }
-function prevPhoto(inp,boxId){
-  var f=inp.files[0]; if(!f) return;
-  var r=new FileReader();
-  r.onload=function(e){
-    var b=document.getElementById(boxId);
-    var img=document.createElement('img'); img.src=e.target.result; b.appendChild(img);
-    b.querySelector('.photo-ico').style.display='none';
-    b.querySelector('.photo-lbl').style.display='none';
-  };
-  r.readAsDataURL(f);
-}
-function submitReview(){
-  if(!starState.shop){ toast('Please rate the shop'); return; }
-  if(!starState.rPunc){ toast('Please rate rider punctuality'); return; }
-  if(!starState.rBeh){ toast('Please rate rider behaviour'); return; }
+function submitReview() {
+  if (!starState.shop)  { toast('Please rate the shop'); return; }
+  if (!starState.rPunc) { toast('Please rate rider punctuality'); return; }
+  if (!starState.rBeh)  { toast('Please rate rider behaviour'); return; }
   go('pgRevSuccess');
 }
 
-// ── TOAST ──
-function toast(msg){
+// ─── TOAST ───────────────────────────────────────
+function toast(msg) {
   var el=document.getElementById('toastEl');
   el.textContent=msg; el.classList.add('show');
-  setTimeout(function(){ el.classList.remove('show'); },2600);
+  setTimeout(function(){ el.classList.remove('show'); }, 2600);
 }
 
-// ── BOOT ──
+// ─── BOOT ────────────────────────────────────────
 (function(){
-  try {
-    var sess=localStorage.getItem('dw_sess');
-    if(sess){
-      var u=JSON.parse(sess);
-      if(u && u.name && u.phone){ loginUser(u); return; }
-    }
-  } catch(e){}
-  // No session - stay on auth page (already showing)
-  setGreet('');
+  var token = getToken();
+  var user  = getUser();
+  if (token && user && user.name) {
+    loginUser(user);
+  }
 })();
-
-// Start timer when tracking page shown - hook into go()
-var _go=go;
-go=function(pgId){
-  _go(pgId);
-  if(pgId==='pgTrack') setTimeout(startTimer,500);
-  if(pgId==='pgHome'||pgId==='pgOrders'){ if(orderTimer){ clearInterval(orderTimer); orderTimer=null; } }
-};
 </script>
 </body>
 </html>
