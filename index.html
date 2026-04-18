@@ -557,18 +557,23 @@ function loadShops() {
           isOpen: s.isOpen !== undefined ? s.isOpen : true,
           rating: s.rating||{average:0,count:0},
           reviews: (s.rating&&s.rating.count)||0,
-          minPrice: 10,
+          minPrice: Math.ceil(((s.services||[]).filter(function(sv){ return sv.isAvailable !== false; }).reduce(function(mn,sv){ return Math.min(mn, sv.price||999); }, 999)) * 1.15) || 10,
           badge: SHOP_BADGES[i % SHOP_BADGES.length],
           si: SHOP_COLORS[i % SHOP_COLORS.length],
           ico: SHOP_ICONS[i % SHOP_ICONS.length],
           tags: s.tags||['Shirts','Trousers'],
           openTime: s.openTime||'08:00',
           closeTime: s.closeTime||'21:00',
-          svcs: (s.services||[]).map(function(sv){
-            var nm = sv.label || sv.name || '';
-            var ic = sv.icon || sv.ico || '👔';
-            var sid = sv.id || (sv._id && sv._id.toString()) || nm.toLowerCase();
-            return { id: sid, ico: ic, name: nm || 'Item', price: sv.price || 0 };
+          svcs: (s.services||[]).filter(function(sv){ return sv.isAvailable !== false; }).map(function(sv){
+            var basePrice = sv.price || 0;
+            var customerPrice = Math.ceil(basePrice * 1.15); // 15% platform commission
+            return {
+              id:    sv.id || '',
+              ico:   sv.icon || sv.ico || '👔',
+              name:  sv.label || sv.name || sv.id || 'Item',
+              price: customerPrice,
+              basePrice: basePrice
+            };
           })
         };
       });
@@ -675,7 +680,8 @@ function renderCart() {
     +'<div class="sum-row"><span>Subtotal</span><span>₹'+sub+'</span></div>'
     +'<div class="sum-row"><span>Delivery fee</span><span>₹30</span></div>'
     +'<div class="sum-row"><span>Promo (WELCOME50)</span><span style="color:#1a9e5c">−₹'+disc+'</span></div>'
-    +'<div class="sum-row total"><span>Total</span><span>₹'+tot+'</span></div>';
+    +'<div class="sum-row total"><span>Total</span><span>₹'+tot+'</span></div>'
+    +'<div style="font-size:0.68rem;color:#888;margin-top:8px;line-height:1.5">Prices include 15% platform fee. Vendors receive the base amount.</div>';
 }
 
 function pickSlot(el,slot) {
@@ -695,6 +701,7 @@ function placeOrder(method) {
   var sub  = items.reduce(function(a,b){ return a+b.qty*b.price; }, 0);
   var disc = Math.round(sub*0.5);
   var tot  = Math.max(30, sub-disc+30);
+  // Note: prices already include 15% platform commission
   var sh   = SHOPS[curShop];
 
   document.getElementById('btnCod').disabled = true;
