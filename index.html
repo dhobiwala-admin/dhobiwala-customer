@@ -554,8 +554,9 @@ function loadShops() {
         return {
           _id: s._id,
           name: s.name,
-          rating: s.rating||4.5,
-          reviews: s.reviews||0,
+          isOpen: s.isOpen !== undefined ? s.isOpen : true,
+          rating: s.rating||{average:0,count:0},
+          reviews: (s.rating&&s.rating.count)||0,
           minPrice: 10,
           badge: SHOP_BADGES[i % SHOP_BADGES.length],
           si: SHOP_COLORS[i % SHOP_COLORS.length],
@@ -582,9 +583,8 @@ function loadShops() {
 
 // ─── SHOP HELPERS ────────────────────────────────
 function isOpen(s) {
-  var now=new Date(), cur=now.getHours()*60+now.getMinutes();
-  var o=(s.openTime||'08:00').split(':'), c=(s.closeTime||'21:00').split(':');
-  return cur >= parseInt(o[0])*60+parseInt(o[1]) && cur < parseInt(c[0])*60+parseInt(c[1]);
+  // Use vendor-set isOpen toggle from database
+  return s.isOpen === true;
 }
 function fmt12(t) {
   var p=(t||'08:00').split(':'), h=parseInt(p[0]), m=parseInt(p[1]||0);
@@ -600,12 +600,12 @@ function renderShops() {
     var open = isOpen(s);
     var statusHtml = open
       ? '<div class="shop-status status-open">🟢 Open · Closes '+fmt12(s.closeTime)+'</div>'
-      : '<div class="shop-status status-closed">🔴 Closed · Opens '+fmt12(s.openTime)+'</div>';
+      : '<div class="shop-status status-closed">🔴 Closed</div>';
     return '<div class="shop-card" onclick="openShop('+idx+')">'
       +'<div class="shop-img '+s.si+'"><span>'+s.ico+'</span><div class="shop-bdg">'+s.badge+'</div></div>'
       +'<div class="shop-body">'+statusHtml
       +'<div class="shop-name">'+s.name+'</div>'
-      +'<div class="shop-meta"><span>★ '+s.rating+' ('+s.reviews+')</span><span>From ₹'+s.minPrice+'/pc</span></div>'
+      +'<div class="shop-meta"><span>★ '+(s.rating&&s.rating.average?s.rating.average.toFixed(1):s.rating||'New')+' ('+(s.rating&&s.rating.count?s.rating.count:s.reviews||0)+')</span><span>From ₹'+s.minPrice+'/pc</span></div>'
       +'<div class="shop-tags">'+s.tags.map(function(t){ return '<div class="shop-tag">'+t+'</div>'; }).join('')+'</div>'
       +'</div></div>';
   }).join('');
@@ -617,7 +617,7 @@ function openShop(idx) {
   var s = SHOPS[idx];
   cart = (s.svcs||[]).map(function(x){ return Object.assign({},x,{qty:0}); });
   document.getElementById('detName').textContent = s.name;
-  document.getElementById('detMeta').textContent = '⭐ '+s.rating+' · '+(isOpen(s)?'Open now':'Closed')+' · '+fmt12(s.openTime)+'–'+fmt12(s.closeTime);
+  document.getElementById('detMeta').textContent = '⭐ '+(s.rating&&s.rating.average?s.rating.average.toFixed(1):'New')+' · '+(isOpen(s)?'Open now':'Closed')+' · '+fmt12(s.openTime)+'–'+fmt12(s.closeTime);
   renderSvcs(); updateCartBar(); go('pgShop');
 }
 
