@@ -565,7 +565,10 @@ function loadShops() {
           openTime: s.openTime||'08:00',
           closeTime: s.closeTime||'21:00',
           svcs: (s.services||[]).map(function(sv){
-            return {id:sv.id||sv._id, ico:sv.icon||sv.ico||'👔', name:sv.label||sv.name, price:sv.price};
+            var nm = sv.label || sv.name || '';
+            var ic = sv.icon || sv.ico || '👔';
+            var sid = sv.id || (sv._id && sv._id.toString()) || nm.toLowerCase();
+            return { id: sid, ico: ic, name: nm || 'Item', price: sv.price || 0 };
           })
         };
       });
