@@ -484,7 +484,7 @@ function doLogin() {
   fetch(API+'/api/auth/login', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({phone:ph, email:ph, password:pw})
+    body: JSON.stringify({email:ph, password:pw})
   })
   .then(function(r){ return r.json(); })
   .then(function(data){
@@ -510,7 +510,7 @@ function doSignup() {
   fetch(API+'/api/auth/register', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({name:nm, phone:ph, email:ph, password:pw})
+    body: JSON.stringify({name:nm, phone:ph, email:ph, password:pw, role:'customer'})
   })
   .then(function(r){ return r.json(); })
   .then(function(data){
