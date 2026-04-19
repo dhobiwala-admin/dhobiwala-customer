@@ -322,6 +322,36 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 .empty-state-icon{font-size:3.5rem;margin-bottom:14px;display:block}
 .empty-state-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:6px}
 .empty-state-sub{font-size:0.82rem;line-height:1.5}
+.otp-box{background:var(--ink);border-radius:20px;padding:20px;margin:0 16px 12px;text-align:center}
+.otp-label{font-size:0.65rem;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:10px}
+.otp-code{font-family:'Syne',sans-serif;font-weight:800;font-size:2.8rem;color:var(--gold);letter-spacing:0.15em;margin-bottom:6px}
+.otp-hint{font-size:0.72rem;color:rgba(255,255,255,0.35);line-height:1.5}
+.otp-used{font-size:0.72rem;color:var(--green);font-weight:700;margin-top:6px}
+.otp-enter-wrap{background:#fff;border-radius:20px;padding:18px;margin:0 16px 12px;border:1px solid rgba(0,0,0,0.06)}
+.otp-enter-title{font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--ink);margin-bottom:12px}
+.otp-inp-row{display:flex;gap:8px}
+.otp-inp{flex:1;padding:14px;border:2px solid #e0dbd0;border-radius:14px;font-size:1.4rem;font-family:'Syne',sans-serif;font-weight:800;text-align:center;letter-spacing:0.2em;outline:none;color:var(--ink)}
+.otp-inp:focus{border-color:var(--gold)}
+.otp-verify-btn{padding:14px 20px;background:var(--ink);color:#fff;border:none;border-radius:14px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;white-space:nowrap}
+.otp-verify-btn:disabled{opacity:0.6}
+.prog-step{display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;z-index:1}
+.prog-dot{width:26px;height:26px;border-radius:50%;background:#f0ebe0;display:flex;align-items:center;justify-content:center;font-size:0.7rem;border:2px solid #e0dbd0;transition:all 0.3s}
+.prog-dot.active{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 4px rgba(240,165,0,0.2)}
+.prog-dot.done{background:var(--green);border-color:var(--green);box-shadow:0 0 0 4px rgba(0,196,122,0.2)}
+.prog-lbl{font-size:0.55rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap}
+.prog-lbl.active{color:var(--gold)}
+.prog-lbl.done{color:var(--green)}
+.det-item-card{background:#f9f7f2;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.det-item-left .det-item-name{font-weight:600;color:var(--ink);font-size:0.84rem}
+.det-item-left .det-item-tat{font-size:0.68rem;color:var(--slate);margin-top:2px}
+.det-item-badge{border-radius:20px;padding:4px 10px;font-size:0.65rem;font-weight:700}
+.promo-inp-wrap{display:flex;gap:8px;margin-bottom:8px}
+.promo-inp{flex:1;padding:12px 14px;border:1.5px solid #e0dbd0;border-radius:12px;font-size:0.88rem;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color 0.2s;background:#fff;text-transform:uppercase;letter-spacing:0.06em}
+.promo-inp:focus{border-color:var(--gold)}
+.promo-apply-btn{padding:12px 18px;background:var(--ink);color:#fff;border:none;border-radius:12px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;cursor:pointer;white-space:nowrap;transition:opacity 0.2s}
+.promo-apply-btn:disabled{opacity:0.6}
+.promo-success{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px 12px;font-size:0.78rem;font-weight:600;color:var(--green);display:none}
+.promo-error{background:#fff1f1;border:1px solid #ffc9c9;border-radius:10px;padding:8px 12px;font-size:0.78rem;font-weight:600;color:var(--red);display:none}
 </style>
 </head>
 <body>
@@ -460,6 +490,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       <div class="slot-btn" onclick="pickSlot(this,'Evening 5-7 PM')">5–7 PM</div>
     </div>
   </div>
+  <!-- PROMO CODE -->
+  <div class="sec-card">
+    <div class="sec-card-title">🎟️ Promo Code</div>
+    <div class="promo-inp-wrap">
+      <input class="promo-inp" type="text" id="promoInp" placeholder="Enter code e.g. WELCOME50" maxlength="20"/>
+      <button class="promo-apply-btn" id="promoBtn" onclick="applyPromo()">Apply</button>
+    </div>
+    <div class="promo-success" id="promoSuccess"></div>
+    <div class="promo-error" id="promoError"></div>
+  </div>
   <div class="sec-card" id="orderSum"></div>
   <div style="padding:0 16px;margin-bottom:10px;font-size:0.65rem;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:0.1em">Payment</div>
   <div class="pay-row">
@@ -518,6 +558,93 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
     <div class="bnav-item" onclick="go('pgHome')"><div class="bnav-ico-wrap"><div class="bnav-ico">🏠</div></div><div class="bnav-lbl">Home</div></div>
     <div class="bnav-item on"><div class="bnav-ico-wrap"><div class="bnav-ico">📦</div></div><div class="bnav-lbl">Orders</div></div>
     <div class="bnav-item" onclick="go('pgProfile')"><div class="bnav-ico-wrap"><div class="bnav-ico">👤</div></div><div class="bnav-lbl">Profile</div></div>
+  </div>
+</div>
+
+<!-- ORDER DETAIL / TRACKING -->
+<div class="page" id="pgOrderDetail">
+  <div class="page-hdr">
+    <button class="hdr-back" onclick="go('pgOrders')">←</button>
+    <div class="hdr-title">Order Status</div>
+    <button onclick="refreshOrderDetail()" style="margin-left:auto;padding:6px 12px;background:var(--light);border:1px solid var(--border);border-radius:20px;font-size:0.72rem;font-weight:600;cursor:pointer;color:var(--slate)">🔄 Refresh</button>
+  </div>
+  <!-- Order header -->
+  <div style="background:var(--ink);padding:16px 20px 20px;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(240,165,0,0.12) 0%,transparent 60%)"></div>
+    <div style="position:relative;z-index:1">
+      <div style="font-size:0.7rem;color:rgba(255,255,255,0.4);margin-bottom:4px" id="detOrderNum">#DW000000</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:#fff;margin-bottom:4px" id="detShopName">Shop</div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.45)" id="detOrderDate"></div>
+        <div id="detStatusBadge" style="border-radius:20px;padding:4px 12px;font-size:0.7rem;font-weight:700;background:rgba(240,165,0,0.15);color:var(--gold)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live status progress bar -->
+  <div style="background:#fff;padding:16px 20px;border-bottom:1px solid rgba(0,0,0,0.06)">
+    <div style="font-size:0.65rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px">Order Progress</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;position:relative">
+      <div style="position:absolute;top:12px;left:12px;right:12px;height:2px;background:#f0ebe0;z-index:0">
+        <div id="progressBar" style="height:100%;background:linear-gradient(90deg,var(--gold),var(--green));border-radius:2px;transition:width 0.5s ease;width:0%"></div>
+      </div>
+      <div class="prog-step" id="ps1"><div class="prog-dot">📋</div><div class="prog-lbl">Placed</div></div>
+      <div class="prog-step" id="ps2"><div class="prog-dot">✅</div><div class="prog-lbl">Accepted</div></div>
+      <div class="prog-step" id="ps3"><div class="prog-dot">🏍</div><div class="prog-lbl">Picked up</div></div>
+      <div class="prog-step" id="ps4"><div class="prog-dot">♨️</div><div class="prog-lbl">Processing</div></div>
+      <div class="prog-step" id="ps5"><div class="prog-dot">🎉</div><div class="prog-lbl">Delivered</div></div>
+    </div>
+  </div>
+
+  <!-- Per-item status -->
+  <div style="padding:14px 16px 4px">
+    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--ink)">📦 Item Status</div>
+  </div>
+  <div id="detItemCards" style="padding:0 16px 4px"></div>
+
+  <!-- OTP Handover Section -->
+  <div id="detOtpSection" style="padding:0 16px 4px;display:none">
+    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--ink);margin-bottom:10px">🔐 Handover OTPs</div>
+    <!-- Pickup OTP — customer shows to rider -->
+    <div id="pickupOtpBox" class="otp-box" style="display:none">
+      <div class="otp-label">📦 Share this code with rider for pickup</div>
+      <div class="otp-code" id="pickupOtpCode">----</div>
+      <div class="otp-hint">Show this to the rider when they arrive.<br/>They will enter it in their app to confirm pickup.</div>
+      <div class="otp-used" id="pickupOtpUsed" style="display:none">✅ Pickup confirmed!</div>
+    </div>
+    <!-- Delivery OTP — customer enters OTP from rider -->
+    <div class="otp-enter-wrap" id="deliveryOtpEnter" style="display:none">
+      <div class="otp-enter-title">🎁 Enter delivery OTP from rider</div>
+      <div style="font-size:0.75rem;color:var(--slate);margin-bottom:10px">Rider will show you a 4-digit code. Enter it here to confirm delivery.</div>
+      <div class="otp-inp-row">
+        <input class="otp-inp" type="number" id="custDeliveryOtp" placeholder="0000" maxlength="4"/>
+        <button class="otp-verify-btn" id="custDeliveryBtn" onclick="verifyOtp('delivery','custDeliveryOtp','custDeliveryBtn')">Verify →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trip info -->
+  <div class="sec-card" id="detTripInfo" style="display:none">
+    <div class="sec-card-title">🚗 Delivery Trips</div>
+    <div id="detTripsList"></div>
+  </div>
+
+  <!-- Order details -->
+  <div class="sec-card">
+    <div class="sec-card-title">🧾 Order Details</div>
+    <div id="detOrderItems"></div>
+    <div style="border-top:1px solid #f0ebe0;margin-top:10px;padding-top:10px">
+      <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:6px"><span style="color:var(--slate)">Subtotal</span><span id="detSubtotal">₹0</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:6px"><span style="color:var(--slate)">Trip fees</span><span id="detTripFees">₹0</span></div>
+      <div style="display:flex;justify-content:space-between;font-weight:700;font-size:0.95rem"><span>Total</span><span id="detTotal">₹0</span></div>
+    </div>
+  </div>
+
+  <!-- Pickup address -->
+  <div class="sec-card" style="margin-bottom:80px">
+    <div class="sec-card-title">📍 Pickup Address</div>
+    <div style="font-size:0.84rem;color:var(--slate)" id="detAddress"></div>
+    <div style="font-size:0.78rem;color:var(--slate);margin-top:6px" id="detSlot"></div>
   </div>
 </div>
 
@@ -611,12 +738,18 @@ var TAT_INFO = {
 };
 function getTAT(cat){ return TAT_INFO[cat] || TAT_INFO.ironing; }
 
+var VALID_PROMOS = {
+  'WELCOME50': { type:'percent', value:50, desc:'50% off on first order', maxDiscount:200 },
+  'FLAT30':    { type:'flat',    value:30, desc:'₹30 flat off' },
+  'IRON20':    { type:'percent', value:20, desc:'20% off on ironing' },
+};
 var SHOP_ICONS = ['👔','🧺','🌟','💎','🏅'];
 var SHOP_BADGES = [['TOP RATED','bdg-gold'],['FAST','bdg-green'],['PREMIUM','bdg-blue'],['NEW','bdg-gold'],['POPULAR','bdg-green']];
 var SHOP_BG = ['si0','si1','si2','si3','si4'];
 
 // ─── STATE ─────────────────────────────────────────────────────────────────────
 var SHOPS=[],curShopIdx=0,cart=[],selSlot='Morning 8-10 AM',deliveryMode='separate';
+var promoDiscount=0,promoCode='';
 var orderTimer=null,timerSecs=0,starState={shop:0,rider:0},currentOrder=null;
 
 // ─── SESSION ───────────────────────────────────────────────────────────────────
@@ -785,7 +918,7 @@ function updateCartBar() {
   else bar.classList.remove('show');
 }
 
-function goCart(){ deliveryMode='separate'; renderCart(); go('pgCart'); }
+function goCart(){ deliveryMode='separate'; promoDiscount=0; promoCode=''; renderCart(); go('pgCart'); }
 
 // ─── DELIVERY MODE ─────────────────────────────────────────────────────────────
 function calcTrips(mode) {
@@ -867,12 +1000,48 @@ function getItemDates(){
   return result;
 }
 
+function applyPromo() {
+  var code = document.getElementById('promoInp').value.trim().toUpperCase();
+  var successEl = document.getElementById('promoSuccess');
+  var errorEl   = document.getElementById('promoError');
+  var btn       = document.getElementById('promoBtn');
+  successEl.style.display='none'; errorEl.style.display='none';
+  if (!code){ errorEl.textContent='Please enter a promo code'; errorEl.style.display='block'; return; }
+  var promo = VALID_PROMOS[code];
+  if (!promo){ errorEl.textContent='Invalid promo code. Try WELCOME50 for 50% off!'; errorEl.style.display='block'; promoDiscount=0; promoCode=''; renderBillSummary(); return; }
+  promoCode = code;
+  var items = cart.filter(function(s){return s.qty>0;});
+  var subtotal = items.reduce(function(a,b){return a+b.qty*b.price;},0);
+  if (promo.type==='percent') {
+    promoDiscount = Math.round(subtotal*(promo.value/100));
+    if (promo.maxDiscount) promoDiscount = Math.min(promoDiscount, promo.maxDiscount);
+  } else {
+    promoDiscount = promo.value;
+  }
+  promoDiscount = Math.min(promoDiscount, subtotal); // can't discount more than subtotal
+  successEl.textContent='✅ '+promo.desc+' — saving ₹'+promoDiscount+'!';
+  successEl.style.display='block';
+  btn.textContent='Applied ✓';
+  btn.disabled=true;
+  renderBillSummary();
+}
+
+function removePromo() {
+  promoDiscount=0; promoCode='';
+  document.getElementById('promoInp').value='';
+  document.getElementById('promoSuccess').style.display='none';
+  document.getElementById('promoError').style.display='none';
+  var btn=document.getElementById('promoBtn');
+  btn.textContent='Apply'; btn.disabled=false;
+  renderBillSummary();
+}
+
 function renderBillSummary(){
   var items=cart.filter(function(s){return s.qty>0;});
   var subtotal=items.reduce(function(a,b){return a+b.qty*b.price;},0);
   var nTrips=calcTrips(deliveryMode);
   var tripFees=nTrips*TRIP_FEE;
-  var total=subtotal+tripFees;
+  var total=Math.max(0, subtotal+tripFees-promoDiscount);
   var tripBreakdown='<div class="trip-breakdown">'
     +'<div class="trip-row"><span>📍 Pickup trip</span><span class="trip-amt">₹'+TRIP_FEE+'</span></div>';
   if (deliveryMode==='together'){
@@ -883,11 +1052,15 @@ function renderBillSummary(){
     Object.keys(dates).forEach(function(d){tripBreakdown+='<div class="trip-row"><span>📦 '+dates[d].join(', ')+'</span><span class="trip-amt">₹'+TRIP_FEE+'</span></div>';});
   }
   tripBreakdown+='</div>';
+  var promoLine = promoDiscount>0
+    ? '<div class="sum-row" style="color:var(--green)"><span>🎟️ Promo ('+promoCode+')</span><span>−₹'+promoDiscount+' <a onclick="removePromo()" style="font-size:0.7rem;color:var(--red);cursor:pointer;margin-left:4px">✕</a></span></div>'
+    : '';
   document.getElementById('orderSum').innerHTML=
     '<div class="sec-card-title">💳 Bill Summary</div>'
     +'<div class="sum-row"><span>Items subtotal</span><span>₹'+subtotal+'</span></div>'
     +tripBreakdown
     +'<div class="sum-row"><span>Trip fees ('+nTrips+' × ₹'+TRIP_FEE+')</span><span>₹'+tripFees+'</span></div>'
+    +promoLine
     +'<div class="sum-row total"><span>Total</span><span>₹'+total+'</span></div>'
     +'<div style="font-size:0.68rem;color:var(--slate);margin-top:8px;line-height:1.5">Prices include 15% platform fee · ₹15/trip for pickup & delivery</div>';
 }
@@ -963,13 +1136,14 @@ function loadOrders(){
       var dateStr=o.createdAt?new Date(o.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'}):'Today';
       var total=o.totalAmount||o.subtotal||0;
       var tripInfo=o.tripFees?'🚗 '+(o.trips?o.trips.length:0)+' trips · ₹'+o.tripFees:'';
-      return '<div class="ocard">'
+      return '<div class="ocard" onclick="openOrderDetail('+JSON.stringify(o)+')">'
         +'<div class="ocard-top"><div><div class="onum">#'+dispId+'</div>'
         +'<div class="oshop">'+(o.shopName||(o.shop&&o.shop.name)||'Shop')+'</div></div>'
         +'<div class="obadge '+badge+'">'+status+'</div></div>'
         +'<div class="oitems">'+itemsTxt+'</div>'
         +(tripInfo?'<div class="otrips">'+tripInfo+'</div>':'')
         +'<div class="ofooter"><div class="oamt">₹'+total+'</div><div class="odate">'+dateStr+'</div></div>'
+        +'<div style="font-size:0.72rem;color:var(--gold);font-weight:600;margin-top:8px;text-align:right">Tap to track →</div>'
         +'</div>';
     }).join('');
   })
@@ -1007,6 +1181,211 @@ function submitReview(){
   if (!starState.shop){toast('Please rate the shop');return;}
   if (!starState.rider){toast('Please rate the rider');return;}
   go('pgRevSuccess');
+}
+
+// ─── ORDER DETAIL ──────────────────────────────────────────────────────────────
+var currentDetailOrder = null;
+
+var ORDER_STATUS_STEPS = {
+  placed:              1,
+  accepted:            2,
+  pickup_scheduled:    2,
+  picked_up:           3,
+  processing:          4,
+  partially_delivered: 4,
+  delivered:           5,
+  rejected:            0,
+  cancelled:           0
+};
+
+var ITEM_STATUS_COLORS = {
+  pending:           {bg:'#fef9ec',color:'#b45309',label:'⏳ Pending'},
+  processing:        {bg:'#eff6ff',color:'#1d4ed8',label:'♨️ Processing'},
+  ready:             {bg:'#f0fdf4',color:'#16a34a',label:'✅ Ready'},
+  picked_up:         {bg:'#f0fdf4',color:'#16a34a',label:'🏍 Picked up'},
+  out_for_delivery:  {bg:'#eff6ff',color:'#1d4ed8',label:'🚀 On the way'},
+  delivered:         {bg:'#f0fdf4',color:'#16a34a',label:'✅ Delivered'},
+};
+
+function openOrderDetail(order) {
+  currentDetailOrder = order;
+  renderOrderDetail(order);
+  go('pgOrderDetail');
+}
+
+function refreshOrderDetail() {
+  if (!currentDetailOrder || !currentDetailOrder._id) return;
+  fetch(API+'/api/orders/'+currentDetailOrder._id, { headers:{'Authorization':'Bearer '+getToken()} })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if (d.success && d.order) {
+      currentDetailOrder = d.order;
+      renderOrderDetail(d.order);
+      toast('✅ Status refreshed!');
+    }
+  }).catch(function(){ toast('Could not refresh. Check connection.'); });
+}
+
+function renderOrderDetail(o) {
+  var dispId = 'DW'+(o._id||'').slice(-6).toUpperCase();
+  var shopName = (o.shop && o.shop.name) || o.shopName || 'Shop';
+  var dateStr = o.createdAt ? new Date(o.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+  var total = o.totalAmount || o.subtotal || 0;
+  var tripFees = o.tripFees || 0;
+  var subtotal = o.subtotal || (total - tripFees);
+
+  // Header
+  document.getElementById('detOrderNum').textContent = '#'+dispId;
+  document.getElementById('detShopName').textContent = shopName;
+  document.getElementById('detOrderDate').textContent = dateStr;
+
+  // Status badge
+  var statusMap = {placed:'⏳ Pending',accepted:'✅ Accepted',pickup_scheduled:'🏍 Rider Coming',picked_up:'📦 At Shop',processing:'♨️ Processing',partially_delivered:'🚀 Partial Delivery',delivered:'🎉 Delivered',rejected:'❌ Rejected',cancelled:'🚫 Cancelled'};
+  var badgeColors = {placed:'rgba(240,165,0,0.15)',accepted:'rgba(0,196,122,0.15)',delivered:'rgba(0,196,122,0.15)',rejected:'rgba(255,71,87,0.15)',cancelled:'rgba(255,71,87,0.15)'};
+  var badgeTxtColors = {placed:'#d97706',accepted:'#00c47a',delivered:'#00c47a',rejected:'#ff4757',cancelled:'#ff4757'};
+  var sb = document.getElementById('detStatusBadge');
+  sb.textContent = statusMap[o.status] || o.status;
+  sb.style.background = badgeColors[o.status] || 'rgba(240,165,0,0.15)';
+  sb.style.color = badgeTxtColors[o.status] || '#d97706';
+
+  // Progress bar
+  var step = ORDER_STATUS_STEPS[o.status] || 0;
+  var pct = step > 0 ? ((step-1)/4*100) : 0;
+  var pb = document.getElementById('progressBar');
+  if (pb) pb.style.width = pct+'%';
+
+  // Progress step dots
+  for (var i=1;i<=5;i++) {
+    var ps = document.getElementById('ps'+i);
+    if (!ps) continue;
+    var dot = ps.querySelector('.prog-dot');
+    var lbl = ps.querySelector('.prog-lbl');
+    if (dot && lbl) {
+      if (i < step) { dot.className='prog-dot done'; lbl.className='prog-lbl done'; }
+      else if (i === step) { dot.className='prog-dot active'; lbl.className='prog-lbl active'; }
+      else { dot.className='prog-dot'; lbl.className='prog-lbl'; }
+    }
+  }
+
+  // Per-item status cards
+  var items = o.items || [];
+  var detCards = document.getElementById('detItemCards');
+  if (detCards) {
+    if (items.length) {
+      detCards.innerHTML = items.map(function(item) {
+        var tat = getTAT(item.category||'ironing');
+        var ist = item.itemStatus || 'pending';
+        var iInfo = ITEM_STATUS_COLORS[ist] || ITEM_STATUS_COLORS.pending;
+        var eta = item.estimatedDeliveryAt ? new Date(item.estimatedDeliveryAt).toLocaleDateString('en-IN',{day:'numeric',month:'short'}) : '';
+        return '<div class="det-item-card">'
+          +'<div class="det-item-left">'
+          +'<div class="det-item-name">'+(item.label||'Item')+' × '+(item.quantity||1)+'</div>'
+          +'<div class="det-item-tat">'+tat.badge+' · '+tat.label+(eta?' · Est: '+eta:'')+'</div>'
+          +'</div>'
+          +'<div class="det-item-badge" style="background:'+iInfo.bg+';color:'+iInfo.color+'">'+iInfo.label+'</div>'
+          +'</div>';
+      }).join('');
+    } else {
+      detCards.innerHTML = '<div style="font-size:0.82rem;color:var(--slate);text-align:center;padding:10px">No item details available</div>';
+    }
+  }
+
+  // Trip info
+  var trips = o.trips || [];
+  var tripCard = document.getElementById('detTripInfo');
+  var tripsList = document.getElementById('detTripsList');
+  if (tripCard && tripsList && trips.length) {
+    tripCard.style.display = 'block';
+    tripsList.innerHTML = trips.map(function(t){
+      var tripStatusMap = {pending:'⏳ Pending',assigned:'🏍 Rider Assigned',in_progress:'🚀 In Progress',completed:'✅ Completed'};
+      var date = t.scheduledDate ? new Date(t.scheduledDate).toLocaleDateString('en-IN',{day:'numeric',month:'short'}) : '';
+      return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0ebe0">'
+        +'<div><div style="font-weight:600;font-size:0.82rem;color:var(--ink)">'+(t.type==='pickup'?'📍 Pickup':'📦 Delivery')+'</div>'
+        +(date?'<div style="font-size:0.7rem;color:var(--slate);margin-top:2px">'+date+'</div>':'')+'</div>'
+        +'<div style="text-align:right"><div style="font-size:0.72rem;color:var(--slate)">'+(tripStatusMap[t.status]||t.status)+'</div>'
+        +'<div style="font-weight:700;font-size:0.82rem;color:var(--gold)">₹'+t.tripFee+'</div></div></div>';
+    }).join('');
+  } else if (tripCard) {
+    tripCard.style.display = 'none';
+  }
+
+  // Order items summary
+  var detItems = document.getElementById('detOrderItems');
+  if (detItems) {
+    detItems.innerHTML = items.map(function(i){
+      return '<div style="display:flex;justify-content:space-between;font-size:0.84rem;padding:5px 0;border-bottom:1px solid #f9f7f2">'
+        +'<span style="color:var(--ink)">'+(i.label||'Item')+' × '+(i.quantity||1)+'</span>'
+        +'<span style="font-weight:600">₹'+(i.subtotal||0)+'</span></div>';
+    }).join('');
+  }
+
+  // Amounts
+  var ds = document.getElementById('detSubtotal'); if(ds) ds.textContent='₹'+subtotal;
+  var dt = document.getElementById('detTripFees'); if(dt) dt.textContent='₹'+tripFees;
+  var dtt= document.getElementById('detTotal');    if(dtt) dtt.textContent='₹'+total;
+
+  // Address
+  var addr = o.pickupAddress;
+  // Load OTPs for this order
+  if (o._id) loadOrderOtps(o._id, o.status);
+  var addrTxt = addr ? (addr.fullAddress||addr.street+', '+addr.area) : '';
+  var da = document.getElementById('detAddress'); if(da) da.textContent=addrTxt;
+  var dsl= document.getElementById('detSlot');    if(dsl) dsl.textContent=o.pickupSlot?'⏰ '+o.pickupSlot:'';
+}
+
+// ─── OTP HANDLING ─────────────────────────────────────────────────────────────
+function loadOrderOtps(orderId, status) {
+  fetch(API+'/api/orders/'+orderId+'/otp', { headers:{'Authorization':'Bearer '+getToken()} })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if (!d.success) return;
+    var otps = d.otps;
+    var sec = document.getElementById('detOtpSection');
+    if (sec) sec.style.display = 'block';
+
+    // Show pickup OTP when order accepted (rider coming)
+    var pickupBox = document.getElementById('pickupOtpBox');
+    var pickupCode = document.getElementById('pickupOtpCode');
+    var pickupUsed = document.getElementById('pickupOtpUsed');
+    if (pickupBox && otps.pickupOtp) {
+      if (['accepted','pickup_scheduled','picked_up'].indexOf(status) > -1 || !otps.pickupOtp.used) {
+        pickupBox.style.display = 'block';
+        if (pickupCode) pickupCode.textContent = otps.pickupOtp.code;
+        if (pickupUsed) pickupUsed.style.display = otps.pickupOtp.used ? 'block' : 'none';
+      }
+    }
+
+    // Show delivery OTP entry when out_for_delivery
+    var delivBox = document.getElementById('deliveryOtpEnter');
+    if (delivBox && otps.deliveryOtp && !otps.deliveryOtp.used) {
+      if (status === 'out_for_delivery') {
+        delivBox.style.display = 'block';
+      }
+    }
+  }).catch(function(){});
+}
+
+function verifyOtp(type, inputId, btnId) {
+  var otp = document.getElementById(inputId).value.trim();
+  if (otp.length !== 4) { toast('Enter a 4-digit OTP'); return; }
+  var btn = document.getElementById(btnId);
+  btn.disabled = true; btn.textContent = 'Verifying…';
+  fetch(API+'/api/orders/'+currentDetailOrder._id+'/verify-otp', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+getToken()},
+    body: JSON.stringify({ type:type, otp:otp })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    btn.disabled=false; btn.textContent='Verify →';
+    if (d.success) {
+      toast('✅ '+d.message);
+      refreshOrderDetail();
+    } else {
+      toast('❌ '+d.message);
+    }
+  })
+  .catch(function(){ btn.disabled=false; btn.textContent='Verify →'; toast('Network error.'); });
 }
 
 // ─── TOAST ─────────────────────────────────────────────────────────────────────
