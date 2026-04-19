@@ -39,7 +39,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 .auth-badge-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(240,165,0,0.12);border:1px solid rgba(240,165,0,0.25);border-radius:30px;padding:5px 14px;font-size:0.7rem;font-weight:700;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px}
 .auth-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-.auth-title{font-family:'Syne',sans-serif;font-weight:800;font-size:3rem;color:#fff;line-height:1;margin-bottom:8px;letter-spacing:-0.02em}
+.auth-title{font-family:'Syne',sans-serif;font-weight:800;font-size:2.4rem;color:#fff;line-height:1;margin-bottom:8px;letter-spacing:-0.02em}
 .auth-title span{color:var(--gold)}
 .auth-subtitle{color:rgba(255,255,255,0.4);font-size:0.9rem;line-height:1.5;margin-bottom:32px}
 .auth-stats{display:flex;gap:20px;margin-bottom:40px}
@@ -354,7 +354,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       <div class="err-box" id="authErr"></div>
       <div class="form-wrap show" id="fmLogin">
         <div class="field"><label class="field-label">Phone Number</label>
-          <div class="phone-wrap"><div class="phone-code">🇮🇳 +91</div><input class="field-input" type="tel" id="lPhone" placeholder="98765 43210" maxlength="10"/></div>
+          <div class="phone-wrap"><div class="phone-code">+91</div><input class="field-input" type="tel" id="lPhone" placeholder="98765 43210" maxlength="10"/></div>
         </div>
         <div class="field"><label class="field-label">Password</label>
           <div class="pass-wrap"><input class="field-input" type="password" id="lPass" placeholder="Your password"/><button class="eye-btn" type="button" onclick="toggleEye('lPass',this)">👁</button></div>
@@ -365,7 +365,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       <div class="form-wrap" id="fmSignup">
         <div class="field"><label class="field-label">Full Name</label><input class="field-input" type="text" id="sName" placeholder="Your full name"/></div>
         <div class="field"><label class="field-label">Phone Number</label>
-          <div class="phone-wrap"><div class="phone-code">🇮🇳 +91</div><input class="field-input" type="tel" id="sPhone" placeholder="98765 43210" maxlength="10"/></div>
+          <div class="phone-wrap"><div class="phone-code">+91</div><input class="field-input" type="tel" id="sPhone" placeholder="98765 43210" maxlength="10"/></div>
         </div>
         <div class="field"><label class="field-label">Password</label>
           <div class="pass-wrap"><input class="field-input" type="password" id="sPass" placeholder="Min 4 characters"/><button class="eye-btn" type="button" onclick="toggleEye('sPass',this)">👁</button></div>
