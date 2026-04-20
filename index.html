@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>DhobiWala</title>
+<title>Shuchi</title>
 <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@500;600;700&family=Satoshi:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
@@ -128,7 +128,34 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 .back-lbl{color:rgba(255,255,255,0.5);font-size:0.82rem}
 .detail-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:#fff;margin-bottom:5px;position:relative;z-index:1}
 .detail-meta{color:rgba(255,255,255,0.45);font-size:0.78rem;position:relative;z-index:1}
-.svcs-section-title{padding:16px 16px 8px;font-size:0.65rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:0.1em}
+.svcs-section-title{padding:4px 16px 8px;font-size:0.65rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:0.1em}
+.cat-tab{padding:8px 16px;border:1.5px solid var(--border);border-radius:20px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.78rem;cursor:pointer;background:#fff;color:var(--slate);white-space:nowrap;transition:all 0.15s;flex-shrink:0}
+.cat-tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.svc-type-wrap{padding:16px 16px 0}
+.svc-type-title{font-size:0.65rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px}
+.svc-type-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
+.svc-type-card{border:2px solid var(--border);border-radius:16px;padding:14px 12px;cursor:pointer;transition:all 0.2s;background:#fff;text-align:center}
+.svc-type-card.on{border-color:var(--ink);background:var(--ink)}
+.svc-type-icon{font-size:1.6rem;margin-bottom:6px}
+.svc-type-name{font-family:'Syne',sans-serif;font-weight:800;font-size:0.88rem;color:var(--ink);margin-bottom:2px}
+.svc-type-card.on .svc-type-name{color:#fff}
+.svc-type-desc{font-size:0.68rem;color:var(--slate);line-height:1.4}
+.svc-type-card.on .svc-type-desc{color:rgba(255,255,255,0.55)}
+.svc-type-price{display:inline-block;margin-top:6px;padding:2px 10px;border-radius:20px;font-size:0.7rem;font-weight:700}
+.svc-type-card:not(.on) .svc-type-price-quick{background:#fef3c7;color:#92400e}
+.svc-type-card.on .svc-type-price-quick{background:rgba(232,160,32,0.2);color:var(--gold)}
+.svc-type-card:not(.on) .svc-type-price-normal{background:#f0fdf4;color:#166534}
+.svc-type-card.on .svc-type-price-normal{background:rgba(22,163,74,0.2);color:#4ade80}
+.slot-wrap{padding:0 16px;margin-top:12px;display:none}
+.slot-title{font-size:0.65rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
+.slot-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.slot-card{border:2px solid var(--border);border-radius:14px;padding:12px;cursor:pointer;background:#fff;transition:all 0.2s;text-align:center}
+.slot-card.on{border-color:var(--green);background:#f0fdf4}
+.slot-card-ico{font-size:1.4rem;margin-bottom:4px}
+.slot-card-name{font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;color:var(--ink)}
+.slot-card-time{font-size:0.68rem;color:var(--slate);margin-top:2px}
+.slot-card.on .slot-card-name{color:#166534}
+.slot-info{margin-top:10px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 12px;font-size:0.75rem;color:#166534;font-weight:600;line-height:1.6;display:none}
 .svcs-grid{padding:0 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .svc-card{background:#fff;border-radius:18px;padding:16px;border:2px solid transparent;text-align:center;cursor:pointer;transition:all 0.15s;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
 .svc-card.picked{border-color:var(--gold);background:#fffbf0;box-shadow:0 4px 16px rgba(240,165,0,0.2)}
@@ -352,6 +379,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 .promo-apply-btn:disabled{opacity:0.6}
 .promo-success{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px 12px;font-size:0.78rem;font-weight:600;color:var(--green);display:none}
 .promo-error{background:#fff1f1;border:1px solid #ffc9c9;border-radius:10px;padding:8px 12px;font-size:0.78rem;font-weight:600;color:var(--red);display:none}
+
+.shop-dist-el{font-size:0.7rem;color:#1d4ed8;font-weight:600;display:none;margin-top:2px}
+
+.track-box{background:var(--ink);border-radius:14px;margin:0 16px 12px;padding:14px;border:1px solid rgba(255,255,255,0.06)}
+.track-lbl{font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px}
+.track-row{display:flex;align-items:center;gap:10px}
+.track-ico{width:34px;height:34px;border-radius:50%;background:rgba(232,160,32,0.12);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.track-name{font-family:"Syne",sans-serif;font-weight:700;color:#fff;font-size:0.85rem}
+.track-sub{font-size:0.7rem;color:rgba(255,255,255,0.4);margin-top:1px}
+.track-status{margin-left:auto;text-align:right}
+.track-status-val{font-family:"Syne",sans-serif;font-weight:800;color:var(--gold);font-size:0.82rem}
+.track-live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:4px;animation:tlpulse 1.5s infinite}
+@keyframes tlpulse{0%,100%{opacity:1}50%{opacity:0.2}}
+
+.promo-offer-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--light);border-radius:12px;border:1.5px solid var(--border);cursor:pointer;margin-bottom:6px}
+.promo-offer-row:active{border-color:var(--gold)}
+.promo-offer-code{font-family:"Syne",sans-serif;font-weight:800;color:var(--ink);font-size:0.85rem}
+.promo-offer-desc{font-size:0.68rem;color:var(--slate);margin-top:1px}
+.promo-qbtn{padding:6px 14px;background:var(--ink);color:#fff;border:none;border-radius:20px;font-family:"Syne",sans-serif;font-weight:700;font-size:0.7rem;cursor:pointer;pointer-events:none;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -366,13 +412,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       <div class="auth-orb3"></div>
     </div>
     <div class="auth-hero-content">
-      <div class="auth-badge-pill"><div class="auth-badge-dot"></div>Rourkela's #1 Laundry</div>
-      <div class="auth-title">Dhobi<span>Wala</span></div>
+      <div class="auth-badge-pill"><div class="auth-badge-dot"></div>शुचिता सर्वदा</div>Rourkela's #1 Laundry</div>
+      <div class="auth-title">Shu<span>chi</span></div>
       <div class="auth-subtitle">Fresh, crisp clothes delivered<br/>to your door in Rourkela</div>
       <div class="auth-stats">
         <div class="auth-stat"><div class="auth-stat-val">500+</div><div class="auth-stat-lbl">Happy Customers</div></div>
         <div class="auth-stat"><div class="auth-stat-val">2hrs</div><div class="auth-stat-lbl">Fastest Ironing</div></div>
-        <div class="auth-stat"><div class="auth-stat-val">₹15</div><div class="auth-stat-lbl">Per Piece</div></div>
+        <div class="auth-stat"><div class="auth-stat-val">₹15</div><div class="auth-stat-lbl">Per Trip</div></div>
       </div>
     </div>
     <div class="auth-sheet">
@@ -384,10 +430,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       <div class="err-box" id="authErr"></div>
       <div class="form-wrap show" id="fmLogin">
         <div class="field"><label class="field-label">Phone Number</label>
-          <div class="phone-wrap"><div class="phone-code">+91</div><input class="field-input" type="tel" id="lPhone" placeholder="98765 43210" maxlength="10"/></div>
+          <div class="phone-wrap"><div class="phone-code">+91</div><input class="field-input" type="tel" id="lPhone" placeholder="98765 43210" maxlength="10" onkeydown="if(event.key==='Enter')document.getElementById('lPass').focus()"/></div>
         </div>
         <div class="field"><label class="field-label">Password</label>
-          <div class="pass-wrap"><input class="field-input" type="password" id="lPass" placeholder="Your password"/><button class="eye-btn" type="button" onclick="toggleEye('lPass',this)">👁</button></div>
+          <div class="pass-wrap"><input class="field-input" type="password" id="lPass" onkeydown="if(event.key==='Enter')doLogin()" placeholder="Your password"/><button class="eye-btn" type="button" onclick="toggleEye('lPass',this)">👁</button></div>
         </div>
         <button class="submit-btn dark" id="btnLogin" onclick="doLogin()">Login →</button>
         <div class="switch-hint">New here? <a onclick="showTab('signup')">Create account</a></div>
@@ -398,7 +444,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
           <div class="phone-wrap"><div class="phone-code">+91</div><input class="field-input" type="tel" id="sPhone" placeholder="98765 43210" maxlength="10"/></div>
         </div>
         <div class="field"><label class="field-label">Password</label>
-          <div class="pass-wrap"><input class="field-input" type="password" id="sPass" placeholder="Min 4 characters"/><button class="eye-btn" type="button" onclick="toggleEye('sPass',this)">👁</button></div>
+          <div class="pass-wrap"><input class="field-input" type="password" id="sPass" onkeydown="if(event.key==='Enter')doSignup()" placeholder="Min 4 characters"/><button class="eye-btn" type="button" onclick="toggleEye('sPass',this)">👁</button></div>
         </div>
         <button class="submit-btn gold" id="btnSignup" onclick="doSignup()">Create Account →</button>
         <div class="switch-hint">Already registered? <a onclick="showTab('login')">Login</a></div>
@@ -443,7 +489,51 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
     <div class="detail-name" id="detName"></div>
     <div class="detail-meta" id="detMeta"></div>
   </div>
-  <div class="svcs-section-title">Select items & quantity</div>
+  <!-- Delivery Type Selector -->
+  <div class="svc-type-wrap">
+    <div class="svc-type-title">Delivery Type</div>
+    <div class="svc-type-row">
+      <div class="svc-type-card on" id="dtQuick" onclick="setDelivType('quick')">
+        <div class="svc-type-icon">⚡</div>
+        <div class="svc-type-name">Quick Service</div>
+        <div class="svc-type-desc">Same day pickup & delivery on-demand</div>
+        <div class="svc-type-price svc-type-price-quick">₹15/trip</div>
+      </div>
+      <div class="svc-type-card" id="dtNormal" onclick="setDelivType('normal')">
+        <div class="svc-type-icon">🕐</div>
+        <div class="svc-type-name">Normal Service</div>
+        <div class="svc-type-desc">Morning or evening slot pickup & delivery</div>
+        <div class="svc-type-price svc-type-price-normal">FREE delivery</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Normal Service Slot Picker -->
+  <div class="slot-wrap" id="slotWrap">
+    <div class="slot-title">Choose Pickup Slot</div>
+    <div class="slot-row">
+      <div class="slot-card on" id="slotMorning" onclick="setSlot('morning')">
+        <div class="slot-card-ico">🌅</div>
+        <div class="slot-card-name">Morning</div>
+        <div class="slot-card-time">Pickup 7–10 AM</div>
+      </div>
+      <div class="slot-card" id="slotEvening" onclick="setSlot('evening')">
+        <div class="slot-card-ico">🌆</div>
+        <div class="slot-card-name">Evening</div>
+        <div class="slot-card-time">Pickup 6–9 PM</div>
+      </div>
+    </div>
+    <div class="slot-info" id="slotInfo"></div>
+  </div>
+
+  <!-- Category filter tabs -->
+  <div style="display:flex;gap:8px;padding:14px 16px 8px;overflow-x:auto;scrollbar-width:none" id="catTabs">
+    <button class="cat-tab on" onclick="filterSvcs('all',this)">🧺 All</button>
+    <button class="cat-tab" onclick="filterSvcs('ironing',this)">🔥 Ironing</button>
+    <button class="cat-tab" onclick="filterSvcs('washing',this)">💧 Washing</button>
+    <button class="cat-tab" onclick="filterSvcs('dry_cleaning',this)">✨ Dry Clean</button>
+  </div>
+  <div class="svcs-section-title" id="svcsLabel">All Services — Select items & quantity</div>
   <div class="svcs-grid" id="svcsGrid"></div>
   <div style="height:120px"></div>
   <div class="cart-bar" id="cartBar">
@@ -493,6 +583,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
   <!-- PROMO CODE -->
   <div class="sec-card">
     <div class="sec-card-title">🎟️ Promo Code</div>
+    <div style="margin-bottom:12px">
+      <div style="font-size:0.62rem;font-weight:700;color:var(--slate);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px">Available Offers — Tap to Apply</div>
+      <div class="promo-offer-row" onclick="quickApplyPromo('WELCOME50')"><div><div class="promo-offer-code">WELCOME50</div><div class="promo-offer-desc">50% off items · Max ₹200</div></div><button class="promo-qbtn">Apply</button></div>
+      <div class="promo-offer-row" onclick="quickApplyPromo('FLAT30')"><div><div class="promo-offer-code">FLAT30</div><div class="promo-offer-desc">Flat ₹30 off your order</div></div><button class="promo-qbtn">Apply</button></div>
+      <div class="promo-offer-row" onclick="quickApplyPromo('IRON20')"><div><div class="promo-offer-code">IRON20</div><div class="promo-offer-desc">20% off order value</div></div><button class="promo-qbtn">Apply</button></div>
+    </div>
     <div class="promo-inp-wrap">
       <input class="promo-inp" type="text" id="promoInp" placeholder="Enter code e.g. WELCOME50" maxlength="20"/>
       <button class="promo-apply-btn" id="promoBtn" onclick="applyPromo()">Apply</button>
@@ -623,6 +719,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
     </div>
   </div>
 
+  <div id="riderTrackBox" style="display:none">
+    <div class="track-box">
+      <div class="track-lbl"><span class="track-live-dot"></span>Live Rider Status</div>
+      <div class="track-row">
+        <div class="track-ico">&#x1F3CD;</div>
+        <div>
+          <div class="track-name" id="trackRiderName">Your Rider</div>
+          <div class="track-sub" id="trackRiderSub">Tracking...</div>
+        </div>
+        <div class="track-status">
+          <div class="track-status-val" id="trackETA">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Trip info -->
   <div class="sec-card" id="detTripInfo" style="display:none">
     <div class="sec-card-title">🚗 Delivery Trips</div>
@@ -710,7 +821,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 <div class="page success-page" id="pgRevSuccess">
   <div class="s-ring">🌟</div>
   <div class="s-title">Thank you!</div>
-  <div class="s-sub" style="margin-bottom:20px">Your review helps DhobiWala improve<br/>for everyone in Rourkela.</div>
+  <div class="s-sub" style="margin-bottom:20px">Your review helps Shuchi improve<br/>for everyone in Rourkela.</div>
   <button class="s-btn primary" onclick="go('pgHome')">Back to Home</button>
 </div>
 
@@ -841,6 +952,42 @@ function getMinPrice(services) {
   return Math.ceil(min*COMMISSION);
 }
 
+var userLat=null,userLng=null;
+function haversine(la1,lo1,la2,lo2){var R=6371,dLa=(la2-la1)*Math.PI/180,dLo=(lo2-lo1)*Math.PI/180,a=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin(dLo/2)*Math.sin(dLo/2);return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
+function getUserLocation(){if(!navigator.geolocation)return;navigator.geolocation.getCurrentPosition(function(p){userLat=p.coords.latitude;userLng=p.coords.longitude;document.querySelectorAll('.shop-dist-el').forEach(function(el){var la=parseFloat(el.getAttribute('data-lat')),lo=parseFloat(el.getAttribute('data-lng'));if(la&&lo&&userLat&&userLng){var d=haversine(userLat,userLng,la,lo);el.textContent=(d<1?(d*1000).toFixed(0)+'m':d.toFixed(1)+'km')+' away';el.style.display='block';}});},function(){},{timeout:8000});}
+var _ti=null;
+function startRiderTracking(order){
+  var box=document.getElementById('riderTrackBox');if(!box)return;
+  var show=['accepted','pickup_scheduled','picked_up','at_shop','processing','out_for_delivery'];
+  if(show.indexOf(order.status)===-1){box.style.display='none';return;}
+  box.style.display='block';
+  var msgs={accepted:'Rider heading to you',pickup_scheduled:'Pickup scheduled',picked_up:'Clothes picked up — going to shop',at_shop:'Clothes at shop',processing:'Ironing/washing in progress',out_for_delivery:'Out for delivery!'};
+  var eta={accepted:'Assigned',pickup_scheduled:'Scheduled',picked_up:'At shop soon',at_shop:'Processing soon',processing:'Processing',out_for_delivery:'En route'};
+  var trip=order.trips&&order.trips.find(function(t){return t.riderId;});
+  var nameEl=document.getElementById('trackRiderName');
+  var subEl=document.getElementById('trackRiderSub');
+  var etaEl=document.getElementById('trackETA');
+  if(nameEl)nameEl.textContent=(trip&&trip.riderName)||'Your Rider';
+  if(subEl)subEl.textContent=msgs[order.status]||'In progress';
+  if(etaEl)etaEl.textContent=eta[order.status]||'—';
+}
+function startTrackingPoll(orderId){
+  stopTrackingPoll();
+  _ti=setInterval(function(){
+    fetch(API+'/api/orders/'+orderId,{headers:{'Authorization':'Bearer '+getToken()}})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.success&&d.order){
+        startRiderTracking(d.order);
+        var steps=['placed','accepted','picked_up','processing','out_for_delivery','delivered'];
+        var si=steps.indexOf(d.order.status);
+        for(var i=1;i<=5;i++){var el=document.getElementById('ps'+i);if(el)el.className='pstep'+(i<=si+1?' done':(i===si+2?' active':''));}
+        if(d.order.status==='delivered')stopTrackingPoll();
+      }
+    }).catch(function(){});
+  },15000);
+}
+function stopTrackingPoll(){if(_ti){clearInterval(_ti);_ti=null;}}
 function loadShops() {
   document.getElementById('shopsList').innerHTML='<div class="empty-state"><span class="empty-state-icon">🔄</span><div class="empty-state-title">Loading shops...</div></div>';
   fetch(API+'/api/shops')
@@ -850,6 +997,7 @@ function loadShops() {
 }
 
 function renderShops() {
+  getUserLocation();
   var sc=document.getElementById('shopCount');
   if (sc) sc.textContent=SHOPS.length+' available';
   if (!SHOPS.length){
@@ -890,12 +1038,32 @@ function openShop(idx) {
   renderSvcs(); updateCartBar(); go('pgShop');
 }
 
+var svcFilter = 'all';
+function filterSvcs(cat, btn) {
+  svcFilter = cat;
+  document.querySelectorAll('.cat-tab').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  var labels = { all:'All Services', ironing:'🔥 Ironing (2–4 hrs)', washing:'💧 Washing (24 hrs)', dry_cleaning:'✨ Dry Cleaning (2–3 days)' };
+  var lbl = document.getElementById('svcsLabel');
+  if (lbl) lbl.textContent = (labels[cat]||'All Services') + ' — Select items & quantity';
+  renderSvcs();
+}
+
+var CAT_ICONS = { ironing:'🔥', washing:'💧', dry_cleaning:'✨' };
+
 function renderSvcs() {
-  if (!cart.length){ document.getElementById('svcsGrid').innerHTML='<div class="empty-state" style="grid-column:1/-1">No services available</div>'; return; }
-  document.getElementById('svcsGrid').innerHTML=cart.map(function(s,i){
+  var filtered = svcFilter === 'all' ? cart : cart.filter(function(s){ return s.category === svcFilter; });
+  if (!filtered.length){
+    document.getElementById('svcsGrid').innerHTML='<div class="empty-state" style="grid-column:1/-1"><span style="font-size:2.5rem;display:block;margin-bottom:10px">'+(CAT_ICONS[svcFilter]||'🧺')+'</span><div style="font-weight:700;color:var(--ink);margin-bottom:4px">No '+svcFilter.replace('_',' ')+' services</div><div style="font-size:0.8rem">This shop does not offer this service</div></div>';
+    return;
+  }
+  var indices = svcFilter === 'all' ? filtered.map(function(_,i){return i;}) : cart.reduce(function(acc,s,i){if(s.category===svcFilter)acc.push(i);return acc;},[]);
+  document.getElementById('svcsGrid').innerHTML=filtered.map(function(s,fi){
+    var i = indices[fi];
     var tat=getTAT(s.category);
+    var icon = CAT_ICONS[s.category] || '🧺';
     return '<div class="svc-card'+(s.qty>0?' picked':'')+'" id="sc'+i+'">'
-      +'<div class="svc-ico-wrap '+tat.ico+'">👔</div>'
+      +'<div class="svc-ico-wrap '+tat.ico+'">'+icon+'</div>'
       +'<div class="svc-name">'+s.name+'</div>'
       +'<div class="svc-price">₹'+s.price+'/piece</div>'
       +'<div class="svc-tat-pill '+tat.cls+'">'+tat.badge+' · '+tat.label+'</div>'
@@ -1000,6 +1168,7 @@ function getItemDates(){
   return result;
 }
 
+function quickApplyPromo(code){document.getElementById('promoInp').value=code;promoCode='';promoDiscount=0;applyPromo();}
 function applyPromo() {
   var code = document.getElementById('promoInp').value.trim().toUpperCase();
   var successEl = document.getElementById('promoSuccess');
@@ -1036,12 +1205,50 @@ function removePromo() {
   renderBillSummary();
 }
 
+// ─── DELIVERY TYPE ────────────────────────────────────────────────────────────
+var delivType = 'quick';  // 'quick' | 'normal'
+var normalSlot = 'morning'; // 'morning' | 'evening'
+
+var SLOT_INFO = {
+  morning: { label:'Morning 7-10 AM', delivery:'Same day evening for ironing · Next morning for washing & dry cleaning' },
+  evening: { label:'Evening 6-9 PM',  delivery:'Next morning (7-10 AM) for all services' }
+};
+
+function setDelivType(type) {
+  delivType = type;
+  var qCard = document.getElementById('dtQuick');
+  var nCard = document.getElementById('dtNormal');
+  var slotWrap = document.getElementById('slotWrap');
+  if (qCard) { qCard.className = 'svc-type-card' + (type==='quick'?' on':''); }
+  if (nCard) { nCard.className = 'svc-type-card' + (type==='normal'?' on':''); }
+  if (slotWrap) slotWrap.style.display = type==='normal' ? 'block' : 'none';
+  if (type==='normal') setSlot(normalSlot);
+  updateCartBar();
+  renderBillSummary();
+}
+
+function setSlot(slot) {
+  normalSlot = slot;
+  var mCard = document.getElementById('slotMorning');
+  var eCard = document.getElementById('slotEvening');
+  if (mCard) mCard.className = 'slot-card' + (slot==='morning'?' on':'');
+  if (eCard) eCard.className = 'slot-card' + (slot==='evening'?' on':'');
+  var info = document.getElementById('slotInfo');
+  if (info && SLOT_INFO[slot]) {
+    info.style.display = 'block';
+    info.innerHTML = '<strong>Pickup:</strong> ' + SLOT_INFO[slot].label
+      + '<br/><strong>Delivery:</strong> ' + SLOT_INFO[slot].delivery;
+  }
+  renderBillSummary();
+}
+
 function renderBillSummary(){
   var items=cart.filter(function(s){return s.qty>0;});
   var subtotal=items.reduce(function(a,b){return a+b.qty*b.price;},0);
   var nTrips=calcTrips(deliveryMode);
   var tripFees=nTrips*TRIP_FEE;
-  var total=Math.max(0, subtotal+tripFees-promoDiscount);
+  var actualTripFees = delivType==='normal' ? 0 : tripFees;
+  var total=Math.max(0, subtotal+actualTripFees-promoDiscount);
   var tripBreakdown='<div class="trip-breakdown">'
     +'<div class="trip-row"><span>📍 Pickup trip</span><span class="trip-amt">₹'+TRIP_FEE+'</span></div>';
   if (deliveryMode==='together'){
@@ -1059,10 +1266,15 @@ function renderBillSummary(){
     '<div class="sec-card-title">💳 Bill Summary</div>'
     +'<div class="sum-row"><span>Items subtotal</span><span>₹'+subtotal+'</span></div>'
     +tripBreakdown
-    +'<div class="sum-row"><span>Trip fees ('+nTrips+' × ₹'+TRIP_FEE+')</span><span>₹'+tripFees+'</span></div>'
+    +(delivType==='normal'
+      ? '<div class="sum-row"><span>🚚 Delivery (Normal Service)</span><span style="color:var(--green);font-weight:700">FREE</span></div>'
+      : '<div class="sum-row"><span>Trip fees ('+nTrips+' × ₹'+TRIP_FEE+')</span><span>₹'+tripFees+'</span></div>')
     +promoLine
     +'<div class="sum-row total"><span>Total</span><span>₹'+total+'</span></div>'
-    +'<div style="font-size:0.68rem;color:var(--slate);margin-top:8px;line-height:1.5">Prices include 15% platform fee · ₹15/trip for pickup & delivery</div>';
+    +(delivType==='normal' ? '<div style="font-size:0.75rem;color:var(--green);font-weight:600;margin-top:4px">✅ You save ₹'+tripFees+' on delivery!</div>' : '')
+    +(delivType==='quick'
+      ? '<div style="font-size:0.68rem;color:var(--slate);margin-top:8px;line-height:1.5">Prices include 15% platform fee · ₹15/trip for pickup & delivery</div>'
+      : '<div style="font-size:0.68rem;color:#166534;margin-top:8px;line-height:1.5">🕐 Normal Service · Delivery is FREE · Slot: '+(normalSlot==='morning'?'Morning 7-10 AM':'Evening 6-9 PM')+'</div>');
 }
 
 function pickSlot(el,slot){ document.querySelectorAll('.slot-btn').forEach(function(b){b.classList.remove('on');}); el.classList.add('on'); selSlot=slot; }
@@ -1081,7 +1293,7 @@ function placeOrder(method){
   document.getElementById('btnUpi').disabled=true;
   fetch(API+'/api/orders',{
     method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+getToken()},
-    body:JSON.stringify({shopId:sh._id,items:items.map(function(i){return{serviceId:i.id,quantity:i.qty,scheduledDeliveryDate:itemDates[i.id]||null};}),pickupAddress:{street:st,area:ar,city:'Rourkela',fullAddress:st+', '+ar+', Rourkela'},pickupSlot:selSlot,pickupDate:today,deliveryMode:deliveryMode,paymentMethod:method,specialInstructions:''})
+    body:JSON.stringify({shopId:sh._id,items:items.map(function(i){return{serviceId:i.id,quantity:i.qty,scheduledDeliveryDate:itemDates[i.id]||null};}),pickupAddress:{street:st,area:ar,city:'Rourkela',fullAddress:st+', '+ar+', Rourkela'},pickupSlot:selSlot,pickupDate:today,deliveryMode:deliveryMode,deliveryType:delivType,normalSlot:delivType==='normal'?normalSlot:null,paymentMethod:method,specialInstructions:''})
   })
   .then(function(r){return r.json();})
   .then(function(d){
