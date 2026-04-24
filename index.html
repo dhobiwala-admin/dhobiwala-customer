@@ -411,6 +411,35 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 .wallet-toggle.on .wallet-toggle-knob{left:23px}
 .wallet-use-amount{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:6px}
 .cashback-tag{display:inline-block;background:rgba(22,163,74,0.15);border:1px solid rgba(22,163,74,0.3);border-radius:20px;padding:4px 12px;font-size:0.7rem;font-weight:700;color:var(--green);margin-top:8px}
+
+.svc-picker-wrap{margin-top:10px;padding:12px;background:#faf7f1;border-radius:14px;border:1px solid var(--border)}
+.svc-picker-title{font-size:0.65rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
+.svc-item-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
+.svc-item-row:last-child{border-bottom:none}
+.svc-item-name{font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem}
+.svc-type-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.svc-chip{padding:4px 10px;border-radius:20px;font-size:0.68rem;font-weight:700;cursor:pointer;border:1.5px solid var(--border);background:#fff;transition:all 0.15s}
+.svc-chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.svc-chip.quick-chip.on{background:var(--gold);color:#fff;border-color:var(--gold)}
+.svc-chip.normal-chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+
+.rating-box{background:var(--light);border-radius:16px;padding:16px;margin:12px 0;border:1px solid var(--border)}
+.rating-title{font-size:0.65rem;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px}
+.star-row{display:flex;gap:6px;margin-bottom:12px}
+.star{font-size:1.8rem;cursor:pointer;opacity:0.3;transition:opacity 0.15s}
+.star.on{opacity:1}
+.rating-textarea{width:100%;padding:10px;border-radius:12px;border:1px solid var(--border);font-size:0.82rem;resize:none;font-family:Inter,sans-serif}
+.btn-rate{width:100%;padding:10px;background:var(--ink);color:#fff;border:none;border-radius:12px;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer;margin-top:8px}
+
+.referral-box{background:linear-gradient(135deg,#191611,#2d2015);border-radius:16px;padding:16px;margin:12px 16px;border:1px solid rgba(232,160,32,0.2)}
+.ref-title{font-size:0.65rem;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
+.ref-code{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--gold);letter-spacing:0.1em}
+.ref-sub{font-size:0.7rem;color:rgba(255,255,255,0.4);margin-top:4px}
+.ref-share-btn{margin-top:10px;width:100%;padding:9px;background:var(--gold);color:#1a1200;border:none;border-radius:12px;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer;font-size:0.82rem}
+
+.map-container{width:100%;height:220px;border-radius:16px;overflow:hidden;margin:10px 0;border:1px solid var(--border);background:#e8e0d0;position:relative}
+.map-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f0ebe0;color:var(--slate);font-size:0.8rem;font-weight:600;gap:8px}
+.map-live-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:20px;font-size:0.68rem;font-weight:700;color:var(--green)}
 </style>
 </head>
 <body>
@@ -459,6 +488,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
         <div class="field"><label class="field-label">Password</label>
           <div class="pass-wrap"><input class="field-input" type="password" id="sPass" onkeydown="if(event.key==='Enter')doSignup()" placeholder="Min 4 characters"/><button class="eye-btn" type="button" onclick="toggleEye('sPass',this)">👁</button></div>
         </div>
+        <input class="finput" type="text" id="sRefCode" placeholder="Referral code (optional)" style="margin-bottom:10px"/>
         <button class="submit-btn gold" id="btnSignup" onclick="doSignup()">Create Account →</button>
         <div class="switch-hint">Already registered? <a onclick="showTab('login')">Login</a></div>
       </div>
@@ -541,7 +571,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
   </div>
 
   <!-- Category filter tabs -->
-  <div style="display:flex;gap:8px;padding:14px 16px 8px;overflow-x:auto;scrollbar-width:none" id="catTabs">
+  <div id="svcPickerArea" style="padding:0 16px 8px"></div>
+  <div style="display:flex;gap:8px;padding:0 16px 8px;overflow-x:auto;scrollbar-width:none" id="catTabs">
     <button class="cat-tab on" onclick="filterSvcs('all',this)">🧺 All</button>
     <button class="cat-tab" onclick="filterSvcs('ironing',this)">🔥 Ironing</button>
     <button class="cat-tab" onclick="filterSvcs('washing',this)">💧 Washing</button>
@@ -595,6 +626,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
     </div>
   </div>
   <!-- WALLET -->
+  
+    <!-- REFERRAL SECTION in profile/wallet area -->
+    <div class="referral-box" id="referralSection" style="display:none">
+      <div class="ref-title">🎁 Refer a Friend</div>
+      <div class="ref-code" id="myRefCode">—</div>
+      <div class="ref-sub">Friend gets ₹50 off first order · You earn ₹50 in wallet</div>
+      <button class="ref-share-btn" onclick="shareReferral()">📤 Share Referral Code</button>
+    </div>
+
   <div class="sec-card" id="walletSection" style="display:none">
     <div class="sec-card-title">💰 Shuchi Wallet</div>
     <div class="wallet-box">
@@ -765,6 +805,35 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       </div>
     </div>
   </div>
+
+  <!-- RATING BOX (shown after delivery) -->
+  <div id="ratingBox" style="display:none;padding:0 16px">
+    <div class="rating-box">
+      <div class="rating-title">⭐ Rate your experience</div>
+      <div class="star-row" id="starRow">
+        <span class="star" onclick="setStar(1)">★</span>
+        <span class="star" onclick="setStar(2)">★</span>
+        <span class="star" onclick="setStar(3)">★</span>
+        <span class="star" onclick="setStar(4)">★</span>
+        <span class="star" onclick="setStar(5)">★</span>
+      </div>
+      <textarea class="rating-textarea" id="ratingReview" rows="2" placeholder="Any comments? (optional)"></textarea>
+      <button class="btn-rate" onclick="submitRating()">Submit Rating</button>
+    </div>
+  </div>
+  <!-- LIVE MAP TRACKING -->
+  <div id="liveMapSection" style="display:none;padding:0 16px">
+    <div class="map-live-badge"><span class="track-live-dot"></span>Live Location</div>
+    <div class="map-container" id="mapContainer">
+      <div class="map-placeholder" id="mapPlaceholder">
+        <div style="font-size:2rem">🗺</div>
+        <div>Rider location loading...</div>
+      </div>
+      <!-- Google Map iframe injected here when rider location available -->
+      <iframe id="mapIframe" style="display:none;width:100%;height:100%;border:none" allowfullscreen></iframe>
+    </div>
+    <div id="riderLocText" style="font-size:0.72rem;color:var(--slate);margin-top:4px;text-align:center"></div>
+  </div>
   <!-- Trip info -->
   <div class="sec-card" id="detTripInfo" style="display:none">
     <div class="sec-card-title">🚗 Delivery Trips</div>
@@ -801,7 +870,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
   </div>
   <div class="pmenu">
     <div class="pmenu-item" onclick="go('pgOrders')"><div class="pmenu-ico pmenu-ico-orders">📦</div><div class="pmenu-lbl">My Orders</div><div class="pmenu-arr">›</div></div>
-    <div class="pmenu-item" onclick="window.location.href='mailto:support@dhobiwala.in'"><div class="pmenu-ico pmenu-ico-support">✉️</div><div class="pmenu-lbl">support@dhobiwala.in</div><div class="pmenu-arr">›</div></div>
+    <div class="pmenu-item" onclick="window.location.href='mailto:support@shuchi.in'"><div class="pmenu-ico pmenu-ico-support">✉️</div><div class="pmenu-lbl">support@shuchi.in</div><div class="pmenu-arr">›</div></div>
     <div class="pmenu-item danger" onclick="doLogout()"><div class="pmenu-ico pmenu-ico-logout">🚪</div><div class="pmenu-lbl">Logout</div><div class="pmenu-arr">›</div></div>
   </div>
   <div class="bnav">
@@ -868,7 +937,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 
 <script>
 // ─── CONFIG ────────────────────────────────────────────────────────────────────
-var API        = 'https://dhobiwala-backend.onrender.com';
+var API        = window.SHUCHI_API_URL || localStorage.getItem('SHUCHI_API_URL') || 'https://shuchi-backend.onrender.com';
 var COMMISSION = 1.15;
 var TRIP_FEE   = 15;
 
@@ -1028,7 +1097,7 @@ var walletAmountToUse = 0;
 function loadWalletBalance() {
   var tok = getToken();
   if (!tok) return;
-  fetch(API + '/api/auth/profile', { headers: { 'Authorization': 'Bearer ' + tok } })
+  fetch(API + '/api/auth/me', { headers: { 'Authorization': 'Bearer ' + tok } })
   .then(function(r){ return r.json(); })
   .then(function(d){
     if (d.success && d.user && d.user.wallet) {
@@ -1081,6 +1150,235 @@ function updateDelivTypeAvailability() {
     quickCard.style.pointerEvents = 'auto';
     if (quickNote) quickNote.style.display='none';
   }
+}
+
+
+// ── PER-ITEM SERVICE PICKER ───────────────────────────────────────────────────
+// Groups shop services by itemType so customer picks service per item
+// e.g. Shirt → [Iron only] [Wash only] [Wash+Iron]
+
+var itemSelections = {}; // { itemType: { serviceType, serviceId, price, qty } }
+
+function buildServicePicker(shop) {
+  // Group services by itemType
+  var byType = {};
+  (shop.services||[]).forEach(function(svc) {
+    if (!svc.isAvailable) return;
+    var t = svc.itemType || svc.name || 'item';
+    if (!byType[t]) byType[t] = [];
+    byType[t].push(svc);
+  });
+
+  var SVC_LABELS = {
+    iron_only:      '🔥 Iron',
+    wash_only:      '💧 Wash',
+    dry_clean_only: '✨ Dry Clean',
+    wash_iron:      '🔥💧 Wash+Iron'
+  };
+
+  var html = '<div class="svc-picker-wrap">'
+    + '<div class="svc-picker-title">Select Service per Item</div>';
+
+  Object.keys(byType).forEach(function(itemType) {
+    var svcs = byType[itemType];
+    html += '<div class="svc-item-row">'
+      + '<div><div class="svc-item-name">' + itemType.charAt(0).toUpperCase() + itemType.slice(1) + '</div>'
+      + '<div class="svc-type-chips">';
+    svcs.forEach(function(svc) {
+      var lbl = SVC_LABELS[svc.serviceType] || svc.serviceType;
+      var eligible = delivType==='quick' ? (svc.category==='ironing' && svc.quickEligible!==false) : true;
+      if (!eligible) return;
+      html += '<span class="svc-chip" '
+        + 'id="chip_'+itemType+'_'+svc.serviceType+'" '
+        + 'onclick="selectSvcChip(''+itemType+'',''+svc.serviceType+'',''+svc.id+'','+svc.price+')">'
+        + lbl + ' ₹' + Math.ceil(svc.price * COMMISSION)
+        + '</span>';
+    });
+    html += '</div></div>'
+      + '<div style="display:flex;align-items:center;gap:8px">'
+      + '<button style="width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:#fff;font-size:1rem;cursor:pointer;line-height:1" '
+      + 'onclick="adjItemQty(''+itemType+'',-1)">−</button>'
+      + '<span id="qty_'+itemType+'" style="font-family:Syne,sans-serif;font-weight:800;min-width:20px;text-align:center">0</span>'
+      + '<button style="width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:#fff;font-size:1rem;cursor:pointer;line-height:1" '
+      + 'onclick="adjItemQty(''+itemType+'',1)">+</button>'
+      + '</div></div>';
+  });
+
+  html += '</div>';
+  return html;
+}
+
+function selectSvcChip(itemType, svcType, svcId, price) {
+  // Deselect other chips for this itemType
+  var allChips = document.querySelectorAll('[id^="chip_'+itemType+'_"]');
+  allChips.forEach(function(el) { el.classList.remove('on'); });
+  var el = document.getElementById('chip_'+itemType+'_'+svcType);
+  if (el) el.classList.add('on');
+  // Store selection
+  if (!itemSelections[itemType]) itemSelections[itemType] = {qty:0};
+  itemSelections[itemType].serviceType = svcType;
+  itemSelections[itemType].serviceId   = svcId;
+  itemSelections[itemType].price       = price;
+  if ((itemSelections[itemType].qty||0) === 0) {
+    adjItemQty(itemType, 1);
+  }
+  syncCartFromSelections();
+}
+
+function adjItemQty(itemType, delta) {
+  if (!itemSelections[itemType]) itemSelections[itemType] = {qty:0};
+  var q = Math.max(0, (itemSelections[itemType].qty||0) + delta);
+  itemSelections[itemType].qty = q;
+  var qEl = document.getElementById('qty_'+itemType);
+  if (qEl) qEl.textContent = q;
+  syncCartFromSelections();
+}
+
+function syncCartFromSelections() {
+  var s = SHOPS[curShopIdx];
+  cart = [];
+  Object.keys(itemSelections).forEach(function(itemType) {
+    var sel = itemSelections[itemType];
+    if (!sel.serviceId || !sel.qty || sel.qty <= 0) return;
+    var svc = (s.services||[]).find(function(sv){ return sv.id===sel.serviceId; });
+    if (!svc) return;
+    cart.push({
+      id: svc.id, name: svc.label || itemType,
+      category: svc.category || 'ironing',
+      serviceType: svc.serviceType,
+      vendorPrice: svc.price,
+      price: Math.ceil(svc.price * COMMISSION),
+      qty: sel.qty
+    });
+  });
+  updateCartBar();
+  renderBillSummary();
+  updateDelivTypeAvailability();
+}
+
+
+// ── RATING ───────────────────────────────────────────────────────────────────
+var _ratingOrderId = null;
+var _ratingScore   = 0;
+
+// Rating shown only for delivered orders
+// Called from renderOrderDetail after status check
+function showRatingBox(orderId) {
+  _ratingOrderId = orderId;
+  _ratingScore   = 0;
+  var box = document.getElementById('ratingBox');
+  if (box) box.style.display = 'block';
+  setStar(0);
+}
+
+function setStar(n) {
+  _ratingScore = n;
+  var stars = document.querySelectorAll('#starRow .star');
+  stars.forEach(function(s, i) {
+    s.classList.toggle('on', i < n);
+  });
+}
+
+function submitRating() {
+  if (!_ratingScore) { toast('Please select a star rating'); return; }
+  var review = document.getElementById('ratingReview').value.trim();
+  fetch(API + '/api/orders/' + _ratingOrderId + '/rate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getToken() },
+    body: JSON.stringify({ score: _ratingScore, review: review })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d) {
+    if (d.success) {
+      toast('Thank you for your rating! ⭐'.repeat(_ratingScore));
+      var box = document.getElementById('ratingBox');
+      if (box) box.style.display = 'none';
+    } else {
+      toast(d.message || 'Rating failed');
+    }
+  }).catch(function(){ toast('Network error'); });
+}
+
+
+// ── REFERRAL SYSTEM ──────────────────────────────────────────────────────────
+function loadReferralCode() {
+  var tok = getToken();
+  if (!tok) return;
+  fetch(API + '/api/auth/me', { headers: { 'Authorization': 'Bearer ' + tok } })
+  .then(function(r){ return r.json(); })
+  .then(function(d) {
+    var user = d.user || d;
+    var code = user.referralCode || generateLocalRefCode(user.phone || '');
+    var el = document.getElementById('myRefCode');
+    if (el) el.textContent = code;
+    var box = document.getElementById('referralSection');
+    if (box) box.style.display = 'block';
+  }).catch(function(){});
+}
+
+function generateLocalRefCode(phone) {
+  return 'SHU' + (phone || '').slice(-4).toUpperCase();
+}
+
+function shareReferral() {
+  var code = document.getElementById('myRefCode').textContent;
+  var msg = 'Use my Shuchi referral code ' + code + ' and get ₹50 off your first laundry order! Download: https://shuchi.in';
+  if (navigator.share) {
+    navigator.share({ title: 'Shuchi Laundry', text: msg }).catch(function(){});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(msg);
+    toast('Referral message copied to clipboard!');
+  } else {
+    toast('Your code: ' + code);
+  }
+}
+
+
+// ── GOOGLE MAPS LIVE TRACKING ─────────────────────────────────────────────────
+var _mapsInterval = null;
+
+function startLiveMap(orderId) {
+  stopLiveMap();
+  var mapSection = document.getElementById('liveMapSection');
+  var trackStatuses = ['accepted','pickup_scheduled','picked_up','out_for_delivery'];
+
+  _mapsInterval = setInterval(function() {
+    fetch(API + '/api/orders/' + orderId, {
+      headers: { 'Authorization': 'Bearer ' + getToken() }
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d) {
+      if (!d.success || !d.order) return;
+      var order = d.order;
+      if (trackStatuses.indexOf(order.status) === -1) { stopLiveMap(); return; }
+      if (!mapSection) return;
+      mapSection.style.display = 'block';
+
+      // Try to get rider live location from trips
+      var trip = order.trips && order.trips.find(function(t){ return t.riderId; });
+      // Use Google Maps static embed with pickup address as fallback
+      var addr = (order.pickupAddress && (order.pickupAddress.fullAddress || order.pickupAddress.area)) || 'Rourkela, Odisha';
+      var mapFrame = document.getElementById('mapIframe');
+      var placeholder = document.getElementById('mapPlaceholder');
+      var locText = document.getElementById('riderLocText');
+
+      if (mapFrame) {
+        var mapsUrl = 'https://maps.google.com/maps?q=' + encodeURIComponent(addr) + '&output=embed&z=15';
+        mapFrame.src = mapsUrl;
+        mapFrame.style.display = 'block';
+        if (placeholder) placeholder.style.display = 'none';
+      }
+      if (locText) {
+        locText.textContent = '📍 Rider near: ' + addr + ' · Status: ' + order.status.replace(/_/g,' ');
+      }
+    }).catch(function(){});
+  }, 20000); // refresh every 20s
+}
+
+function stopLiveMap() {
+  if (_mapsInterval) { clearInterval(_mapsInterval); _mapsInterval = null; }
+  var mapSection = document.getElementById('liveMapSection');
+  if (mapSection) mapSection.style.display = 'none';
 }
 
 function loadShops() {
@@ -1659,6 +1957,12 @@ function renderOrderDetail(o) {
   var addr = o.pickupAddress;
   // Load OTPs for this order
   if (o._id) loadOrderOtps(o._id, o.status);
+  // Rating box shown ONLY for delivered + unrated orders
+  var _rb = document.getElementById('ratingBox');
+  if (_rb) {
+    _rb.style.display = (o && o.status==='delivered' && (!o.rating||!o.rating.score)) ? 'block' : 'none';
+    if (o && o.status==='delivered') _ratingOrderId = o._id;
+  }
   var addrTxt = addr ? (addr.fullAddress||addr.street+', '+addr.area) : '';
   var da = document.getElementById('detAddress'); if(da) da.textContent=addrTxt;
   var dsl= document.getElementById('detSlot');    if(dsl) dsl.textContent=o.pickupSlot?'⏰ '+o.pickupSlot:'';
