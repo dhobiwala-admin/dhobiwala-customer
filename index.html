@@ -398,6 +398,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 .promo-offer-code{font-family:"Syne",sans-serif;font-weight:800;color:var(--ink);font-size:0.85rem}
 .promo-offer-desc{font-size:0.68rem;color:var(--slate);margin-top:1px}
 .promo-qbtn{padding:6px 14px;background:var(--ink);color:#fff;border:none;border-radius:20px;font-family:"Syne",sans-serif;font-weight:700;font-size:0.7rem;cursor:pointer;pointer-events:none;flex-shrink:0}
+
+.wallet-box{background:linear-gradient(135deg,var(--ink) 0%,#1a1a2e 100%);border-radius:16px;padding:16px;margin-bottom:12px;border:1px solid rgba(232,160,32,0.15)}
+.wallet-bal-lbl{font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px}
+.wallet-bal-val{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:var(--gold)}
+.wallet-bal-sub{font-size:0.68rem;color:rgba(255,255,255,0.35);margin-top:4px}
+.wallet-use-row{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06)}
+.wallet-use-lbl{font-size:0.78rem;color:rgba(255,255,255,0.6);font-weight:600}
+.wallet-toggle{width:46px;height:26px;background:#333;border-radius:13px;position:relative;cursor:pointer;transition:background 0.2s}
+.wallet-toggle.on{background:var(--green)}
+.wallet-toggle-knob{width:20px;height:20px;background:#fff;border-radius:50%;position:absolute;top:3px;left:3px;transition:left 0.2s}
+.wallet-toggle.on .wallet-toggle-knob{left:23px}
+.wallet-use-amount{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:6px}
+.cashback-tag{display:inline-block;background:rgba(22,163,74,0.15);border:1px solid rgba(22,163,74,0.3);border-radius:20px;padding:4px 12px;font-size:0.7rem;font-weight:700;color:var(--green);margin-top:8px}
 </style>
 </head>
 <body>
@@ -504,6 +517,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
         <div class="svc-type-name">Normal Service</div>
         <div class="svc-type-desc">Morning or evening slot pickup & delivery</div>
         <div class="svc-type-price svc-type-price-normal">FREE delivery</div>
+      <div id="dtQuickNote" style="display:none;font-size:0.65rem;color:#dc2626;margin-top:4px;font-weight:600;padding:0 4px"></div>
       </div>
     </div>
   </div>
@@ -580,14 +594,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       <div class="slot-btn" onclick="pickSlot(this,'Evening 5-7 PM')">5–7 PM</div>
     </div>
   </div>
+  <!-- WALLET -->
+  <div class="sec-card" id="walletSection" style="display:none">
+    <div class="sec-card-title">💰 Shuchi Wallet</div>
+    <div class="wallet-box">
+      <div class="wallet-bal-lbl">Available Balance</div>
+      <div class="wallet-bal-val" id="walletBalDisplay">₹0</div>
+      <div class="wallet-bal-sub">Valid for 7 days from cashback date</div>
+      <div class="wallet-use-row">
+        <div class="wallet-use-lbl">Use wallet balance</div>
+        <div class="wallet-toggle" id="walletToggle" onclick="toggleWalletUse()">
+          <div class="wallet-toggle-knob"></div>
+        </div>
+      </div>
+      <div class="wallet-use-amount" id="walletUseAmt" style="display:none"></div>
+    </div>
+    <div class="cashback-tag">🎁 You earn 20% cashback on every order!</div>
+  </div>
   <!-- PROMO CODE -->
   <div class="sec-card">
     <div class="sec-card-title">🎟️ Promo Code</div>
     <div style="margin-bottom:12px">
       <div style="font-size:0.62rem;font-weight:700;color:var(--slate);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px">Available Offers — Tap to Apply</div>
-      <div class="promo-offer-row" onclick="quickApplyPromo('WELCOME50')"><div><div class="promo-offer-code">WELCOME50</div><div class="promo-offer-desc">50% off items · Max ₹200</div></div><button class="promo-qbtn">Apply</button></div>
-      <div class="promo-offer-row" onclick="quickApplyPromo('FLAT30')"><div><div class="promo-offer-code">FLAT30</div><div class="promo-offer-desc">Flat ₹30 off your order</div></div><button class="promo-qbtn">Apply</button></div>
-      <div class="promo-offer-row" onclick="quickApplyPromo('IRON20')"><div><div class="promo-offer-code">IRON20</div><div class="promo-offer-desc">20% off order value</div></div><button class="promo-qbtn">Apply</button></div>
+      <div class="promo-offer-row" onclick="quickApplyPromo('WELCOME50')"><div><div class="promo-offer-code">WELCOME50</div><div class="promo-offer-desc">50% cashback to wallet · 15 day expiry</div></div><button class="promo-qbtn">Apply</button></div>
+      <div class="promo-offer-row" onclick="quickApplyPromo('FLAT30')"><div><div class="promo-offer-code">FLAT30</div><div class="promo-offer-desc">Flat ₹30 cashback to wallet</div></div><button class="promo-qbtn">Apply</button></div>
+      <div class="promo-offer-row" onclick="quickApplyPromo('IRON20')"><div><div class="promo-offer-code">IRON20</div><div class="promo-offer-desc">20% cashback to wallet</div></div><button class="promo-qbtn">Apply</button></div>
     </div>
     <div class="promo-inp-wrap">
       <input class="promo-inp" type="text" id="promoInp" placeholder="Enter code e.g. WELCOME50" maxlength="20"/>
@@ -850,9 +881,9 @@ var TAT_INFO = {
 function getTAT(cat){ return TAT_INFO[cat] || TAT_INFO.ironing; }
 
 var VALID_PROMOS = {
-  'WELCOME50': { type:'percent', value:50, desc:'50% off on first order', maxDiscount:200 },
-  'FLAT30':    { type:'flat',    value:30, desc:'₹30 flat off' },
-  'IRON20':    { type:'percent', value:20, desc:'20% off on ironing' },
+  'WELCOME50': { type:'wallet_pct',  value:50, desc:'50% cashback to wallet (15 day expiry)', maxDiscount:200, expDays:15 },
+  'FLAT30':    { type:'wallet_flat', value:30, desc:'₹30 cashback credited to wallet', expDays:15 },
+  'IRON20':    { type:'wallet_pct',  value:20, desc:'20% cashback credited to wallet', expDays:15 },
 };
 var SHOP_ICONS = ['👔','🧺','🌟','💎','🏅'];
 var SHOP_BADGES = [['TOP RATED','bdg-gold'],['FAST','bdg-green'],['PREMIUM','bdg-blue'],['NEW','bdg-gold'],['POPULAR','bdg-green']];
@@ -860,7 +891,7 @@ var SHOP_BG = ['si0','si1','si2','si3','si4'];
 
 // ─── STATE ─────────────────────────────────────────────────────────────────────
 var SHOPS=[],curShopIdx=0,cart=[],selSlot='Morning 8-10 AM',deliveryMode='separate';
-var promoDiscount=0,promoCode='';
+var promoDiscount=0,promoCode='',promoWalletCashback=0;
 var orderTimer=null,timerSecs=0,starState={shop:0,rider:0},currentOrder=null;
 
 // ─── SESSION ───────────────────────────────────────────────────────────────────
@@ -988,6 +1019,70 @@ function startTrackingPoll(orderId){
   },15000);
 }
 function stopTrackingPoll(){if(_ti){clearInterval(_ti);_ti=null;}}
+
+// ── WALLET ────────────────────────────────────────────────────────────────────
+var walletBalance  = 0;    // loaded from backend on login
+var useWallet      = false; // toggle
+var walletAmountToUse = 0;
+
+function loadWalletBalance() {
+  var tok = getToken();
+  if (!tok) return;
+  fetch(API + '/api/auth/profile', { headers: { 'Authorization': 'Bearer ' + tok } })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if (d.success && d.user && d.user.wallet) {
+      walletBalance = d.user.wallet.balance || 0;
+      var el = document.getElementById('walletBalDisplay');
+      if (el) el.textContent = '₹' + walletBalance;
+      var wbox = document.getElementById('walletSection');
+      if (wbox) wbox.style.display = walletBalance > 0 ? 'block' : 'none';
+    }
+  }).catch(function(){});
+}
+
+function toggleWalletUse() {
+  useWallet = !useWallet;
+  var tog = document.getElementById('walletToggle');
+  if (tog) tog.className = 'wallet-toggle' + (useWallet ? ' on' : '');
+  renderBillSummary();
+}
+
+function getWalletAmountUsed(total) {
+  if (!useWallet || walletBalance <= 0) return 0;
+  return Math.min(walletBalance, total); // use wallet up to order total
+}
+
+
+// ── QUICK SERVICE RESTRICTIONS ────────────────────────────────────────────────
+// Quick service: ironing only, only before 4 PM
+function canUseQuickService() {
+  var hour = new Date().getHours();
+  if (hour >= 16) return false; // after 4 PM, no quick
+  var hasNonIroning = cart.some(function(s){ return s.qty > 0 && s.category !== 'ironing'; });
+  if (hasNonIroning) return false; // quick only for ironing items
+  return true;
+}
+
+function updateDelivTypeAvailability() {
+  var quickCard  = document.getElementById('dtQuick');
+  var quickNote  = document.getElementById('dtQuickNote');
+  if (!quickCard) return;
+  var canQuick = canUseQuickService();
+  if (!canQuick) {
+    if (delivType === 'quick') { delivType = 'normal'; setDelivType('normal'); }
+    quickCard.style.opacity = '0.4';
+    quickCard.style.pointerEvents = 'none';
+    var hour = new Date().getHours();
+    var reason = hour >= 16 ? 'Quick service stops at 4 PM' : 'Quick service is for ironing items only';
+    if (quickNote) { quickNote.style.display='block'; quickNote.textContent = reason; }
+  } else {
+    quickCard.style.opacity = '1';
+    quickCard.style.pointerEvents = 'auto';
+    if (quickNote) quickNote.style.display='none';
+  }
+}
+
 function loadShops() {
   document.getElementById('shopsList').innerHTML='<div class="empty-state"><span class="empty-state-icon">🔄</span><div class="empty-state-title">Loading shops...</div></div>';
   fetch(API+'/api/shops')
@@ -1181,14 +1276,17 @@ function applyPromo() {
   promoCode = code;
   var items = cart.filter(function(s){return s.qty>0;});
   var subtotal = items.reduce(function(a,b){return a+b.qty*b.price;},0);
-  if (promo.type==='percent') {
-    promoDiscount = Math.round(subtotal*(promo.value/100));
-    if (promo.maxDiscount) promoDiscount = Math.min(promoDiscount, promo.maxDiscount);
+  // All promos give WALLET CASHBACK after delivery (not instant discount)
+  var cashbackAmt = 0;
+  if (promo.type==='wallet_pct' || promo.type==='percent') {
+    cashbackAmt = Math.round(subtotal*(promo.value/100));
+    if (promo.maxDiscount) cashbackAmt = Math.min(cashbackAmt, promo.maxDiscount);
   } else {
-    promoDiscount = promo.value;
+    cashbackAmt = promo.value;
   }
-  promoDiscount = Math.min(promoDiscount, subtotal); // can't discount more than subtotal
-  successEl.textContent='✅ '+promo.desc+' — saving ₹'+promoDiscount+'!';
+  promoWalletCashback = cashbackAmt;
+  promoDiscount = 0; // No instant checkout discount — cashback credited to wallet after delivery than subtotal
+  successEl.textContent='✅ ₹'+promoWalletCashback+' cashback will be added to your Shuchi Wallet after delivery!';
   successEl.style.display='block';
   btn.textContent='Applied ✓';
   btn.disabled=true;
@@ -1215,6 +1313,10 @@ var SLOT_INFO = {
 };
 
 function setDelivType(type) {
+  // Quick service is ALWAYS together (ironing only, same day)
+  // Normal service shows together mode only (no separate)
+  if (type === 'quick') { deliveryMode = 'together'; }
+  if (type === 'normal') { deliveryMode = 'together'; } // normal also always together
   delivType = type;
   var qCard = document.getElementById('dtQuick');
   var nCard = document.getElementById('dtNormal');
@@ -1225,6 +1327,7 @@ function setDelivType(type) {
   if (type==='normal') setSlot(normalSlot);
   updateCartBar();
   renderBillSummary();
+  updateDelivTypeAvailability();
 }
 
 function setSlot(slot) {
@@ -1248,8 +1351,12 @@ function renderBillSummary(){
   var nTrips=calcTrips(deliveryMode);
   var tripFees=nTrips*TRIP_FEE;
   var actualTripFees = delivType==='normal' ? 0 : tripFees;
-  var total=Math.max(0, subtotal+actualTripFees-promoDiscount);
-  var tripBreakdown='<div class="trip-breakdown">'
+  walletAmountToUse = getWalletAmountUsed(subtotal + actualTripFees - promoDiscount);
+  var total=Math.max(0, subtotal+actualTripFees-promoDiscount-walletAmountToUse);
+  // Update wallet use display
+  var wuAmt = document.getElementById('walletUseAmt');
+  if (wuAmt) { wuAmt.style.display = walletAmountToUse>0?'block':'none'; wuAmt.textContent='Wallet: -₹'+walletAmountToUse+' applied'; }
+  var tripBreakdown = delivType==='normal' ? '' : '<div class="trip-breakdown">'
     +'<div class="trip-row"><span>📍 Pickup trip</span><span class="trip-amt">₹'+TRIP_FEE+'</span></div>';
   if (deliveryMode==='together'){
     tripBreakdown+='<div class="trip-row"><span>📦 Delivery trip (all items)</span><span class="trip-amt">₹'+TRIP_FEE+'</span></div>';
@@ -1258,34 +1365,46 @@ function renderBillSummary(){
     items.forEach(function(s){var el=document.getElementById('idate-'+s.id);var d=el?el.value:'default';if(!dates[d])dates[d]=[];dates[d].push(s.name);});
     Object.keys(dates).forEach(function(d){tripBreakdown+='<div class="trip-row"><span>📦 '+dates[d].join(', ')+'</span><span class="trip-amt">₹'+TRIP_FEE+'</span></div>';});
   }
-  tripBreakdown+='</div>';
-  var promoLine = promoDiscount>0
-    ? '<div class="sum-row" style="color:var(--green)"><span>🎟️ Promo ('+promoCode+')</span><span>−₹'+promoDiscount+' <a onclick="removePromo()" style="font-size:0.7rem;color:var(--red);cursor:pointer;margin-left:4px">✕</a></span></div>'
+  if (delivType!=='normal') tripBreakdown+='</div>';
+  var promoLine = promoCode && promoWalletCashback>0
+    ? '<div class="sum-row" style="color:var(--green)"><span>🎁 Cashback after delivery</span><span>₹'+promoWalletCashback+' → Wallet</span></div>'
     : '';
-  document.getElementById('orderSum').innerHTML=
+
+  // Render to DOM
+  var sumEl = document.getElementById('orderSum');
+  if (!sumEl) return;
+  var tripFeeRow = delivType==='normal'
+    ? '<div class="sum-row"><span>🚚 Delivery</span><span style="color:var(--green);font-weight:700">FREE</span></div>'
+    : (tripBreakdown + '<div class="sum-row"><span>Trip fees ('+nTrips+' × ₹'+TRIP_FEE+')</span><span>₹'+tripFees+'</span></div>');
+  var walletRow = walletAmountToUse>0
+    ? '<div class="sum-row" style="color:var(--green)"><span>💰 Wallet used</span><span>-₹'+walletAmountToUse+'</span></div>'
+    : '';
+  var cashbackRow = '<div style="font-size:0.7rem;color:var(--green);font-weight:600;margin-top:6px;background:#f0fdf4;border-radius:8px;padding:6px 10px">🎁 You earn ₹'+Math.round(subtotal*0.20)+' cashback to Shuchi Wallet after delivery!</div>';
+  var noteRow = delivType==='normal'
+    ? '<div style="font-size:0.68rem;color:#166534;margin-top:8px">Normal Service · Slot: '+(normalSlot==='morning'?'Morning 7-10 AM':'Evening 6-9 PM')+'</div>'
+    : '<div style="font-size:0.68rem;color:var(--slate);margin-top:8px">Prices include 15% markup · ₹15/trip for Quick service</div>';
+
+  sumEl.innerHTML =
     '<div class="sec-card-title">💳 Bill Summary</div>'
     +'<div class="sum-row"><span>Items subtotal</span><span>₹'+subtotal+'</span></div>'
-    +tripBreakdown
-    +(delivType==='normal'
-      ? '<div class="sum-row"><span>🚚 Delivery (Normal Service)</span><span style="color:var(--green);font-weight:700">FREE</span></div>'
-      : '<div class="sum-row"><span>Trip fees ('+nTrips+' × ₹'+TRIP_FEE+')</span><span>₹'+tripFees+'</span></div>')
+    +tripFeeRow
     +promoLine
-    +'<div class="sum-row total"><span>Total</span><span>₹'+total+'</span></div>'
-    +(delivType==='normal' ? '<div style="font-size:0.75rem;color:var(--green);font-weight:600;margin-top:4px">✅ You save ₹'+tripFees+' on delivery!</div>' : '')
-    +(delivType==='quick'
-      ? '<div style="font-size:0.68rem;color:var(--slate);margin-top:8px;line-height:1.5">Prices include 15% platform fee · ₹15/trip for pickup & delivery</div>'
-      : '<div style="font-size:0.68rem;color:#166534;margin-top:8px;line-height:1.5">🕐 Normal Service · Delivery is FREE · Slot: '+(normalSlot==='morning'?'Morning 7-10 AM':'Evening 6-9 PM')+'</div>');
+    +walletRow
+    +'<div class="sum-row total"><span>Total to Pay</span><span>₹'+total+'</span></div>'
+    +cashbackRow
+    +noteRow;
 }
 
-function pickSlot(el,slot){ document.querySelectorAll('.slot-btn').forEach(function(b){b.classList.remove('on');}); el.classList.add('on'); selSlot=slot; }
-
-// ─── PLACE ORDER ───────────────────────────────────────────────────────────────
-function placeOrder(method){
+function placeOrder(method) {
   var st=document.getElementById('addrStreet').value.trim();
   var ar=document.getElementById('addrArea').value.trim();
   if (!st||!ar){toast('Please enter your pickup address');return;}
   var items=cart.filter(function(s){return s.qty>0;});
   if (!items.length){toast('Cart is empty');return;}
+  if (delivType === 'normal') {
+    var cartSub = items.reduce(function(a,b){return a+b.qty*b.vendorPrice;}, 0);
+    if (cartSub < 100) { toast('Normal service requires minimum cart value of ₹100'); return; }
+  }
   var sh=SHOPS[curShopIdx];
   var today=new Date().toISOString().split('T')[0];
   var itemDates=getItemDates();
@@ -1293,7 +1412,7 @@ function placeOrder(method){
   document.getElementById('btnUpi').disabled=true;
   fetch(API+'/api/orders',{
     method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+getToken()},
-    body:JSON.stringify({shopId:sh._id,items:items.map(function(i){return{serviceId:i.id,quantity:i.qty,scheduledDeliveryDate:itemDates[i.id]||null};}),pickupAddress:{street:st,area:ar,city:'Rourkela',fullAddress:st+', '+ar+', Rourkela'},pickupSlot:selSlot,pickupDate:today,deliveryMode:deliveryMode,deliveryType:delivType,normalSlot:delivType==='normal'?normalSlot:null,paymentMethod:method,specialInstructions:''})
+    body:JSON.stringify({shopId:sh._id,items:items.map(function(i){return{serviceId:i.id,quantity:i.qty,scheduledDeliveryDate:itemDates[i.id]||null};}),pickupAddress:{street:st,area:ar,city:'Rourkela',fullAddress:st+', '+ar+', Rourkela'},pickupSlot:selSlot,pickupDate:today,deliveryMode:deliveryMode,deliveryType:delivType,normalSlot:delivType==='normal'?normalSlot:null,walletAmountUsed:walletAmountToUse||0,promoCode:promoCode||'',normalSlot:delivType==='normal'?normalSlot:null,walletAmountUsed:walletAmountToUse||0,promoCode:promoCode||'',deliveryType:delivType,normalSlot:delivType==='normal'?normalSlot:null,walletAmountUsed:walletAmountToUse||0,paymentMethod:method,specialInstructions:''})
   })
   .then(function(r){return r.json();})
   .then(function(d){
@@ -1560,18 +1679,21 @@ function loadOrderOtps(orderId, status) {
     var pickupCode = document.getElementById('pickupOtpCode');
     var pickupUsed = document.getElementById('pickupOtpUsed');
     if (pickupBox && otps.pickupOtp) {
-      if (['accepted','pickup_scheduled','picked_up'].indexOf(status) > -1 || !otps.pickupOtp.used) {
-        pickupBox.style.display = 'block';
-        if (pickupCode) pickupCode.textContent = otps.pickupOtp.code;
-        if (pickupUsed) pickupUsed.style.display = otps.pickupOtp.used ? 'block' : 'none';
-      }
+      // Show pickup OTP for ALL statuses until used (rider hasn't picked up yet)
+      var showPickup = !otps.pickupOtp.used ||
+        ['accepted','pickup_scheduled'].indexOf(status) > -1;
+      pickupBox.style.display = 'block'; // Always show so customer knows the OTP
+      if (pickupCode) pickupCode.textContent = otps.pickupOtp.code;
+      if (pickupUsed) pickupUsed.style.display = otps.pickupOtp.used ? 'block' : 'none';
     }
 
     // Show delivery OTP entry when out_for_delivery
     var delivBox = document.getElementById('deliveryOtpEnter');
-    if (delivBox && otps.deliveryOtp && !otps.deliveryOtp.used) {
-      if (status === 'out_for_delivery') {
+    if (delivBox) {
+      if (otps.deliveryOtp && !otps.deliveryOtp.used && status === 'out_for_delivery') {
         delivBox.style.display = 'block';
+      } else {
+        delivBox.style.display = 'none';
       }
     }
   }).catch(function(){});
@@ -1599,6 +1721,39 @@ function verifyOtp(type, inputId, btnId) {
   })
   .catch(function(){ btn.disabled=false; btn.textContent='Verify →'; toast('Network error.'); });
 }
+
+// ─── PLACE ORDER ───────────────────────────────────────────────────────────────
+function placeOrder(method){
+  var st=document.getElementById('addrStreet').value.trim();
+  var ar=document.getElementById('addrArea').value.trim();
+  if (!st||!ar){toast('Please enter your pickup address');return;}
+  var items=cart.filter(function(s){return s.qty>0;});
+  if (!items.length){toast('Cart is empty');return;}
+  var sh=SHOPS[curShopIdx];
+  var today=new Date().toISOString().split('T')[0];
+  var itemDates=getItemDates();
+  document.getElementById('btnCod').disabled=true;
+  document.getElementById('btnUpi').disabled=true;
+  fetch(API+'/api/orders',{
+    method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+getToken()},
+    body:JSON.stringify({shopId:sh._id,items:items.map(function(i){return{serviceId:i.id,quantity:i.qty,scheduledDeliveryDate:itemDates[i.id]||null};}),pickupAddress:{street:st,area:ar,city:'Rourkela',fullAddress:st+', '+ar+', Rourkela'},pickupSlot:selSlot,pickupDate:today,deliveryMode:deliveryMode,deliveryType:delivType,normalSlot:delivType==='normal'?normalSlot:null,walletAmountUsed:walletAmountToUse||0,promoCode:promoCode||'',deliveryType:delivType,normalSlot:delivType==='normal'?normalSlot:null,paymentMethod:method,specialInstructions:''})
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
+    document.getElementById('btnCod').disabled=false;
+    document.getElementById('btnUpi').disabled=false;
+    if (!d.success){toast(d.message||'Order failed. Try again.');return;}
+    currentOrder=d.order;
+    var dispId='DW'+(d.order._id||'').slice(-6).toUpperCase();
+    document.getElementById('sOrderId').textContent='Order #'+dispId;
+    document.getElementById('sTripSummary').textContent=d.summary?d.summary.tripFees+' · '+d.summary.trips+' trips planned':'';
+    document.getElementById('t1').textContent=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    renderItemStatusCards(d.order.items||[]);
+    go('pgSuccess');
+  })
+  .catch(function(){ document.getElementById('btnCod').disabled=false; document.getElementById('btnUpi').disabled=false; toast('Network error. Please try again.'); });
+}
+
 
 // ─── TOAST ─────────────────────────────────────────────────────────────────────
 function toast(msg){
