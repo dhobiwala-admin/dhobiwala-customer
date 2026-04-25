@@ -870,7 +870,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
   </div>
   <div class="pmenu">
     <div class="pmenu-item" onclick="go('pgOrders')"><div class="pmenu-ico pmenu-ico-orders">📦</div><div class="pmenu-lbl">My Orders</div><div class="pmenu-arr">›</div></div>
-    <div class="pmenu-item" onclick="window.location.href='mailto:support@shuchi.in'"><div class="pmenu-ico pmenu-ico-support">✉️</div><div class="pmenu-lbl">support@shuchi.in</div><div class="pmenu-arr">›</div></div>
+    <div class="pmenu-item" onclick="window.location.href='mailto:support@dhobiwala.in'"><div class="pmenu-ico pmenu-ico-support">✉️</div><div class="pmenu-lbl">support@dhobiwala.in</div><div class="pmenu-arr">›</div></div>
     <div class="pmenu-item danger" onclick="doLogout()"><div class="pmenu-ico pmenu-ico-logout">🚪</div><div class="pmenu-lbl">Logout</div><div class="pmenu-arr">›</div></div>
   </div>
   <div class="bnav">
@@ -937,7 +937,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 
 <script>
 // ─── CONFIG ────────────────────────────────────────────────────────────────────
-var API        = window.SHUCHI_API_URL || localStorage.getItem('SHUCHI_API_URL') || 'https://shuchi-backend.onrender.com';
+var API        = 'https://dhobiwala-backend.onrender.com';
 var COMMISSION = 1.15;
 var TRIP_FEE   = 15;
 
@@ -1097,7 +1097,7 @@ var walletAmountToUse = 0;
 function loadWalletBalance() {
   var tok = getToken();
   if (!tok) return;
-  fetch(API + '/api/auth/me', { headers: { 'Authorization': 'Bearer ' + tok } })
+  fetch(API + '/api/auth/profile', { headers: { 'Authorization': 'Bearer ' + tok } })
   .then(function(r){ return r.json(); })
   .then(function(d){
     if (d.success && d.user && d.user.wallet) {
@@ -1304,7 +1304,7 @@ function submitRating() {
 function loadReferralCode() {
   var tok = getToken();
   if (!tok) return;
-  fetch(API + '/api/auth/me', { headers: { 'Authorization': 'Bearer ' + tok } })
+  fetch(API + '/api/auth/profile', { headers: { 'Authorization': 'Bearer ' + tok } })
   .then(function(r){ return r.json(); })
   .then(function(d) {
     var user = d.user || d;
