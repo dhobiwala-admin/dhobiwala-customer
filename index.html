@@ -28,14 +28,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 .page.show{display:flex}
 
 /* ── AUTH ────────────────────────────────────────────────────── */
-.auth-page{background:var(--ink);min-height:100vh;position:relative;overflow:hidden;align-items:flex-start;padding-top:0;align-items:center;justify-content:flex-end;flex-direction:column;padding-bottom:0}
+.auth-page{background:var(--ink);min-height:100vh;position:relative;overflow:hidden;align-items:center;justify-content:flex-end;flex-direction:column;padding-bottom:0}
 .auth-bg{position:absolute;inset:0;overflow:hidden}
 .auth-orb1{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(240,165,0,0.35) 0%,transparent 70%);top:-60px;right:-60px;animation:pulse 4s ease-in-out infinite}
 .auth-orb2{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(67,97,238,0.3) 0%,transparent 70%);bottom:40%;left:-40px;animation:pulse 5s ease-in-out infinite 1s}
 .auth-orb3{position:absolute;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(0,196,122,0.2) 0%,transparent 70%);top:35%;right:10%;animation:pulse 6s ease-in-out infinite 2s}
 @keyframes pulse{0%,100%{opacity:0.6;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
 .auth-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:40px 40px}
-.auth-hero-content{position:relative;z-index:2;padding:24px 28px 0;width:100%}
+.auth-hero-content{position:relative;z-index:2;padding:60px 28px 0;width:100%}
 .auth-badge-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(240,165,0,0.12);border:1px solid rgba(240,165,0,0.25);border-radius:30px;padding:5px 14px;font-size:0.7rem;font-weight:700;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px}
 .auth-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
@@ -472,7 +472,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       <div class="err-box" id="authErr"></div>
       <div class="form-wrap show" id="fmLogin">
         <div class="field"><label class="field-label">Email or Phone</label>
-          <div class="phone-wrap"><input class="field-input" type="text" id="lPhone" placeholder="email@example.com or 9876543210" style="border-radius:10px;padding-left:14px" onkeydown="if(event.key==='Enter')document.getElementById('lPass').focus()"/></div>
+          <div class="phone-wrap"><input class="field-input" type="text" id="lPhone" placeholder="email@example.com or 9876543210" onkeydown="if(event.key==='Enter')document.getElementById('lPass').focus()"/></div>
         </div>
         <div class="field"><label class="field-label">Password</label>
           <div class="pass-wrap"><input class="field-input" type="password" id="lPass" onkeydown="if(event.key==='Enter')doLogin()" placeholder="Your password"/><button class="eye-btn" type="button" onclick="toggleEye('lPass',this)">👁</button></div>
@@ -482,8 +482,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
       </div>
       <div class="form-wrap" id="fmSignup">
         <div class="field"><label class="field-label">Full Name</label><input class="field-input" type="text" id="sName" placeholder="Your full name"/></div>
-        <div class="field"><label class="field-label">Phone Number</label>
-          <div class="phone-wrap"><div class="phone-code">+91</div><input class="field-input" type="tel" id="sPhone" placeholder="98765 43210" maxlength="10"/></div>
+        <div class="field"><label class="field-label">Email or Phone</label>
+          <div class="phone-wrap"><input class="field-input" type="tel" id="sPhone" placeholder="98765 43210" maxlength="10"/></div>
         </div>
         <div class="field"><label class="field-label">Password</label>
           <div class="pass-wrap"><input class="field-input" type="password" id="sPass" onkeydown="if(event.key==='Enter')doSignup()" placeholder="Min 4 characters"/><button class="eye-btn" type="button" onclick="toggleEye('sPass',this)">👁</button></div>
@@ -870,7 +870,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
   </div>
   <div class="pmenu">
     <div class="pmenu-item" onclick="go('pgOrders')"><div class="pmenu-ico pmenu-ico-orders">📦</div><div class="pmenu-lbl">My Orders</div><div class="pmenu-arr">›</div></div>
-    <div class="pmenu-item" onclick="window.location.href='mailto:support@dhobiwala.in'"><div class="pmenu-ico pmenu-ico-support">✉️</div><div class="pmenu-lbl">support@dhobiwala.in</div><div class="pmenu-arr">›</div></div>
+    <div class="pmenu-item" onclick="window.location.href='mailto:support@shuchi.in'"><div class="pmenu-ico pmenu-ico-support">✉️</div><div class="pmenu-lbl">support@shuchi.in</div><div class="pmenu-arr">›</div></div>
     <div class="pmenu-item danger" onclick="doLogout()"><div class="pmenu-ico pmenu-ico-logout">🚪</div><div class="pmenu-lbl">Logout</div><div class="pmenu-arr">›</div></div>
   </div>
   <div class="bnav">
@@ -937,7 +937,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);max-width:430px;ma
 
 <script>
 // ─── CONFIG ────────────────────────────────────────────────────────────────────
-var API        = 'https://dhobiwala-backend.onrender.com';
+var API        = window.SHUCHI_API_URL || localStorage.getItem('SHUCHI_API_URL') || 'https://dhobiwala-backend.onrender.com';
 var COMMISSION = 1.15;
 var TRIP_FEE   = 15;
 
@@ -1097,7 +1097,7 @@ var walletAmountToUse = 0;
 function loadWalletBalance() {
   var tok = getToken();
   if (!tok) return;
-  fetch(API + '/api/auth/profile', { headers: { 'Authorization': 'Bearer ' + tok } })
+  fetch(API + '/api/auth/me', { headers: { 'Authorization': 'Bearer ' + tok } })
   .then(function(r){ return r.json(); })
   .then(function(d){
     if (d.success && d.user && d.user.wallet) {
@@ -1304,7 +1304,7 @@ function submitRating() {
 function loadReferralCode() {
   var tok = getToken();
   if (!tok) return;
-  fetch(API + '/api/auth/profile', { headers: { 'Authorization': 'Bearer ' + tok } })
+  fetch(API + '/api/auth/me', { headers: { 'Authorization': 'Bearer ' + tok } })
   .then(function(r){ return r.json(); })
   .then(function(d) {
     var user = d.user || d;
