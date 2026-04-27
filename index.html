@@ -872,14 +872,15 @@ function renderBill() {
   var walletBal = userData && userData.wallet ? (userData.wallet.balance||0) : 0;
   var walletUsed = useWallet ? Math.min(walletBal, subtotal + tripFees) : 0;
   var total     = subtotal + tripFees - walletUsed;
-  var cashback  = Math.round(subtotal * 0.20);
+  var cashbackPct = promoApplied ? promoApplied.pct : 20;
+  var cashback  = Math.round(subtotal * cashbackPct / 100);
   var rows = [
     { l:'Subtotal', v:'₹'+subtotal },
     { l:'Delivery', v: delivType==='normal' ? '<span style="color:#16a34a;font-weight:700">FREE</span>' : '₹'+tripFees },
   ];
   if (walletUsed > 0) rows.push({ l:'Wallet used', v:'-₹'+walletUsed });
   rows.push({ l:'Total', v:'₹'+total, bold:true });
-  rows.push({ l:'Cashback earned (20%)', v:'+₹'+cashback, green:true });
+  rows.push({ l:'Cashback earned ('+(promoApplied?promoApplied.pct+'% • '+promoApplied.code:'20%')+')', v:'+₹'+cashback, green:true });
   document.getElementById('billRows').innerHTML = rows.map(function(r){
     return '<div class="bill-row'+(r.bold?' total':'')+(r.green?' cashback':'')+'">'
       + '<span>' + r.l + '</span><span>' + r.v + '</span></div>';
